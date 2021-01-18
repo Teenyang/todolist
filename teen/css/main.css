@@ -18,6 +18,14 @@ a {
   color: #FFFFFF;
 }
 
+.add_item span {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  font-style: italic;
+  color: #C8C8C8;
+}
+
 nav {
   margin: 0 auto;
   width: 660px;
@@ -38,11 +46,57 @@ nav {
 }
 
 header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
   background-color: #4A90E2;
 }
 
-* {
-  outline: 1px solid red;
+.add_item {
+  margin: 0 auto;
+  border: 2px solid #C8C8C8;
+  border-radius: 5px;
+  width: 620px;
+  height: 65px;
+  background-color: #FFFFFF;
+  position: relative;
+}
+.add_item::before {
+  content: "";
+  width: 20px;
+  height: 1.3px;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  right: auto;
+  bottom: 0;
+  left: 32px;
+  background-color: #C8C8C8;
+  transform: scale(1);
+}
+.add_item::after {
+  content: "";
+  width: 1.3px;
+  height: 20px;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  right: auto;
+  bottom: 0;
+  left: 42px;
+  background-color: #C8C8C8;
+  transform: scale(1);
+}
+.add_item span {
+  margin-left: 67px;
+  font-style: normal;
+  line-height: 65px;
+}
+
+main {
+  padding: 24px 0;
+  background-color: #E1E1E1;
 }
 
 /*# sourceMappingURL=main.css.map */

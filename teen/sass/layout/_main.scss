@@ -1,0 +1,8 @@
+@use '../utilities/color';
+
+@use '../components/add-item';
+
+main{
+  padding: 24px 0;
+  background-color: color.$light-gray;
+}

@@ -3,5 +3,10 @@
 @use '../components/navbar';
 
 header{
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+
   background-color: color.$blue;
 }

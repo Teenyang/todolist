@@ -1,0 +1,24 @@
+@use '../utilities/color';
+@use '../utilities/position';
+
+@mixin add-icon($scale){
+  position: relative;
+
+  &::before{
+    content: '';
+    width: 20px;
+    height: 1.3px;
+    @include position.position-absolute(0, auto, 0, 32px);
+    background-color: color.$medium-gray;
+    transform: scale($scale);
+  }
+
+  &::after{
+    content: '';
+    width: 1.3px;
+    height: 20px;
+    @include position.position-absolute(0, auto, 0, 42px);
+    background-color: color.$medium-gray;
+    transform: scale($scale);
+  }
+}
