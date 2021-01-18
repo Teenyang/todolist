@@ -1,4 +1,12 @@
-@use 'base/reset';
+@use './base/reset';
 
-@use 'utilities/color';
-@use 'utilities/font';
+@use './utilities/color';
+@use './utilities/font';
+@use './utilities/mediaquery';
+
+@use './layout/header'; // navbar
+@use './layout/main';
+
+*{
+  outline: 1px solid red;
+}

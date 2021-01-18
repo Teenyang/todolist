@@ -1,0 +1,7 @@
+@use '../utilities/color';
+
+@use '../components/navbar';
+
+header{
+  background-color: color.$blue;
+}

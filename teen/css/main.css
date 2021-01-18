@@ -2,4 +2,47 @@ body, p {
   margin: 0;
 }
 
+ul, li {
+  list-style: none;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+.nav_link {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #FFFFFF;
+}
+
+nav {
+  margin: 0 auto;
+  width: 660px;
+  height: 76px;
+  display: flex;
+}
+
+.nav_link {
+  margin: 0 10px;
+  padding: 24px 20px;
+  flex: 1 0 0;
+  color: #00408B;
+  text-align: center;
+}
+.nav_link:hover {
+  border-bottom: 5px solid #00408B;
+  color: #FFFFFF;
+}
+
+header {
+  background-color: #4A90E2;
+}
+
+* {
+  outline: 1px solid red;
+}
+
 /*# sourceMappingURL=main.css.map */
