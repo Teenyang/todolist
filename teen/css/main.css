@@ -40,21 +40,78 @@ main {
 
 nav {
   margin: 0 auto;
-  width: 660px;
   height: 76px;
+  position: relative;
+  box-sizing: border-box;
   display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@media (min-width: 768px) {
+  nav {
+    max-width: 660px;
+  }
 }
 
 .nav_link {
-  margin: 0 10px;
+  margin: 0 40px;
   padding: 24px 20px;
+  box-sizing: border-box;
   flex: 1 0 0;
   color: #00408B;
   text-align: center;
 }
+@media (min-width: 768px) {
+  .nav_link {
+    margin: 0 10px;
+  }
+}
 .nav_link:hover {
   border-bottom: 5px solid #00408B;
   color: #FFFFFF;
+}
+
+.task_all,
+.task_completed {
+  display: none;
+}
+@media (min-width: 768px) {
+  .task_all,
+.task_completed {
+    display: block;
+  }
+}
+
+.arrow_prev,
+.arrow_next {
+  padding: 24px 20px;
+  font-size: 24px;
+  line-height: 1.2;
+  color: #00408B;
+}
+@media (min-width: 768px) {
+  .arrow_prev,
+.arrow_next {
+    display: none;
+  }
+}
+
+.arrow_prev {
+  margin: auto;
+  position: absolute;
+  top: 0;
+  right: auto;
+  bottom: 0;
+  left: 0;
+}
+
+.arrow_next {
+  margin: auto;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: auto;
 }
 
 header {
@@ -62,6 +119,7 @@ header {
   top: 0;
   left: 0;
   right: 0;
+  z-index: 1;
 }
 
 .container {
@@ -75,6 +133,7 @@ header {
 }
 
 .add_item {
+  margin-bottom: 24px;
   height: 65px;
   border: 2px solid #C8C8C8;
   border-radius: 5px;

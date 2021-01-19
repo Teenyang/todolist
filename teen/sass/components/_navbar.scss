@@ -1,18 +1,29 @@
+@use '../utilities/mediaquery';
 @use '../utilities/color';
 @use '../utilities/font';
+@use '../utilities/position';
 
 nav{
   margin: 0 auto;
-  width: 660px;
   height: 76px;
-  
+  position: relative;
+  box-sizing: border-box;
   display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @include mediaquery.mediaquery-tablet{
+    max-width: 660px;
+  }
 }
 
 .nav_link{
-  margin: 0 10px;
+  margin: 0 40px;
+  @include mediaquery.mediaquery-tablet{
+    margin: 0 10px;
+  }
   padding: 24px 20px;
-  
+  box-sizing: border-box;
   flex: 1 0 0;
 
   @extend %title;
@@ -23,4 +34,32 @@ nav{
     border-bottom: 5px solid color.$dark-blue;
     color: color.$white;
   }
+}
+.task_all,
+.task_completed{
+  display: none;
+
+  @include mediaquery.mediaquery-tablet{
+    display: block;
+  }
+}
+
+.arrow_prev,
+.arrow_next{
+  padding: 24px 20px;
+
+  font-size: 24px;
+  line-height: 1.2;
+  color: color.$dark-blue;
+
+  @include mediaquery.mediaquery-tablet{
+    display: none;
+  }
+}
+
+.arrow_prev{
+  @include position.position-absolute(0, auto, 0, 0);
+}
+.arrow_next{
+  @include position.position-absolute(0, 0, 0, auto);
 }
