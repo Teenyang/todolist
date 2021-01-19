@@ -2,6 +2,10 @@ body, p {
   margin: 0;
 }
 
+div {
+  box-sizing: border-box;
+}
+
 ul, li {
   list-style: none;
 }
@@ -9,6 +13,14 @@ ul, li {
 a {
   color: black;
   text-decoration: none;
+}
+
+header {
+  background-color: #4A90E2;
+}
+
+main {
+  background-color: #E1E1E1;
 }
 
 .nav_link {
@@ -50,15 +62,22 @@ header {
   top: 0;
   left: 0;
   right: 0;
-  background-color: #4A90E2;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 24px 20px;
+}
+@media (min-width: 768px) {
+  .container {
+    max-width: 660px;
+  }
 }
 
 .add_item {
-  margin: 0 auto;
+  height: 65px;
   border: 2px solid #C8C8C8;
   border-radius: 5px;
-  width: 620px;
-  height: 65px;
   background-color: #FFFFFF;
   position: relative;
 }
@@ -94,9 +113,8 @@ header {
   line-height: 65px;
 }
 
-main {
-  padding: 24px 0;
-  background-color: #E1E1E1;
+* {
+  /* outline: 1px solid red; */
 }
 
 /*# sourceMappingURL=main.css.map */

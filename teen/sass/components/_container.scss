@@ -1,0 +1,10 @@
+@use '../utilities/mediaquery';
+
+.container{
+  margin: 0 auto;
+  padding: 24px 20px;
+  
+  @include mediaquery.mediaquery-tablet{
+    max-width: 660px;
+  }
+}

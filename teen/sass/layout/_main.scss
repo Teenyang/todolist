@@ -1,8 +1,7 @@
-@use '../utilities/color';
-
+@use '../components/background-theme';
+@use '../components/container';
 @use '../components/add-item';
 
 main{
-  padding: 24px 0;
-  background-color: color.$light-gray;
+  @extend %main-background;
 }

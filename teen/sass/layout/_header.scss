@@ -1,5 +1,4 @@
-@use '../utilities/color';
-
+@use '../components/background-theme';
 @use '../components/navbar';
 
 header{
@@ -8,5 +7,5 @@ header{
   left: 0;
   right: 0;
 
-  background-color: color.$blue;
+  @extend %nav-background;
 }

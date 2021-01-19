@@ -1,0 +1,9 @@
+@use '../utilities/color';
+
+%nav-background{
+  background-color: color.$blue;
+}
+
+%main-background{
+  background-color: color.$gray;
+}
