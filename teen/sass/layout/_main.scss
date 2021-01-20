@@ -1,7 +1,34 @@
 @use '../components/background-theme';
 @use '../components/container';
 @use '../components/add-item';
+@use '../components/task-card';
 
 main{
   @extend %main-background;
+}
+
+.task{
+  padding: 24px 32px;
+  a{
+    display: inline-block;
+  }
+
+  @extend %task-normal-background;
+  .marker_link_star{
+    display: inline-block;
+  }
+  .marker_link_fullstar{
+    display: none;
+  }
+
+  // click .marker_link_fullstar, then add .task_star class name
+  &.task_star{
+    @extend %task-star-background;
+    .marker_link_star{
+      display: none;
+    }
+    .marker_link_fullstar{
+      display: inline-block;
+    }
+  }
 }

@@ -1,0 +1,97 @@
+@use '../utilities/color';
+@use '../utilities/font';
+@use '../utilities/mediaquery';
+
+.task{
+  padding: 24px 32px;
+
+  &_info{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+
+    @include font.title{
+      color: color.$black;
+    }
+  }
+  &_checkbox{
+    margin-right: 16px;
+    width: 24px;
+    height: 24px;
+    background-color: color.$white;
+  }
+
+  &_message{
+    margin-top: 8px;
+    flex: 1 0 100%;
+    order: 3;
+    @include mediaquery.mediaquery-mobile{
+      margin-top: 0;
+      flex: 1 0 0;
+      order: 2;
+    }
+
+    overflow : hidden; // 隱藏溢出內容
+    text-overflow : ellipsis; // 省略符號
+    display: -webkit-box;
+    -webkit-line-clamp: 2; // 第二行文末出現省略符號
+    -webkit-box-orient: vertical; // The box lays out its contents vertically.
+  }
+}
+
+
+
+// beside the task_info
+.marker{
+  &_group{
+    margin-left: auto;
+    
+    order: 2;
+    @include mediaquery.mediaquery-mobile{
+      order: 3;
+    }
+    
+    font-size: 0; // 消除<i>inline-block間距
+
+    a{
+      margin-left: 32px;
+    }
+
+    i{
+      font-size: 24px;
+    }
+  }
+}
+.marker_link_fullstar{
+  i{
+    color: color.$yellow;
+  }
+}
+
+// under the task_info
+.record{
+  &_group{
+    margin-top: 15px;
+    margin-left: 36px;
+    font-size: 0; // 消除<i>inline-block間距
+
+    a{
+      &:not(:first-child){
+        margin-left: 16px;
+      }
+    }
+
+    i{
+      font-size: 16px;
+      color: color.$dark-gray;
+    }
+  }
+}
+
+.icon_date_text{
+  margin-left: 8px;
+
+  @include font.basic{
+    color: color.$dark-gray;
+  }
+}

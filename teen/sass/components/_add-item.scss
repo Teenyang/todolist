@@ -13,8 +13,9 @@
   span{
     margin-left: 67px;
 
-    @extend %status; // italic
-    font-style: normal;
+    @include font.status(normal){
+      color: color.$medium-gray;
+    }
     line-height: 65px;
   }
 }

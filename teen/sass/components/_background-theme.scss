@@ -7,3 +7,11 @@
 %main-background{
   background-color: color.$gray;
 }
+
+%task-normal-background{
+  background-color: color.$light-gray;
+}
+
+%task-star-background{
+  background-color: color.$light-yellow;
+}

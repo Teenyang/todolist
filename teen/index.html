@@ -18,11 +18,17 @@
 <body>
   <header>
     <nav>
-      <a href="##" class="nav_link task_all">My Tasks</a>
-      <i class="fas fa-angle-double-left arrow_prev"></i>
-      <a href="##" class="nav_link task_in-progress">In Progress</a>
-      <i class="fas fa-angle-double-right arrow_next"></i>
-      <a href="##" class="nav_link task_completed">Completed</a>
+      <!-- nav item -->
+      <a href="##" class="nav_link nav_all">My Tasks</a>
+      <a href="##" class="nav_link nav_progress">In Progress</a>
+      <a href="##" class="nav_link nav_completed">Completed</a>
+      <!-- nav controller -->
+      <a href="##" class="nav_control nav_control_prev">
+        <i class="fas fa-angle-double-left nav_control_arrow nav_control_arrow_prev"></i>
+      </a>
+      <a href="##" class="nav_control nav_control_next">
+        <i class="fas fa-angle-double-right nav_control_arrow nav_control_arrow_next"></i>
+      </a>
     </nav>
   </header>
   <main>
@@ -34,27 +40,36 @@
 
       <!-- add task -->
       <div class="task_add">
-
       </div>
 
       <!-- edit task -->
       <div class="task_edit">
-
       </div>
 
       <!-- origin task -->
-      <div class="task">
-
+      <div class="task task_star">
+        <div class="task_info">
+          <div class="task_checkbox"></div>
+          <span class="task_message">Type Something Here…</span>
+          <!-- marker icon -->
+          <div class="marker_group">
+            <a href="##" class="marker_link_fullstar"><i class="fas fa-star"></i></a>
+            <a href="##" class="marker_link_star"><i class="far fa-star"></i></a>
+            <a href="##" class="marker_link_edit"><i class="far fa-pen"></i></a>
+          </div>
+        </div>
+        <!-- record icon -->
+        <div class="record_group">
+          <a href="##" class="record_link_date"><i class="far fa-calendar-alt"></i></a>
+          <span class="icon_date_text">6/18</span>
+          <a href="##" class="record_link_file"><i class="far fa-file"></i></a>
+          <a href="##" class="record_link_comment"><i class="far fa-comment-dots"></i></a>
+        </div>
       </div>
 
-      <!-- star task -->
-      <div class="task_star">
-
-      </div>
 
       <!-- complete task -->
       <div class="task_done">
-
       </div>
 
 

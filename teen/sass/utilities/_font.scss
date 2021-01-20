@@ -1,45 +1,32 @@
-@use './color';
-
 @mixin font($size, $weight){
   font-family: 'Roboto', sans-serif;
   font-size: #{$size/16px}rem;
   font-weight: $weight;
+  // @content;
+}
+
+// ---Medium font-weight: 500---
+// Title: Roboto Medium 24px
+@mixin title{
+  @include font(24px, 500);
+  @content;
+}
+// subtitle: Roboto Medium 20px
+@mixin subtitle{
+  @include font(20px, 500);
   @content;
 }
 
-
-// title: Roboto Medium 24px
-%title{
-  @include font(24px, 500);
-  color: color.$black;
-}
-// subtitle: Roboto Medium 20px
-%subtitle{
-  @include font(20px, 500);
-  color: color.$black;
-}
-// paragraph: Roboto Regular 16px
-%paragraph{
+// ---Regular font-weight: 400---
+// Paragraph: Roboto Regular 16px (black)
+// Remark/Placeholder: Roboto Regular 16px (dark-gray)
+@mixin basic{
   @include font(16px, 400);
-  color: color.$black;
+  @content;
 }
-
-
-// remark: Roboto Regular 16px
-%remark{
-  @include font(16px, 400);
-  color: color.$dark-gray;
-}
-// placeholder: Roboto Regular 16px
-%placeholder{
-  @include font(16px, 400);
-  color: color.$dark-gray;
-}
-
-
-// status: Roboto Italic 24px
-%status{
+// Status: Roboto Italic 24px
+@mixin status($font-style){
   @include font(24px, 400);
-  font-style: italic;
-  color: color.$medium-gray;
+  font-style: $font-style;
+  @content;
 }
