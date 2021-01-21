@@ -1,6 +1,7 @@
 @use '../utilities/color';
 @use '../utilities/font';
 @use '../utilities/mediaquery';
+@use '../utilities/position';
 
 .task{
   padding: 24px 32px;
@@ -14,11 +15,13 @@
       color: color.$black;
     }
   }
+
   &_checkbox{
     margin-right: 16px;
     width: 24px;
     height: 24px;
     background-color: color.$white;
+    position: relative;
   }
 
   &_message{
@@ -37,9 +40,19 @@
     -webkit-line-clamp: 2; // 第二行文末出現省略符號
     -webkit-box-orient: vertical; // The box lays out its contents vertically.
   }
+
+  &_status{
+    margin-left: 32px;
+    margin-bottom: 8px;
+
+    @include font.status(italic){
+      color: color.$medium-gray;
+    }
+  }
 }
-
-
+.icon_check{
+  display: none;
+}
 
 // beside the task_info
 .marker{
@@ -55,6 +68,7 @@
 
     a{
       margin-left: 32px;
+      display: inline-block;
     }
 
     i{
@@ -62,9 +76,15 @@
     }
   }
 }
+
 .marker_link_fullstar{
   i{
     color: color.$yellow;
+  }
+}
+.marker_link_edit{
+  i{
+    color: color.$blue;
   }
 }
 
@@ -72,26 +92,52 @@
 .record{
   &_group{
     margin-top: 15px;
-    margin-left: 36px;
+    margin-left: 40px;
     font-size: 0; // 消除<i>inline-block間距
 
-    a{
+    display: flex;
+
+    i{
       &:not(:first-child){
         margin-left: 16px;
       }
-    }
-
-    i{
+      // flex-grow:1;
       font-size: 16px;
       color: color.$dark-gray;
+    }
+
+    span{
+      margin-left: 8px;
+      
+      @include font.basic{
+        color: color.$dark-gray;
+      }
     }
   }
 }
 
-.icon_date_text{
-  margin-left: 8px;
 
-  @include font.basic{
+// click .icon_checkbox then add class name .task_done
+.task_done{
+  .task_checked{
+    background-color: color.$blue;
+  }
+
+  .icon_check_show{
+    display: block;
+    @include position.position-absolute(0, 0, 0, 0);
+    width: 14px;
+    height: 14px;
+    font-size: 14px;
+    color: color.$white;
+  }
+    
+  .task_message_done{
+    text-decoration: line-through;
     color: color.$dark-gray;
+  }
+
+  .record_group{
+    display: none;
   }
 }

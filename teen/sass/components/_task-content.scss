@@ -1,0 +1,155 @@
+@use '../utilities/color';
+@use '../utilities/font';
+@use '../utilities/mediaquery';
+@use '../utilities/input-style';
+@use '../utilities/cross';
+@use '../utilities/position';
+
+// body
+.task_body{
+  padding: 24px 78px 24px 72px;
+  border-top: 3px solid color.$medium-gray;
+
+  &_item{
+    &:not(:first-child){
+      margin-top: 24px;
+    }
+    display: flex;
+    align-items: baseline;
+
+    font-size: 0; // 消除<i>inline-block間距
+  }
+
+  &_icon{
+    margin-right: 8px;
+    font-size: 16px;
+  }
+
+  &_title{
+    margin-bottom: 8px;
+    @include font.basic;
+  }
+}
+
+// body-deadline
+.deadline{
+  &_input{
+    &:last-child{
+      margin-left: 8px;
+    }
+
+    @include input-style.input(162px, 35px){
+      background-color: color.$white;
+    }
+  }
+}
+
+// body-upload file
+.file{
+  &_content{
+    display: flex;
+    align-items: center;
+  }
+  &_info{
+    margin-right: 24px;
+  }
+  &_name{
+    @include font.basic{
+      color: color.$black;
+    }
+  }
+  &_date{
+    @include font.basic{
+      color: color.$medium-gray;
+    }
+  }
+
+  &_upload{
+    position: relative;
+
+    i{
+      @include position.position-absolute(0, 0, 0, 0);
+      width: 10px;
+      height: 10px;
+      font-size: 10px;
+      color: color.$white;
+    }
+    
+    input{
+      @include input-style.input(32px, 32px){
+        background-color: color.$medium-gray;
+      }
+
+      &:hover{
+        background-color: color.$blue;
+      }
+  
+      &:focus{
+        outline: none;
+      }
+    }
+  }
+}
+
+// body-comment
+.comment{
+  textarea{
+    resize: none;
+    @include input-style.input(100%, 120px){
+      background-color: color.$white;
+    }
+    
+    @include font.basic{
+      color: color.$black;
+    }
+
+    &:focus{
+      outline: 2px solid color.$blue;
+    }
+  }
+}
+
+// footer
+.task_footer{
+  height: 60px;
+  display: flex;
+  font-size: 0;
+
+  button{
+    border: none;
+    border-right: 0;
+    flex: 1 0 0;
+
+    &:focus{
+      outline: none;
+    }
+  }
+
+  i{
+    margin-right: 16px;
+  }
+}
+
+.task_button{
+  &_cancel{
+    background-color: color.$white;
+    &:hover{
+      background-color: color.$hover-white;
+    }
+
+    @include font.status(normal){
+      color: color.$red;
+    }
+  }
+  
+  &_plus{
+    background-color: color.$blue;
+    &:hover{
+      background-color: color.$hover-blue;
+    }
+    
+    @include font.status(normal){
+      color: color.$white;
+    }
+  }
+}

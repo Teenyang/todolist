@@ -2,33 +2,72 @@
 @use '../components/container';
 @use '../components/add-item';
 @use '../components/task-card';
+@use '../components/task-content';
 
-main{
+body{
   @extend %main-background;
 }
 
-.task{
-  padding: 24px 32px;
-  a{
-    display: inline-block;
-  }
+// marker-link
+.task:not(:first-child){
+  margin-top: 8px;
+}
 
+.task,
+.task.task_completed{
   @extend %task-normal-background;
+
   .marker_link_star{
     display: inline-block;
   }
   .marker_link_fullstar{
     display: none;
   }
+  .marker_link_edit{
+    display: none;
+  }
+}
 
-  // click .marker_link_fullstar, then add .task_star class name
+.task{
   &.task_star{
     @extend %task-star-background;
+
     .marker_link_star{
       display: none;
     }
     .marker_link_fullstar{
       display: inline-block;
     }
+    .marker_link_edit{
+      display: none;
+    }
+  }
+}
+
+
+// task body
+.task_body{
+  @extend %task-normal-background;
+}
+
+
+
+
+// task status
+.task_all,
+.task_progress{
+  .task_status_normal{
+    display: inline;
+  }
+  .task_status_completed{
+    display: none;
+  }
+}
+.task_completed{
+  .task_status_normal{
+    display: none;
+  }
+  .task_status_completed{
+    display: inline;
   }
 }

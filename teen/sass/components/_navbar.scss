@@ -42,13 +42,12 @@ nav{
         }
       }
     }
-  }
 
-  &_all, &_completed{
-    display: none;
-    
-    @include mediaquery.mediaquery-mobile{
-      display: block;
+    &:nth-child(1), &:nth-child(3){
+      display: none;
+      @include mediaquery.mediaquery-mobile{
+        display: block;
+      }
     }
   }
 }
