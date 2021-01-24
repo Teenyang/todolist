@@ -1,7 +1,7 @@
 @use './base/reset';
 
 @use './layout/header'; // sticky navbar
-@use './layout/main';
+@use './layout/main'; // container, add-task, task-card & status, task-content
 
 *{
   /* outline: 1px solid red; */

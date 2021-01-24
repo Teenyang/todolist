@@ -4,7 +4,9 @@
 @use '../utilities/position';
 
 .task{
-  padding: 24px 32px;
+  &_card{
+    padding: 24px 32px;
+  }
 
   &_info{
     display: flex;
@@ -16,12 +18,17 @@
     }
   }
 
-  &_checkbox{
+  &_checkbox, &_icon_check{
+    display: none;
+  }
+
+  &_checkbox_label{
     margin-right: 16px;
     width: 24px;
     height: 24px;
-    background-color: color.$white;
+    display: inline-block;
     position: relative;
+    background-color: color.$white;
   }
 
   &_message{
@@ -33,25 +40,45 @@
       flex: 1 0 0;
       order: 2;
     }
-
+    
+    outline: none;
+    border: none;
+    background-color: transparent;
+    
     overflow : hidden; // 隱藏溢出內容
     text-overflow : ellipsis; // 省略符號
-    display: -webkit-box;
-    -webkit-line-clamp: 2; // 第二行文末出現省略符號
-    -webkit-box-orient: vertical; // The box lays out its contents vertically.
-  }
+    resize: none;
 
-  &_status{
-    margin-left: 32px;
-    margin-bottom: 8px;
-
-    @include font.status(italic){
-      color: color.$medium-gray;
+    &, &::placeholder{
+      @include font.title{
+        color: color.$black;
+      }
     }
   }
-}
-.icon_check{
-  display: none;
+    
+
+  // 點擊".icon_checkbox"，增加".task_done"
+  &_done{
+    .task_checkbox_label{
+      background-color: color.$blue;
+    }
+    
+    .task_icon_check{
+      display: block;
+      @include position.position-absolute(0, 0, 0, 0);
+      width: 14px;
+      height: 14px;
+      font-size: 14px;
+      color: color.$white;
+    }
+
+    .task_message{
+      text-decoration: line-through;
+      &::placeholder{
+        color: color.$dark-gray;
+      }
+    }
+  }
 }
 
 // beside the task_info
@@ -92,16 +119,18 @@
 .record{
   &_group{
     margin-top: 15px;
-    margin-left: 40px;
-    font-size: 0; // 消除<i>inline-block間距
+    @include mediaquery.mediaquery-mobile{
+      margin-left: 40px;
+    }
 
     display: flex;
+
+    font-size: 0; // 消除<i>inline-block間距
 
     i{
       &:not(:first-child){
         margin-left: 16px;
       }
-      // flex-grow:1;
       font-size: 16px;
       color: color.$dark-gray;
     }
@@ -116,28 +145,12 @@
   }
 }
 
+// bottom: task status
+.task_status{
+  margin-top: 24px;
+  padding: 0 32px;
 
-// click .icon_checkbox then add class name .task_done
-.task_done{
-  .task_checked{
-    background-color: color.$blue;
-  }
-
-  .icon_check_show{
-    display: block;
-    @include position.position-absolute(0, 0, 0, 0);
-    width: 14px;
-    height: 14px;
-    font-size: 14px;
-    color: color.$white;
-  }
-    
-  .task_message_done{
-    text-decoration: line-through;
-    color: color.$dark-gray;
-  }
-
-  .record_group{
-    display: none;
+  @include font.status(italic){
+    color: color.$medium-gray;
   }
 }

@@ -3,7 +3,7 @@
 .container{
   margin: 0 auto;
   padding: 24px 20px;
-  
+
   @include mediaquery.mediaquery-mobile{
     max-width: 660px;
   }

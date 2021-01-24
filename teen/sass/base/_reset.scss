@@ -6,6 +6,10 @@ div{
   box-sizing: border-box;
 }
 
+input, textarea{
+  padding: 0;
+}
+
 ul, li{
   list-style: none;
 }

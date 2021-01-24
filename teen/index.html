@@ -31,141 +31,374 @@
       </a>
     </nav>
   </header>
+
+
   <main>
     <div class="container task_all task_progress task_completed">
-      <!-------- add bar -------->
-      <div class="add_item">
-        <i class="fal fa-plus fa-fw"></i>Add Task
-        <!-- <span></span> -->
-      </div>
-      <!-------- task card -------->
-      <!-- origin tast -->
-      <div class="task">
-        <div class="task_info">
-          <a href="##" class="task_checkbox">
-            <i class="far fa-check fa-fw icon_check"></i>
-          </a>
-          <span class="task_message">Type Something Here…</span>
-          <!-- marker icon -->
-          <div class="marker_group">
-            <a href="##" class="marker_link_fullstar"><i class="fas fa-star fa-fw"></i></a>
-            <a href="##" class="marker_link_star"><i class="far fa-star fa-fw"></i></a>
-            <a href="##" class="marker_link_edit"><i class="fas fa-pen fa-fw"></i></a>
-            <a href="##" class="marker_link_pen"><i class="far fa-pen fa-fw"></i></a>
+      <!---------------- add bar ---------------->
+      <!-- add_task -->
+      <form class="add_task">
+        <input type="text" placeholder="Add Task">
+        <i class="fal fa-plus fa-fw"></i>
+        <!-- <span>Add Task</span> -->
+      </form>
+      <!---------------- task card ---------------->
+      <!-- tast(normal), task_important, task_done, task_edit_mode -->
+      <div class="task task_done">
+        <section class="task_card">
+          <form class="task_info">
+            <input type="checkbox" class="task_checkbox">
+            <label class="task_checkbox_label">
+              <i class="far fa-check fa-fw task_icon_check"></i>
+            </label>
+            <textarea name="task title" id="" cols="30" rows="1" class="task_message"
+              placeholder="Type Something Here..."></textarea>
+            <!-- marker icon -->
+            <div class="marker_group">
+              <a href="##" class="marker_link_fullstar"><i class="fas fa-star fa-fw"></i></a>
+              <a href="##" class="marker_link_star"><i class="far fa-star fa-fw"></i></a>
+              <a href="##" class="marker_link_edit"><i class="fas fa-pen fa-fw"></i></a>
+              <a href="##" class="marker_link_pen"><i class="far fa-pen fa-fw"></i></a>
+            </div>
+          </form>
+          <!-- record icon -->
+          <div class="record_group">
+            <i class="far fa-calendar-alt fa-fw"></i>
+            <span>6/18</span>
+            <i class="far fa-file fa-fw"></i>
+            <i class="far fa-comment-dots fa-fw"></i>
           </div>
-        </div>
-        <!-- record icon -->
-        <div class="record_group">
-          <i class="far fa-calendar-alt fa-fw"></i>
-          <span>6/18</span>
-          <i class="far fa-file fa-fw"></i>
-          <i class="far fa-comment-dots fa-fw"></i>
-        </div>
-      </div>
-
-      <!-------- task body -------->
-      <div class="task_body">
-        <div class="task_body_item deadline">
-          <i class="far fa-calendar-alt fa-fw task_body_icon"></i>
-          <div class="task_body_content">
-            <p class="task_body_title">Deadline</p>
-            <!-- 用 JS 改變 focus 後的 input type: date -->
-            <input type="text" placeholder="yyyy/mm/dd" name="deadline date" class="deadline_input">
-            <!-- 用 JS 改變 focus 後的 input type: time -->
-            <input type="text" placeholder="hh:mm" name="deadline time" class="deadline_input">
-          </div>
-        </div>
-        <div class="task_body_item file">
-          <i class="far fa-file fa-fw task_body_icon"></i>
-          <div class="task_body_content">
-            <p class="task_body_title">File</p>
-            <div class="file_content">
-              <div class="file_info">
-                <p class="file_name">20180514.zip</p>
-                <p class="file_date">uploaded yesterday</p>
-              </div>
-              <div class="file_upload">
-                <i class="fal fa-plus fa-fw"></i>
-                <!-- 用 JS 改變 focus 後的 input type: file -->
-                <input type="text" name="attached file" class="file_input">
-              </div>
+        </section>
+        <!---------------- task content ---------------->
+        <section class="task_edit_group">
+          <div class="task_body">
+            <div class="task_body_item deadline">
+              <i class="far fa-calendar-alt fa-fw task_body_icon"></i>
+              <form class="task_body_content">
+                <label class="task_body_subtitle">Deadline</label>
+                <!-- 用 JS 改變 focus 後的 input type: date -->
+                <input type="text" placeholder="yyyy/mm/dd" name="deadline date" class="deadline_date">
+                <!-- 用 JS 改變 focus 後的 input type: time -->
+                <input type="text" placeholder="hh:mm" name="deadline time" class="deadline_time">
+              </form>
+            </div>
+            <div class="task_body_item file">
+              <i class="far fa-file fa-fw task_body_icon"></i>
+              <form class="task_body_content">
+                <label class="task_body_subtitle">File</label>
+                <div class="file_content">
+                  <div class="file_info">
+                    <p class="file_name">20180514.zip</p>
+                    <p class="file_date">uploaded yesterday</p>
+                  </div>
+                  <div class="file_upload">
+                    <i class="fal fa-plus fa-fw"></i>
+                    <!-- 用 JS 改變 focus 後的 input type: file，取得 lastModified 值 -->
+                    <input type="text" name="attached file" class="file_input">
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="task_body_item comment">
+              <i class="far fa-comment-dots fa-fw task_body_icon"></i>
+              <form class="task_body_content">
+                <label class="task_body_subtitle">Comment</label>
+                <!-- 用 JS 設定雙擊後編輯 -->
+                <textarea name="comment" id="" cols="60" rows="10"
+                  placeholder="Type your memo here…">meet him at Lorence Cafe</textarea>
+              </form>
             </div>
           </div>
-        </div>
-        <div class="task_body_item comment">
-          <i class="far fa-comment-dots fa-fw task_body_icon"></i>
-          <div class="task_body_content">
-            <p class="task_body_title">Comment</p>
-            <!-- 用 JS 設定雙擊後編輯 -->
-            <textarea name="comment" id="" cols="60" rows="10"
-              placeholder="Type your memo here…">meet him at Lorence Cafe</textarea>
+          <div class="task_footer">
+            <button type="button" class="task_button_cancel">
+              <i class="fal fa-times fa-fw"></i>Cancel</button>
+            <button type="button" class="task_button_plus task_button_add">
+              <i class="fal fa-plus fa-fw"></i>Add Task</button>
+            <button type="button" class="task_button_plus task_button_save">
+              <i class="fal fa-plus"></i>Save</button>
           </div>
-        </div>
-      </div>
-      <div class="task_footer">
-        <button type="button" class="task_button_cancel">
-          <i class="fal fa-times fa-fw"></i>Cancel</button>
-        <button type="button" class="task_button_plus task_button_add">
-          <i class="fal fa-plus fa-fw"></i>Add Task</button>
-        <!-- <button type="button" class="task_button_plus task_button_save">
-          <i class="fal fa-plus"></i>Save</button> -->
+        </section>
       </div>
 
 
-      <!-- important tast -->
-      <div class="task task_star">
-        <div class="task_info">
-          <a href="##" class="task_checkbox">
-            <i class="far fa-check fa-fw icon_check"></i>
-          </a>
-          <span class="task_message">Type Something Here…</span>
-          <!-- marker icon -->
-          <div class="marker_group">
-            <a href="##" class="marker_link_fullstar"><i class="fas fa-star fa-fw"></i></a>
-            <a href="##" class="marker_link_star"><i class="far fa-star fa-fw"></i></a>
-            <a href="##" class="marker_link_edit"><i class="fas fa-pen fa-fw"></i></a>
-            <a href="##" class="marker_link_pen"><i class="far fa-pen fa-fw"></i></a>
+
+
+
+      <!---------------- add bar ---------------->
+      <!-- exist_task -->
+      <form class="exist_task">
+        <input type="text" placeholder="Add Task">
+        <i class="fal fa-plus fa-fw">
+        </i>
+        <!-- <span>Add Task</span> -->
+      </form>
+      <!---------------- task card ---------------->
+      <!-- tast(normal), task_important, task_done, task_edit_mode -->
+      <div class="task">
+        <section class="task_card">
+          <form class="task_info">
+            <input type="checkbox" class="task_checkbox">
+            <label class="task_checkbox_label">
+              <i class="far fa-check fa-fw task_icon_check"></i>
+            </label>
+            <textarea name="task title" id="" cols="30" rows="1" class="task_message"
+              placeholder="Type Something Here..."></textarea>
+            <!-- marker icon -->
+            <div class="marker_group">
+              <a href="##" class="marker_link_fullstar"><i class="fas fa-star fa-fw"></i></a>
+              <a href="##" class="marker_link_star"><i class="far fa-star fa-fw"></i></a>
+              <a href="##" class="marker_link_edit"><i class="fas fa-pen fa-fw"></i></a>
+              <a href="##" class="marker_link_pen"><i class="far fa-pen fa-fw"></i></a>
+            </div>
+          </form>
+          <!-- record icon -->
+          <div class="record_group">
+            <i class="far fa-calendar-alt fa-fw"></i>
+            <span>6/18</span>
+            <i class="far fa-file fa-fw"></i>
+            <i class="far fa-comment-dots fa-fw"></i>
           </div>
-        </div>
-        <!-- record icon -->
-        <div class="record_group">
-          <i class="far fa-calendar-alt fa-fw"></i>
-          <span>6/18</span>
-          <i class="far fa-file fa-fw"></i>
-          <i class="far fa-comment-dots fa-fw"></i>
-        </div>
+        </section>
+        <!---------------- task content ---------------->
+        <section class="task_edit_group">
+          <div class="task_body">
+            <div class="task_body_item deadline">
+              <i class="far fa-calendar-alt fa-fw task_body_icon"></i>
+              <form class="task_body_content">
+                <label class="task_body_subtitle">Deadline</label>
+                <!-- 用 JS 改變 focus 後的 input type: date -->
+                <input type="text" placeholder="yyyy/mm/dd" name="deadline date" class="deadline_date">
+                <!-- 用 JS 改變 focus 後的 input type: time -->
+                <input type="text" placeholder="hh:mm" name="deadline time" class="deadline_time">
+              </form>
+            </div>
+            <div class="task_body_item file">
+              <i class="far fa-file fa-fw task_body_icon"></i>
+              <form class="task_body_content">
+                <label class="task_body_subtitle">File</label>
+                <div class="file_content">
+                  <div class="file_info">
+                    <p class="file_name">20180514.zip</p>
+                    <p class="file_date">uploaded yesterday</p>
+                  </div>
+                  <div class="file_upload">
+                    <i class="fal fa-plus fa-fw"></i>
+                    <!-- 用 JS 改變 focus 後的 input type: file -->
+                    <input type="text" name="attached file" class="file_input">
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="task_body_item comment">
+              <i class="far fa-comment-dots fa-fw task_body_icon"></i>
+              <form class="task_body_content">
+                <label class="task_body_subtitle">Comment</label>
+                <!-- 用 JS 設定雙擊後編輯 -->
+                <textarea name="comment" id="" cols="60" rows="10"
+                  placeholder="Type your memo here…">meet him at Lorence Cafe</textarea>
+              </form>
+            </div>
+          </div>
+          <div class="task_footer">
+            <button type="button" class="task_button_cancel">
+              <i class="fal fa-times fa-fw"></i>Cancel</button>
+            <button type="button" class="task_button_plus task_button_add">
+              <i class="fal fa-plus fa-fw"></i>Add Task</button>
+            <button type="button" class="task_button_plus task_button_save">
+              <i class="fal fa-plus"></i>Save</button>
+          </div>
+        </section>
       </div>
 
 
-      <!-- completed tast -->
+
+
+
+      <!---------------- add bar ---------------->
+      <!-- exist_task -->
+      <form class="exist_task">
+        <input type="text" placeholder="Add Task">
+        <i class="fal fa-plus fa-fw">
+        </i>
+        <!-- <span>Add Task</span> -->
+      </form>
+      <!---------------- task card ---------------->
+      <!-- tast(normal), task_important, task_done, task_edit_mode -->
+      <div class="task task_important">
+        <section class="task_card">
+          <form class="task_info">
+            <input type="checkbox" class="task_checkbox">
+            <label class="task_checkbox_label">
+              <i class="far fa-check fa-fw task_icon_check"></i>
+            </label>
+            <textarea name="task title" id="" cols="30" rows="1" class="task_message"
+              placeholder="Type Something Here..."></textarea>
+            <!-- marker icon -->
+            <div class="marker_group">
+              <a href="##" class="marker_link_fullstar"><i class="fas fa-star fa-fw"></i></a>
+              <a href="##" class="marker_link_star"><i class="far fa-star fa-fw"></i></a>
+              <a href="##" class="marker_link_edit"><i class="fas fa-pen fa-fw"></i></a>
+              <a href="##" class="marker_link_pen"><i class="far fa-pen fa-fw"></i></a>
+            </div>
+          </form>
+          <!-- record icon -->
+          <div class="record_group">
+            <i class="far fa-calendar-alt fa-fw"></i>
+            <span>6/18</span>
+            <i class="far fa-file fa-fw"></i>
+            <i class="far fa-comment-dots fa-fw"></i>
+          </div>
+        </section>
+        <!---------------- task content ---------------->
+        <section class="task_edit_group">
+          <div class="task_body">
+            <div class="task_body_item deadline">
+              <i class="far fa-calendar-alt fa-fw task_body_icon"></i>
+              <form class="task_body_content">
+                <label class="task_body_subtitle">Deadline</label>
+                <!-- 用 JS 改變 focus 後的 input type: date -->
+                <input type="text" placeholder="yyyy/mm/dd" name="deadline date" class="deadline_date">
+                <!-- 用 JS 改變 focus 後的 input type: time -->
+                <input type="text" placeholder="hh:mm" name="deadline time" class="deadline_time">
+              </form>
+            </div>
+            <div class="task_body_item file">
+              <i class="far fa-file fa-fw task_body_icon"></i>
+              <form class="task_body_content">
+                <label class="task_body_subtitle">File</label>
+                <div class="file_content">
+                  <div class="file_info">
+                    <p class="file_name">20180514.zip</p>
+                    <p class="file_date">uploaded yesterday</p>
+                  </div>
+                  <div class="file_upload">
+                    <i class="fal fa-plus fa-fw"></i>
+                    <!-- 用 JS 改變 focus 後的 input type: file -->
+                    <input type="text" name="attached file" class="file_input">
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="task_body_item comment">
+              <i class="far fa-comment-dots fa-fw task_body_icon"></i>
+              <form class="task_body_content">
+                <label class="task_body_subtitle">Comment</label>
+                <!-- 用 JS 設定雙擊後編輯 -->
+                <textarea name="comment" id="" cols="60" rows="10"
+                  placeholder="Type your memo here…">meet him at Lorence Cafe</textarea>
+              </form>
+            </div>
+          </div>
+          <div class="task_footer">
+            <button type="button" class="task_button_cancel">
+              <i class="fal fa-times fa-fw"></i>Cancel</button>
+            <button type="button" class="task_button_plus task_button_add">
+              <i class="fal fa-plus fa-fw"></i>Add Task</button>
+            <button type="button" class="task_button_plus task_button_save">
+              <i class="fal fa-plus"></i>Save</button>
+          </div>
+        </section>
+      </div>
+
+
+
+
+
+      <!---------------- add bar ---------------->
+      <!-- exist_task -->
+      <form class="exist_task">
+        <input type="text" placeholder="Add Task">
+        <i class="fal fa-plus fa-fw">
+        </i>
+        <!-- <span>Add Task</span> -->
+      </form>
+      <!---------------- task card ---------------->
+      <!-- tast(normal), task_important, task_done, task_edit_mode -->
       <div class="task task_done">
-        <div class="task_info">
-          <a href="##" class="task_checkbox task_checked">
-            <i class="far fa-check fa-fw icon_check icon_check_show"></i>
-          </a>
-          <span class="task_message task_message_done">Type Something Here…</span>
-          <!-- marker icon -->
-          <div class="marker_group">
-            <a href="##" class="marker_link_fullstar"><i class="fas fa-star fa-fw"></i></a>
-            <a href="##" class="marker_link_star"><i class="far fa-star fa-fw"></i></a>
-            <a href="##" class="marker_link_edit"><i class="fas fa-pen fa-fw"></i></a>
-            <a href="##" class="marker_link_pen"><i class="far fa-pen fa-fw"></i></a>
+        <section class="task_card">
+          <form class="task_info">
+            <input type="checkbox" class="task_checkbox">
+            <label class="task_checkbox_label">
+              <i class="far fa-check fa-fw task_icon_check"></i>
+            </label>
+            <textarea name="task title" id="" cols="30" rows="1" class="task_message"
+              placeholder="Type Something Here..."></textarea>
+            <!-- marker icon -->
+            <div class="marker_group">
+              <a href="##" class="marker_link_fullstar"><i class="fas fa-star fa-fw"></i></a>
+              <a href="##" class="marker_link_star"><i class="far fa-star fa-fw"></i></a>
+              <a href="##" class="marker_link_edit"><i class="fas fa-pen fa-fw"></i></a>
+              <a href="##" class="marker_link_pen"><i class="far fa-pen fa-fw"></i></a>
+            </div>
+          </form>
+          <!-- record icon -->
+          <div class="record_group">
+            <i class="far fa-calendar-alt fa-fw"></i>
+            <span>6/18</span>
+            <i class="far fa-file fa-fw"></i>
+            <i class="far fa-comment-dots fa-fw"></i>
           </div>
-        </div>
-        <!-- record icon -->
-        <div class="record_group">
-          <i class="far fa-calendar-alt fa-fw"></i>
-          <span>6/18</span>
-          <i class="far fa-file fa-fw"></i>
-          <i class="far fa-comment-dots fa-fw"></i>
-        </div>
+        </section>
+        <!---------------- task content ---------------->
+        <section class="task_edit_group">
+          <div class="task_body">
+            <div class="task_body_item deadline">
+              <i class="far fa-calendar-alt fa-fw task_body_icon"></i>
+              <form class="task_body_content">
+                <label class="task_body_subtitle">Deadline</label>
+                <!-- 用 JS 改變 focus 後的 input type: date -->
+                <input type="text" placeholder="yyyy/mm/dd" name="deadline date" class="deadline_date">
+                <!-- 用 JS 改變 focus 後的 input type: time -->
+                <input type="text" placeholder="hh:mm" name="deadline time" class="deadline_time">
+              </form>
+            </div>
+            <div class="task_body_item file">
+              <i class="far fa-file fa-fw task_body_icon"></i>
+              <form class="task_body_content">
+                <label class="task_body_subtitle">File</label>
+                <div class="file_content">
+                  <div class="file_info">
+                    <p class="file_name">20180514.zip</p>
+                    <p class="file_date">uploaded yesterday</p>
+                  </div>
+                  <div class="file_upload">
+                    <i class="fal fa-plus fa-fw"></i>
+                    <!-- 用 JS 改變 focus 後的 input type: file -->
+                    <input type="text" name="attached file" class="file_input">
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="task_body_item comment">
+              <i class="far fa-comment-dots fa-fw task_body_icon"></i>
+              <form class="task_body_content">
+                <label class="task_body_subtitle">Comment</label>
+                <!-- 用 JS 設定雙擊後編輯 -->
+                <textarea name="comment" id="" cols="60" rows="10"
+                  placeholder="Type your memo here…">meet him at Lorence Cafe</textarea>
+              </form>
+            </div>
+          </div>
+          <div class="task_footer">
+            <button type="button" class="task_button_cancel">
+              <i class="fal fa-times fa-fw"></i>Cancel</button>
+            <button type="button" class="task_button_plus task_button_add">
+              <i class="fal fa-plus fa-fw"></i>Add Task</button>
+            <button type="button" class="task_button_plus task_button_save">
+              <i class="fal fa-plus"></i>Save</button>
+          </div>
+        </section>
       </div>
 
-      <!-- status -->
-      <div class="task_status">
+
+
+
+
+      <!---------------- task status ---------------->
+      <section class="task_status">
         <span class="task_status_normal">4 tasks left</span>
         <span class="task_status_completed">1 task completed</span>
-      </div>
+      </section>
 
 
     </div>

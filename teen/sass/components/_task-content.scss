@@ -7,7 +7,10 @@
 
 // body
 .task_body{
-  padding: 24px 78px 24px 72px;
+  padding: 24px 32px;
+  @include mediaquery.mediaquery-mobile{
+    padding: 24px 78px 24px 72px;
+  }
   border-top: 3px solid color.$medium-gray;
 
   &_item{
@@ -25,21 +28,33 @@
     font-size: 16px;
   }
 
-  &_title{
+  &_content{
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &_subtitle{
     margin-bottom: 8px;
-    @include font.basic;
+
+    flex: 1 0 100%;
+
+    @include font.subtitle;
   }
 }
 
 // body-deadline
 .deadline{
-  &_input{
-    &:last-child{
-      margin-left: 8px;
-    }
-
+  input{
     @include input-style.input(162px, 35px){
       background-color: color.$white;
+    }
+
+    &:nth-of-type(1){
+      margin-bottom: 8px;
+      margin-right: 8px;
+      @include mediaquery.mediaquery-mobile{
+        margin-bottom: 0;
+      }
     }
   }
 }
@@ -60,7 +75,7 @@
   }
   &_date{
     @include font.basic{
-      color: color.$medium-gray;
+      color: color.$dark-gray;
     }
   }
 
@@ -111,14 +126,25 @@
 
 // footer
 .task_footer{
-  height: 60px;
+  margin-bottom: 8px;
   display: flex;
+  flex-direction: column;
+  @include mediaquery.mediaquery-mobile{
+    flex-direction: row;
+    height: 60px;
+  }
+
   font-size: 0;
 
   button{
+    padding: 0;
     border: none;
     border-right: 0;
-    flex: 1 0 0;
+
+    flex: 1 0 60px;
+    @include mediaquery.mediaquery-mobile{ 
+      flex: 1 0 0;
+    }
 
     &:focus{
       outline: none;
