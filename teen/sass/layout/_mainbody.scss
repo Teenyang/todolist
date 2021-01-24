@@ -1,5 +1,4 @@
 @use '../components/background-theme';
-@use '../components/container';
 @use '../components/add-task';
 @use '../components/task-card';
 @use '../components/task-content';
@@ -9,8 +8,17 @@ body{
   @extend %main-background;
 }
 .task_body{
+  // overflow: scroll;
   @extend %task-normal-background;
 }
+// container
+.container{
+  margin: 0 auto;
+  padding: 24px 20px;
+
+  max-width: 660px;
+}
+
 
 // tast type: task_all, task_progress, task_completed
 // status: task_status

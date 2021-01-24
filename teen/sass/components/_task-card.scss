@@ -11,21 +11,16 @@
   &_info{
     display: flex;
     flex-wrap: wrap;
-    align-items: flex-start;
-
-    @include font.title{
-      color: color.$black;
-    }
   }
 
   &_checkbox, &_icon_check{
     display: none;
   }
-
   &_checkbox_label{
     margin-right: 16px;
     width: 24px;
     height: 24px;
+
     display: inline-block;
     position: relative;
     background-color: color.$white;
@@ -45,13 +40,14 @@
     border: none;
     background-color: transparent;
     
-    overflow : hidden; // 隱藏溢出內容
-    text-overflow : ellipsis; // 省略符號
     resize: none;
-
+    
     &, &::placeholder{
-      @include font.title{
+      @include font.medium(20px){
         color: color.$black;
+      }
+      @include mediaquery.mediaquery-mobile{
+        @include font.medium(24px);
       }
     }
   }
@@ -64,16 +60,19 @@
     }
     
     .task_icon_check{
-      display: block;
-      @include position.position-absolute(0, 0, 0, 0);
       width: 14px;
       height: 14px;
+
+      display: block;
+      @include position.position-absolute(0, 0, 0, 0);
+
       font-size: 14px;
       color: color.$white;
     }
 
     .task_message{
       text-decoration: line-through;
+      
       &::placeholder{
         color: color.$dark-gray;
       }
@@ -93,9 +92,12 @@
     
     font-size: 0; // 消除<i>inline-block間距
 
-    a{
+    button{
       margin-left: 32px;
-      display: inline-block;
+      outline: none;
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
     }
 
     i{
@@ -103,7 +105,6 @@
     }
   }
 }
-
 .marker_link_fullstar{
   i{
     color: color.$yellow;
@@ -118,7 +119,7 @@
 // under the task_info
 .record{
   &_group{
-    margin-top: 15px;
+    margin-top: 16px;
     @include mediaquery.mediaquery-mobile{
       margin-left: 40px;
     }
@@ -131,6 +132,7 @@
       &:not(:first-child){
         margin-left: 16px;
       }
+      
       font-size: 16px;
       color: color.$dark-gray;
     }
@@ -138,7 +140,7 @@
     span{
       margin-left: 8px;
       
-      @include font.basic{
+      @include font.regular(16px){
         color: color.$dark-gray;
       }
     }
@@ -150,7 +152,8 @@
   margin-top: 24px;
   padding: 0 32px;
 
-  @include font.status(italic){
+  @include font.regular(24px){
     color: color.$medium-gray;
+    font-style: italic;
   }
 }

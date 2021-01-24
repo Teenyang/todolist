@@ -6,7 +6,7 @@ div {
   box-sizing: border-box;
 }
 
-input, textarea {
+input, button, textarea {
   padding: 0;
 }
 
@@ -37,89 +37,42 @@ body {
 
 nav {
   margin: 0 auto;
+  padding: 0 20px;
+  max-width: 660px;
   height: 76px;
-  position: relative;
   box-sizing: border-box;
   display: flex;
-  justify-content: center;
-  align-items: center;
-}
-@media (min-width: 576px) {
-  nav {
-    max-width: 660px;
-  }
 }
 
 .nav_link {
-  margin: 0 40px;
-  padding: 24px 20px;
+  height: 76px;
   box-sizing: border-box;
   flex: 1 0 0;
+  line-height: 76px;
   text-align: center;
   font-family: "Roboto", sans-serif;
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: 400;
-  font-style: normal;
   color: #00408B;
+}
+.nav_link:hover {
+  border-bottom: 5px solid #00408B;
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #FFFFFF;
 }
 @media (min-width: 576px) {
   .nav_link {
-    margin: 0 10px;
+    font-family: "Roboto", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 400;
   }
-}
-@media (min-width: 576px) {
   .nav_link:hover {
-    border-bottom: 5px solid #00408B;
     font-family: "Roboto", sans-serif;
     font-size: 1.5rem;
     font-weight: 500;
-    color: #FFFFFF;
   }
-}
-.nav_link:nth-child(1), .nav_link:nth-child(3) {
-  display: none;
-}
-@media (min-width: 576px) {
-  .nav_link:nth-child(1), .nav_link:nth-child(3) {
-    display: block;
-  }
-}
-
-.nav_control {
-  display: block;
-}
-@media (min-width: 576px) {
-  .nav_control {
-    display: none;
-  }
-}
-.nav_control:hover {
-  border-bottom: 5px solid #00408B;
-}
-.nav_control_prev {
-  margin: auto;
-  position: absolute;
-  top: 0;
-  right: auto;
-  bottom: 0;
-  left: 0;
-}
-.nav_control_next {
-  margin: auto;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: auto;
-}
-.nav_control_arrow {
-  padding: 24px 20px;
-  font-size: 24px;
-  line-height: 1.2;
-  color: #00408B;
-}
-.nav_control_arrow:hover {
-  color: #FFFFFF;
 }
 
 header {
@@ -130,19 +83,8 @@ header {
   z-index: 1;
 }
 
-.container {
-  margin: 0 auto;
-  padding: 24px 20px;
-}
-@media (min-width: 576px) {
-  .container {
-    max-width: 660px;
-  }
-}
-
 .add_task {
   margin-bottom: 24px;
-  width: 100%;
   position: relative;
 }
 .add_task input {
@@ -158,7 +100,6 @@ header {
   font-family: "Roboto", sans-serif;
   font-size: 1.5rem;
   font-weight: 400;
-  font-style: normal;
   color: #C8C8C8;
 }
 .add_task i {
@@ -180,11 +121,6 @@ header {
 .task_info {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
-  font-family: "Roboto", sans-serif;
-  font-size: 1.5rem;
-  font-weight: 500;
-  color: #000000;
 }
 .task_checkbox, .task_icon_check {
   display: none;
@@ -204,8 +140,6 @@ header {
   outline: none;
   border: none;
   background-color: transparent;
-  overflow: hidden;
-  text-overflow: ellipsis;
   resize: none;
 }
 @media (min-width: 576px) {
@@ -217,14 +151,23 @@ header {
 }
 .task_message, .task_message::placeholder {
   font-family: "Roboto", sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 500;
   color: #000000;
+}
+@media (min-width: 576px) {
+  .task_message, .task_message::placeholder {
+    font-family: "Roboto", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
 }
 .task_done .task_checkbox_label {
   background-color: #4A90E2;
 }
 .task_done .task_icon_check {
+  width: 14px;
+  height: 14px;
   display: block;
   margin: auto;
   position: absolute;
@@ -232,8 +175,6 @@ header {
   right: 0;
   bottom: 0;
   left: 0;
-  width: 14px;
-  height: 14px;
   font-size: 14px;
   color: #FFFFFF;
 }
@@ -254,9 +195,12 @@ header {
     order: 3;
   }
 }
-.marker_group a {
+.marker_group button {
   margin-left: 32px;
-  display: inline-block;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
 }
 .marker_group i {
   font-size: 24px;
@@ -271,7 +215,7 @@ header {
 }
 
 .record_group {
-  margin-top: 15px;
+  margin-top: 16px;
   display: flex;
   font-size: 0;
 }
@@ -301,8 +245,8 @@ header {
   font-family: "Roboto", sans-serif;
   font-size: 1.5rem;
   font-weight: 400;
-  font-style: italic;
   color: #C8C8C8;
+  font-style: italic;
 }
 
 .task_body {
@@ -311,41 +255,53 @@ header {
 }
 @media (min-width: 576px) {
   .task_body {
-    padding: 24px 78px 24px 72px;
+    padding: 24px 75px 24px 72px;
   }
 }
 .task_body_item {
   display: flex;
-  align-items: baseline;
+  flex-wrap: wrap;
   font-size: 0;
 }
 .task_body_item:not(:first-child) {
   margin-top: 24px;
 }
-.task_body_icon {
+.task_body i {
   margin-right: 8px;
+  vertical-align: middle;
   font-size: 16px;
-}
-.task_body_content {
-  display: flex;
-  flex-wrap: wrap;
 }
 .task_body_subtitle {
   margin-bottom: 8px;
   flex: 1 0 100%;
+}
+.task_body_subtitle span {
+  vertical-align: middle;
   font-family: "Roboto", sans-serif;
   font-size: 1.25rem;
   font-weight: 500;
 }
+.task_body_content {
+  margin-left: 0;
+}
+@media (min-width: 576px) {
+  .task_body_content {
+    margin-left: 28px;
+  }
+}
 
 .deadline input {
   padding: 8px 16px;
-  border: none;
-  border-radius: 2px;
   width: 162px;
   height: 35px;
   box-sizing: border-box;
+  outline: none;
+  border: none;
+  border-radius: 2px;
   background-color: #FFFFFF;
+}
+.deadline input:focus {
+  border: 1px solid #4A90E2;
 }
 .deadline input::placeholder {
   font-family: "Roboto", sans-serif;
@@ -363,27 +319,30 @@ header {
   }
 }
 
-.file_content {
-  display: flex;
-  align-items: center;
-}
-.file_info {
-  margin-right: 24px;
-}
-.file_name {
-  font-family: "Roboto", sans-serif;
-  font-size: 1rem;
-  font-weight: 400;
-  color: #000000;
-}
-.file_date {
-  font-family: "Roboto", sans-serif;
-  font-size: 1rem;
-  font-weight: 400;
-  color: #757575;
-}
 .file_upload {
+  display: block;
   position: relative;
+  padding: 8px 16px;
+  width: 32px;
+  height: 32px;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  border-radius: 2px;
+  background-color: #FFFFFF;
+  background-color: #C8C8C8;
+}
+.file_upload:focus {
+  border: 1px solid #4A90E2;
+}
+.file_upload::placeholder {
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #C8C8C8;
+}
+.file_upload:hover {
+  background-color: #4A90E2;
 }
 .file_upload i {
   margin: auto;
@@ -398,40 +357,26 @@ header {
   color: #FFFFFF;
 }
 .file_upload input {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 2px;
-  width: 32px;
-  height: 32px;
-  box-sizing: border-box;
-  background-color: #C8C8C8;
-}
-.file_upload input::placeholder {
-  font-family: "Roboto", sans-serif;
-  font-size: 1rem;
-  font-weight: 400;
-  color: #C8C8C8;
-}
-.file_upload input:hover {
-  background-color: #4A90E2;
-}
-.file_upload input:focus {
-  outline: none;
+  display: none;
 }
 
 .comment textarea {
   resize: none;
   padding: 8px 16px;
-  border: none;
-  border-radius: 2px;
   width: 100%;
   height: 120px;
   box-sizing: border-box;
+  outline: none;
+  border: none;
+  border-radius: 2px;
   background-color: #FFFFFF;
   font-family: "Roboto", sans-serif;
   font-size: 1rem;
   font-weight: 400;
   color: #000000;
+}
+.comment textarea:focus {
+  border: 1px solid #4A90E2;
 }
 .comment textarea::placeholder {
   font-family: "Roboto", sans-serif;
@@ -439,12 +384,8 @@ header {
   font-weight: 400;
   color: #C8C8C8;
 }
-.comment textarea:focus {
-  outline: 2px solid #4A90E2;
-}
 
 .task_footer {
-  margin-bottom: 8px;
   display: flex;
   flex-direction: column;
   font-size: 0;
@@ -456,7 +397,6 @@ header {
   }
 }
 .task_footer button {
-  padding: 0;
   border: none;
   border-right: 0;
   flex: 1 0 60px;
@@ -478,7 +418,6 @@ header {
   font-family: "Roboto", sans-serif;
   font-size: 1.5rem;
   font-weight: 400;
-  font-style: normal;
   color: #D0021B;
 }
 .task_button_cancel:hover {
@@ -489,11 +428,16 @@ header {
   font-family: "Roboto", sans-serif;
   font-size: 1.5rem;
   font-weight: 400;
-  font-style: normal;
   color: #FFFFFF;
 }
 .task_button_plus:hover {
   background-color: #3982D7;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 24px 20px;
+  max-width: 660px;
 }
 
 .task_all .task_status_normal, .task_progress .task_status_normal {

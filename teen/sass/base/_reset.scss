@@ -6,7 +6,7 @@ div{
   box-sizing: border-box;
 }
 
-input, textarea{
+input, button, textarea{
   padding: 0;
 }
 
@@ -17,7 +17,4 @@ ul, li{
 a{
   color: black;
   text-decoration: none;
-  // &:hover{
-  //   text-decoration: none;
-  // }
 }

@@ -1,15 +1,37 @@
 @use '../utilities/color';
 @use '../utilities/font';
 @use '../utilities/mediaquery';
-@use '../utilities/input-style';
-@use '../utilities/cross';
 @use '../utilities/position';
+
+// input-style
+@mixin input($width, $height){
+  padding: 8px 16px;
+  width: $width;
+  height: $height;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  border-radius: 2px;
+  &:focus{
+    border: 1px solid color.$blue;
+  }
+
+  background-color: color.$white;
+  
+  &::placeholder{ 
+    @include font.regular(16px){
+      color: color.$medium-gray;
+    }
+  }
+
+  @content;
+}
 
 // body
 .task_body{
   padding: 24px 32px;
   @include mediaquery.mediaquery-mobile{
-    padding: 24px 78px 24px 72px;
+    padding: 24px 75px 24px 72px;
   }
   border-top: 3px solid color.$medium-gray;
 
@@ -18,19 +40,16 @@
       margin-top: 24px;
     }
     display: flex;
-    align-items: baseline;
+    flex-wrap: wrap;
 
     font-size: 0; // 消除<i>inline-block間距
   }
 
-  &_icon{
+  i{
     margin-right: 8px;
-    font-size: 16px;
-  }
 
-  &_content{
-    display: flex;
-    flex-wrap: wrap;
+    vertical-align: middle;
+    font-size: 16px;
   }
 
   &_subtitle{
@@ -38,16 +57,24 @@
 
     flex: 1 0 100%;
 
-    @include font.subtitle;
+    span{
+      vertical-align: middle;
+      @include font.medium(20px);
+    }
+  }
+
+  &_content{
+    margin-left: 0;
+    @include mediaquery.mediaquery-mobile{
+      margin-left: 28px;
+    }
   }
 }
 
 // body-deadline
 .deadline{
   input{
-    @include input-style.input(162px, 35px){
-      background-color: color.$white;
-    }
+    @include input(162px, 35px);
 
     &:nth-of-type(1){
       margin-bottom: 8px;
@@ -61,26 +88,34 @@
 
 // body-upload file
 .file{
-  &_content{
-    display: flex;
-    align-items: center;
-  }
-  &_info{
-    margin-right: 24px;
-  }
-  &_name{
-    @include font.basic{
-      color: color.$black;
-    }
-  }
-  &_date{
-    @include font.basic{
-      color: color.$dark-gray;
-    }
-  }
+  // &_content{
+  //   display: flex;
+  //   align-items: center;
+  // }
+  // &_info{
+  //   margin-right: 24px;
+  // }
+  // &_name{
+  //   @include font.regular(16px){
+  //     color: color.$black;
+  //   }
+  // }
+  // &_date{
+  //   @include font.regular(16px){
+  //     color: color.$dark-gray;
+  //   }
+  // }
 
   &_upload{
+    display: block;
     position: relative;
+
+    @include input(32px, 32px){
+      background-color: color.$medium-gray;
+    }
+    &:hover{
+      background-color: color.$blue;
+    }
 
     i{
       @include position.position-absolute(0, 0, 0, 0);
@@ -89,19 +124,9 @@
       font-size: 10px;
       color: color.$white;
     }
-    
-    input{
-      @include input-style.input(32px, 32px){
-        background-color: color.$medium-gray;
-      }
 
-      &:hover{
-        background-color: color.$blue;
-      }
-  
-      &:focus{
-        outline: none;
-      }
+    input{
+      display: none;
     }
   }
 }
@@ -110,23 +135,16 @@
 .comment{
   textarea{
     resize: none;
-    @include input-style.input(100%, 120px){
-      background-color: color.$white;
-    }
-    
-    @include font.basic{
-      color: color.$black;
-    }
+    @include input(100%, 120px);
 
-    &:focus{
-      outline: 2px solid color.$blue;
+    @include font.regular(16px){
+      color: color.$black;
     }
   }
 }
 
 // footer
 .task_footer{
-  margin-bottom: 8px;
   display: flex;
   flex-direction: column;
   @include mediaquery.mediaquery-mobile{
@@ -137,7 +155,6 @@
   font-size: 0;
 
   button{
-    padding: 0;
     border: none;
     border-right: 0;
 
@@ -162,8 +179,7 @@
     &:hover{
       background-color: color.$hover-white;
     }
-
-    @include font.status(normal){
+    @include font.regular(24px){
       color: color.$red;
     }
   }
@@ -173,8 +189,7 @@
     &:hover{
       background-color: color.$hover-blue;
     }
-    
-    @include font.status(normal){
+    @include font.regular(24px){
       color: color.$white;
     }
   }

@@ -5,78 +5,41 @@
 
 nav{
   margin: 0 auto;
+  padding: 0 20px;
+  max-width: 660px;
   height: 76px;
-  position: relative;
   box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 
-  @include mediaquery.mediaquery-mobile{
-    max-width: 660px;
-  }
+  display: flex;
 }
 
 // nav item
 .nav{
   &_link{
-    margin: 0 40px;
-    @include mediaquery.mediaquery-mobile{
-      margin: 0 10px;
-    }
-
-    padding: 24px 20px;
+    height: 76px;
     box-sizing: border-box;
     flex: 1 0 0;
-  
+    
+    line-height: 76px;
     text-align: center;
-    @include font.status(normal){
+
+    @include font.regular(16px){
       color: color.$dark-blue;
     }
-  
-    @include mediaquery.mediaquery-mobile{
-      &:hover{
-        border-bottom: 5px solid color.$dark-blue;
-        @include font.title{
-          color: color.$white;
-        }
-      }
-    }
 
-    &:nth-child(1), &:nth-child(3){
-      display: none;
-      @include mediaquery.mediaquery-mobile{
-        display: block;
-      }
-    }
-  }
-}
-
-// nav controller
-.nav_control{
-  display: block;
-  @include mediaquery.mediaquery-mobile{
-    display: none;
-  }
-  &:hover{
-    border-bottom: 5px solid color.$dark-blue;
-  }
-  
-  &_prev{
-    @include position.position-absolute(0, auto, 0, 0);
-  }
-  &_next{
-    @include position.position-absolute(0, 0, 0, auto);
-  }
-
-  &_arrow{
-    padding: 24px 20px;
-    
-    font-size: 24px;
-    line-height: 1.2;
-    color: color.$dark-blue;
     &:hover{
-      color: color.$white;
+      border-bottom: 5px solid color.$dark-blue;
+      @include font.medium(16px){
+        color: color.$white;
+      }
+    }
+
+    @include mediaquery.mediaquery-mobile{
+      @include font.regular(24px);
+
+      &:hover{
+        @include font.medium(24px);
+      }
     }
   }
 }
