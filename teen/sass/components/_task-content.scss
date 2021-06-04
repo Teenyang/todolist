@@ -4,7 +4,7 @@
 @use '../utilities/position';
 
 // input-style
-@mixin input($width, $height){
+@mixin input($width, $height) {
   padding: 8px 16px;
   width: $width;
   height: $height;
@@ -12,14 +12,14 @@
   outline: none;
   border: none;
   border-radius: 2px;
-  &:focus{
+  &:focus {
     border: 1px solid color.$blue;
   }
 
   background-color: color.$white;
-  
-  &::placeholder{ 
-    @include font.regular(16px){
+
+  &::placeholder {
+    @include font.regular(16px) {
       color: color.$medium-gray;
     }
   }
@@ -28,15 +28,15 @@
 }
 
 // body
-.task_body{
+.task_body {
   padding: 24px 32px;
-  @include mediaquery.mediaquery-mobile{
+  @include mediaquery.mediaquery-tablet {
     padding: 24px 75px 24px 72px;
   }
   border-top: 3px solid color.$medium-gray;
 
-  &_item{
-    &:not(:first-child){
+  &_item {
+    &:not(:first-child) {
       margin-top: 24px;
     }
     display: flex;
@@ -45,41 +45,41 @@
     font-size: 0; // 消除<i>inline-block間距
   }
 
-  i{
+  i {
     margin-right: 8px;
 
     vertical-align: middle;
     font-size: 16px;
   }
 
-  &_subtitle{
+  &_subtitle {
     margin-bottom: 8px;
 
     flex: 1 0 100%;
 
-    span{
+    span {
       vertical-align: middle;
       @include font.medium(20px);
     }
   }
 
-  &_content{
+  &_content {
     margin-left: 0;
-    @include mediaquery.mediaquery-mobile{
+    @include mediaquery.mediaquery-tablet {
       margin-left: 28px;
     }
   }
 }
 
 // body-deadline
-.deadline{
-  input{
+.deadline {
+  input {
     @include input(162px, 35px);
 
-    &:nth-of-type(1){
+    &:nth-of-type(1) {
       margin-bottom: 8px;
       margin-right: 8px;
-      @include mediaquery.mediaquery-mobile{
+      @include mediaquery.mediaquery-tablet {
         margin-bottom: 0;
       }
     }
@@ -87,7 +87,7 @@
 }
 
 // body-upload file
-.file{
+.file {
   // &_content{
   //   display: flex;
   //   align-items: center;
@@ -106,18 +106,18 @@
   //   }
   // }
 
-  &_upload{
+  &_upload {
     display: block;
     position: relative;
 
-    @include input(32px, 32px){
+    @include input(32px, 32px) {
       background-color: color.$medium-gray;
     }
-    &:hover{
+    &:hover {
       background-color: color.$blue;
     }
 
-    i{
+    i {
       @include position.position-absolute(0, 0, 0, 0);
       width: 10px;
       height: 10px;
@@ -125,71 +125,71 @@
       color: color.$white;
     }
 
-    input{
+    input {
       display: none;
     }
   }
 }
 
 // body-comment
-.comment{
-  textarea{
+.comment {
+  textarea {
     resize: none;
     @include input(100%, 120px);
 
-    @include font.regular(16px){
+    @include font.regular(16px) {
       color: color.$black;
     }
   }
 }
 
 // footer
-.task_footer{
+.task_footer {
   display: flex;
   flex-direction: column;
-  @include mediaquery.mediaquery-mobile{
+  @include mediaquery.mediaquery-tablet {
     flex-direction: row;
     height: 60px;
   }
 
   font-size: 0;
 
-  button{
+  button {
     border: none;
     border-right: 0;
 
     flex: 1 0 60px;
-    @include mediaquery.mediaquery-mobile{ 
+    @include mediaquery.mediaquery-tablet {
       flex: 1 0 0;
     }
 
-    &:focus{
+    &:focus {
       outline: none;
     }
   }
 
-  i{
+  i {
     margin-right: 16px;
   }
 }
 
-.task_button{
-  &_cancel{
+.task_button {
+  &_cancel {
     background-color: color.$white;
-    &:hover{
+    &:hover {
       background-color: color.$hover-white;
     }
-    @include font.regular(24px){
+    @include font.regular(24px) {
       color: color.$red;
     }
   }
-  
-  &_plus{
+
+  &_plus {
     background-color: color.$blue;
-    &:hover{
+    &:hover {
       background-color: color.$hover-blue;
     }
-    @include font.regular(24px){
+    @include font.regular(24px) {
       color: color.$white;
     }
   }

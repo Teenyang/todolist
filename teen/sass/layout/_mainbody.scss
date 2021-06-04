@@ -4,68 +4,68 @@
 @use '../components/task-content';
 
 // background-theme
-body{
+body {
   @extend %main-background;
 }
-.task_body{
+.task_body {
   // overflow: scroll;
   @extend %task-normal-background;
 }
 // container
-.container{
+.container {
   margin: 0 auto;
   padding: 24px 20px;
-
+  width: 100%;
   max-width: 660px;
 }
 
-
 // tast type: task_all, task_progress, task_completed
 // status: task_status
-.task_all, .task_progress{
-  .task_status_normal{
+.task_all,
+.task_progress {
+  .task_status_normal {
     display: inline;
   }
-  .task_status_completed{
+  .task_status_completed {
     display: none;
   }
 }
 
-.task_completed{
-  .task_status_normal{
+.task_completed {
+  .task_status_normal {
     display: none;
   }
-  .task_status_completed{
+  .task_status_completed {
     display: inline;
   }
 }
-
 
 // task-card: task(normal), task_important, task_done
 // each task-card spacing
-.task:not(:nth-child(5)){
+.task:not(:nth-child(5)) {
   margin-top: 8px;
 }
 
 // status: marker_link icon
 // 點擊".icon_checkbox"，增加".task_done"
-.task, .task.task_done{
+.task,
+.task.task_done {
   @extend %task-normal-background;
-  .marker_link_star{
+  .marker_link_star {
     display: inline-block;
   }
-  .marker_link_fullstar{
+  .marker_link_fullstar {
     display: none;
   }
 }
 
 // 點擊".marker_link_fullstar"，增加".task_important"
-.task.task_important{
+.task.task_important {
   @extend %task-star-background;
-  .marker_link_star{
+  .marker_link_star {
     display: none;
   }
-  .marker_link_fullstar{
+  .marker_link_fullstar {
     display: inline-block;
   }
 }
@@ -78,63 +78,63 @@ body{
 // (1)點擊".task_button_add" --> 增加".exist_task"，刪除".add_task"及".task_edit_mode"
 // (2)點擊".task_button_save" --> 刪除".task_edit_mode"
 // (3)點擊".task_button_cancel" --> 刪除".task_edit_mode"
-.add_task{
-  &:focus{
+.add_task {
+  &:focus {
     display: none;
   }
 
-  ~ .task{
+  ~ .task {
     display: none;
 
-    &.task_edit_mode{
+    &.task_edit_mode {
       display: block;
 
-      .marker_link_edit{
+      .marker_link_edit {
         display: inline-block;
       }
-      .marker_link_pen{
+      .marker_link_pen {
         display: none;
       }
-      .task_button_add{
+      .task_button_add {
         display: block;
       }
-      .task_button_save{
+      .task_button_save {
         display: none;
       }
     }
   }
 }
 
-.exist_task{
+.exist_task {
   display: none;
 
-  ~ .task{
+  ~ .task {
     display: block;
 
-    .marker_link_edit{
+    .marker_link_edit {
       display: none;
     }
-    .marker_link_pen{
+    .marker_link_pen {
       display: inline-block;
     }
-    .task_edit_group{
+    .task_edit_group {
       display: none;
     }
 
-    &.task_edit_mode{
-      .marker_link_edit{
+    &.task_edit_mode {
+      .marker_link_edit {
         display: inline-block;
       }
-      .marker_link_pen{
+      .marker_link_pen {
         display: none;
       }
-      .task_edit_group{
+      .task_edit_group {
         display: block;
       }
-      .task_button_add{
+      .task_button_add {
         display: none;
       }
-      .task_button_save{
+      .task_button_save {
         display: block;
       }
     }
@@ -143,8 +143,9 @@ body{
 
 // status: record_link icon
 // 在編輯模式及完成任務的情況下，不顯示.record_group
-.task_edit_mode, .task_done{
-  .record_group{
+.task_edit_mode,
+.task_done {
+  .record_group {
     display: none;
   }
 }

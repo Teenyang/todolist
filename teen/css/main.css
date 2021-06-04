@@ -27,7 +27,8 @@ body {
   background-color: #E1E1E1;
 }
 
-.task_body, .task, .task.task_done {
+.task_body, .task,
+.task.task_done {
   background-color: #F2F2F2;
 }
 
@@ -37,18 +38,15 @@ body {
 
 nav {
   margin: 0 auto;
-  padding: 0 20px;
   max-width: 660px;
-  height: 76px;
-  box-sizing: border-box;
   display: flex;
 }
 
 .nav_link {
   height: 76px;
+  line-height: 76px;
   box-sizing: border-box;
   flex: 1 0 0;
-  line-height: 76px;
   text-align: center;
   font-family: "Roboto", sans-serif;
   font-size: 1rem;
@@ -437,13 +435,16 @@ header {
 .container {
   margin: 0 auto;
   padding: 24px 20px;
+  width: 100%;
   max-width: 660px;
 }
 
-.task_all .task_status_normal, .task_progress .task_status_normal {
+.task_all .task_status_normal,
+.task_progress .task_status_normal {
   display: inline;
 }
-.task_all .task_status_completed, .task_progress .task_status_completed {
+.task_all .task_status_completed,
+.task_progress .task_status_completed {
   display: none;
 }
 
@@ -458,10 +459,12 @@ header {
   margin-top: 8px;
 }
 
-.task .marker_link_star, .task.task_done .marker_link_star {
+.task .marker_link_star,
+.task.task_done .marker_link_star {
   display: inline-block;
 }
-.task .marker_link_fullstar, .task.task_done .marker_link_fullstar {
+.task .marker_link_fullstar,
+.task.task_done .marker_link_fullstar {
   display: none;
 }
 
@@ -525,8 +528,13 @@ header {
   display: block;
 }
 
-.task_edit_mode .record_group, .task_done .record_group {
+.task_edit_mode .record_group,
+.task_done .record_group {
   display: none;
+}
+
+* {
+  outline: 1px solid red;
 }
 
 /*# sourceMappingURL=main.css.map */

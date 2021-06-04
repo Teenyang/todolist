@@ -3,20 +3,21 @@
 @use '../utilities/mediaquery';
 @use '../utilities/position';
 
-.task{
-  &_card{
+.task {
+  &_card {
     padding: 24px 32px;
   }
 
-  &_info{
+  &_info {
     display: flex;
     flex-wrap: wrap;
   }
 
-  &_checkbox, &_icon_check{
+  &_checkbox,
+  &_icon_check {
     display: none;
   }
-  &_checkbox_label{
+  &_checkbox_label {
     margin-right: 16px;
     width: 24px;
     height: 24px;
@@ -26,40 +27,40 @@
     background-color: color.$white;
   }
 
-  &_message{
+  &_message {
     margin-top: 8px;
     flex: 1 0 100%;
     order: 3;
-    @include mediaquery.mediaquery-mobile{
+    @include mediaquery.mediaquery-tablet {
       margin-top: 0;
       flex: 1 0 0;
       order: 2;
     }
-    
+
     outline: none;
     border: none;
     background-color: transparent;
-    
+
     resize: none;
-    
-    &, &::placeholder{
-      @include font.medium(20px){
+
+    &,
+    &::placeholder {
+      @include font.medium(20px) {
         color: color.$black;
       }
-      @include mediaquery.mediaquery-mobile{
+      @include mediaquery.mediaquery-tablet {
         @include font.medium(24px);
       }
     }
   }
-    
 
   // 點擊".icon_checkbox"，增加".task_done"
-  &_done{
-    .task_checkbox_label{
+  &_done {
+    .task_checkbox_label {
       background-color: color.$blue;
     }
-    
-    .task_icon_check{
+
+    .task_icon_check {
       width: 14px;
       height: 14px;
 
@@ -70,10 +71,10 @@
       color: color.$white;
     }
 
-    .task_message{
+    .task_message {
       text-decoration: line-through;
-      
-      &::placeholder{
+
+      &::placeholder {
         color: color.$dark-gray;
       }
     }
@@ -81,18 +82,18 @@
 }
 
 // beside the task_info
-.marker{
-  &_group{
+.marker {
+  &_group {
     margin-left: auto;
-    
+
     order: 2;
-    @include mediaquery.mediaquery-mobile{
+    @include mediaquery.mediaquery-tablet {
       order: 3;
     }
-    
+
     font-size: 0; // 消除<i>inline-block間距
 
-    button{
+    button {
       margin-left: 32px;
       outline: none;
       border: none;
@@ -100,27 +101,27 @@
       cursor: pointer;
     }
 
-    i{
+    i {
       font-size: 24px;
     }
   }
 }
-.marker_link_fullstar{
-  i{
+.marker_link_fullstar {
+  i {
     color: color.$yellow;
   }
 }
-.marker_link_edit{
-  i{
+.marker_link_edit {
+  i {
     color: color.$blue;
   }
 }
 
 // under the task_info
-.record{
-  &_group{
+.record {
+  &_group {
     margin-top: 16px;
-    @include mediaquery.mediaquery-mobile{
+    @include mediaquery.mediaquery-tablet {
       margin-left: 40px;
     }
 
@@ -128,19 +129,19 @@
 
     font-size: 0; // 消除<i>inline-block間距
 
-    i{
-      &:not(:first-child){
+    i {
+      &:not(:first-child) {
         margin-left: 16px;
       }
-      
+
       font-size: 16px;
       color: color.$dark-gray;
     }
 
-    span{
+    span {
       margin-left: 8px;
-      
-      @include font.regular(16px){
+
+      @include font.regular(16px) {
         color: color.$dark-gray;
       }
     }
@@ -148,11 +149,11 @@
 }
 
 // bottom: task status
-.task_status{
+.task_status {
   margin-top: 24px;
   padding: 0 32px;
 
-  @include font.regular(24px){
+  @include font.regular(24px) {
     color: color.$medium-gray;
     font-style: italic;
   }

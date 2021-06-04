@@ -3,41 +3,36 @@
 @use '../utilities/font';
 @use '../utilities/position';
 
-nav{
+nav {
   margin: 0 auto;
-  padding: 0 20px;
   max-width: 660px;
-  height: 76px;
-  box-sizing: border-box;
 
   display: flex;
 }
 
 // nav item
-.nav{
-  &_link{
+.nav {
+  &_link {
     height: 76px;
-    box-sizing: border-box;
-    flex: 1 0 0;
-    
     line-height: 76px;
+    box-sizing: border-box;
+
+    flex: 1 0 0;
     text-align: center;
 
-    @include font.regular(16px){
+    @include font.regular(16px) {
       color: color.$dark-blue;
     }
-
-    &:hover{
+    &:hover {
       border-bottom: 5px solid color.$dark-blue;
-      @include font.medium(16px){
+      @include font.medium(16px) {
         color: color.$white;
       }
     }
 
-    @include mediaquery.mediaquery-mobile{
+    @include mediaquery.mediaquery-tablet {
       @include font.regular(24px);
-
-      &:hover{
+      &:hover {
         @include font.medium(24px);
       }
     }
