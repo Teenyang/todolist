@@ -23,6 +23,10 @@ header {
   background-color: #4A90E2;
 }
 
+body {
+  background-color: #E1E1E1;
+}
+
 .task_body, .task,
 .task.task_done {
   background-color: #F2F2F2;
@@ -30,6 +34,13 @@ header {
 
 .task.task_important {
   background-color: #FFF2DC;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 24px 20px;
+  width: 100%;
+  max-width: 660px;
 }
 
 .nav_link {
@@ -433,22 +444,6 @@ nav {
   background-color: #3982D7;
 }
 
-.task_all .task_status_normal,
-.task_progress .task_status_normal {
-  display: inline;
-}
-.task_all .task_status_completed,
-.task_progress .task_status_completed {
-  display: none;
-}
-
-.task_completed .task_status_normal {
-  display: none;
-}
-.task_completed .task_status_completed {
-  display: inline;
-}
-
 .task:not(:nth-child(5)) {
   margin-top: 8px;
 }
@@ -525,6 +520,22 @@ nav {
 .task_edit_mode .record_group,
 .task_done .record_group {
   display: none;
+}
+
+.task_all .task_status_normal,
+.task_progress .task_status_normal {
+  display: inline;
+}
+.task_all .task_status_completed,
+.task_progress .task_status_completed {
+  display: none;
+}
+
+.task_completed .task_status_normal {
+  display: none;
+}
+.task_completed .task_status_completed {
+  display: inline;
 }
 
 * {

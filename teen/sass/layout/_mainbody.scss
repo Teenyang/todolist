@@ -8,27 +8,6 @@
   @extend %task-normal-background;
 }
 
-// tast type: task_all, task_progress, task_completed
-// status: task_status
-.task_all,
-.task_progress {
-  .task_status_normal {
-    display: inline;
-  }
-  .task_status_completed {
-    display: none;
-  }
-}
-
-.task_completed {
-  .task_status_normal {
-    display: none;
-  }
-  .task_status_completed {
-    display: inline;
-  }
-}
-
 // task-card: task(normal), task_important, task_done
 // each task-card spacing
 .task:not(:nth-child(5)) {
