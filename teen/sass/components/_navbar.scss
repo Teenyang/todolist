@@ -3,38 +3,22 @@
 @use '../utilities/font';
 @use '../utilities/position';
 
-nav {
-  margin: 0 auto;
-  max-width: 660px;
-
-  display: flex;
+%nav-title {
+  @include font.regular(16px) {
+    color: color.$dark-blue;
+  }
+  @include mediaquery.mediaquery-tablet {
+    @include font.regular(24px);
+  }
 }
 
-// nav item
-.nav {
-  &_link {
-    height: 76px;
-    line-height: 76px;
-    box-sizing: border-box;
+%nav-title-hover {
+  border-bottom: 5px solid color.$dark-blue;
 
-    flex: 1 0 0;
-    text-align: center;
-
-    @include font.regular(16px) {
-      color: color.$dark-blue;
-    }
-    &:hover {
-      border-bottom: 5px solid color.$dark-blue;
-      @include font.medium(16px) {
-        color: color.$white;
-      }
-    }
-
-    @include mediaquery.mediaquery-tablet {
-      @include font.regular(24px);
-      &:hover {
-        @include font.medium(24px);
-      }
-    }
+  @include font.medium(16px) {
+    color: color.$white;
+  }
+  @include mediaquery.mediaquery-tablet {
+    @include font.medium(24px);
   }
 }

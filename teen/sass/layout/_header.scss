@@ -1,7 +1,7 @@
 @use '../components/background-theme';
 @use '../components/navbar';
 
-header{
+header {
   position: sticky;
   top: 0;
   left: 0;
@@ -9,4 +9,28 @@ header{
   z-index: 1;
 
   @extend %nav-background;
+}
+
+nav {
+  margin: 0 auto;
+  max-width: 660px;
+
+  display: flex;
+}
+
+// nav item
+.nav {
+  &_link {
+    height: 76px;
+    line-height: 76px;
+    box-sizing: border-box;
+
+    flex: 1 0 0;
+    text-align: center;
+
+    @extend %nav-title;
+    &:hover {
+      @extend %nav-title-hover;
+    }
+  }
 }

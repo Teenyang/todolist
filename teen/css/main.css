@@ -36,23 +36,20 @@ body {
   background-color: #FFF2DC;
 }
 
-nav {
-  margin: 0 auto;
-  max-width: 660px;
-  display: flex;
-}
-
 .nav_link {
-  height: 76px;
-  line-height: 76px;
-  box-sizing: border-box;
-  flex: 1 0 0;
-  text-align: center;
   font-family: "Roboto", sans-serif;
   font-size: 1rem;
   font-weight: 400;
   color: #00408B;
 }
+@media (min-width: 576px) {
+  .nav_link {
+    font-family: "Roboto", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+  }
+}
+
 .nav_link:hover {
   border-bottom: 5px solid #00408B;
   font-family: "Roboto", sans-serif;
@@ -61,11 +58,6 @@ nav {
   color: #FFFFFF;
 }
 @media (min-width: 576px) {
-  .nav_link {
-    font-family: "Roboto", sans-serif;
-    font-size: 1.5rem;
-    font-weight: 400;
-  }
   .nav_link:hover {
     font-family: "Roboto", sans-serif;
     font-size: 1.5rem;
@@ -81,6 +73,19 @@ header {
   z-index: 1;
 }
 
+nav {
+  margin: 0 auto;
+  max-width: 660px;
+  display: flex;
+}
+
+.nav_link {
+  height: 76px;
+  line-height: 76px;
+  box-sizing: border-box;
+  flex: 1 0 0;
+  text-align: center;
+}
 .add_task {
   margin-bottom: 24px;
   position: relative;
