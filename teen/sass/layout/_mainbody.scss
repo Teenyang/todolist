@@ -3,20 +3,9 @@
 @use '../components/task-card';
 @use '../components/task-content';
 
-// background-theme
-body {
-  @extend %main-background;
-}
 .task_body {
   // overflow: scroll;
   @extend %task-normal-background;
-}
-// container
-.container {
-  margin: 0 auto;
-  padding: 24px 20px;
-  width: 100%;
-  max-width: 660px;
 }
 
 // tast type: task_all, task_progress, task_completed

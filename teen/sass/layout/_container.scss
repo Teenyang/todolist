@@ -1,0 +1,14 @@
+@use '../components/background-theme';
+
+// body
+body {
+  @extend %main-background;
+}
+
+// main
+.container {
+  margin: 0 auto;
+  padding: 24px 20px;
+  width: 100%;
+  max-width: 660px;
+}

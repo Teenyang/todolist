@@ -23,10 +23,6 @@ header {
   background-color: #4A90E2;
 }
 
-body {
-  background-color: #E1E1E1;
-}
-
 .task_body, .task,
 .task.task_done {
   background-color: #F2F2F2;
@@ -435,13 +431,6 @@ nav {
 }
 .task_button_plus:hover {
   background-color: #3982D7;
-}
-
-.container {
-  margin: 0 auto;
-  padding: 24px 20px;
-  width: 100%;
-  max-width: 660px;
 }
 
 .task_all .task_status_normal,
