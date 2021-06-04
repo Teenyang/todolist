@@ -93,18 +93,18 @@ nav {
   flex: 1 0 0;
   text-align: center;
 }
-.add_task {
-  margin-bottom: 24px;
-  position: relative;
-}
 .add_task input {
-  padding: 10px 0 0 67px;
+  padding: 16.5px;
+  padding-left: 67px;
   width: 100%;
-  height: 65px;
   box-sizing: border-box;
   border: 2px solid #C8C8C8;
   border-radius: 5px;
   background-color: #FFFFFF;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #000000;
 }
 .add_task input::placeholder {
   font-family: "Roboto", sans-serif;
@@ -112,19 +112,27 @@ nav {
   font-weight: 400;
   color: #C8C8C8;
 }
+
 .add_task i {
   width: 20px;
-  height: 20px;
   margin: auto;
   position: absolute;
-  top: 0;
+  top: 50%;
   right: auto;
-  bottom: 0;
+  bottom: auto;
   left: 32px;
+  transform: translateY(-50%);
+  vertical-align: top;
   font-size: 24px;
   color: #C8C8C8;
 }
 
+.add_task {
+  margin-bottom: 24px;
+}
+.add_task form {
+  position: relative;
+}
 .task_card {
   padding: 24px 32px;
 }

@@ -1,0 +1,23 @@
+@use '../utilities/font';
+@use '../utilities/color';
+
+%add-input {
+  padding: 16.5px;
+  padding-left: 67px;
+  width: 100%;
+  box-sizing: border-box;
+
+  border: 2px solid color.$medium-gray;
+  border-radius: 5px;
+  background-color: color.$white;
+
+  @include font.regular(24px) {
+    color: color.$black;
+  }
+
+  &::placeholder {
+    @include font.regular(24px) {
+      color: color.$medium-gray;
+    }
+  }
+}

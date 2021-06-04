@@ -1,0 +1,14 @@
+@use '../utilities/font';
+@use '../utilities/color';
+@use '../utilities/position';
+
+%add-icon {
+  width: 20px;
+
+  @include position.position-absolute(50%, auto, auto, 32px);
+  transform: translateY(-50%);
+  vertical-align: top;
+
+  font-size: 24px;
+  color: color.$medium-gray;
+}

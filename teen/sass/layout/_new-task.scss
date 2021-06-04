@@ -1,0 +1,18 @@
+@use '../components/input-style';
+@use '../components/icon';
+
+.add_task {
+  margin-bottom: 24px;
+
+  form {
+    position: relative;
+  }
+
+  input {
+    @extend %add-input;
+  }
+
+  i {
+    @extend %add-icon;
+  }
+}
