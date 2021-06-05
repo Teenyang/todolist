@@ -29,12 +29,6 @@
 
 // body
 .task_body {
-  padding: 24px 32px;
-  @include mediaquery.mediaquery-tablet {
-    padding: 24px 75px 24px 72px;
-  }
-  border-top: 3px solid color.$medium-gray;
-
   &_item {
     &:not(:first-child) {
       margin-top: 24px;

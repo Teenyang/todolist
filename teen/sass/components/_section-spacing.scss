@@ -1,0 +1,23 @@
+@use '../utilities/color';
+@use '../utilities/mediaquery';
+
+%task-header-spacing {
+  padding: 24px 32px;
+
+  &.more_info {
+    padding-bottom: 16px;
+  }
+
+  .info_group {
+    margin-top: 16px;
+  }
+}
+
+%task-body-spacing {
+  padding: 24px 32px;
+  @include mediaquery.mediaquery-tablet {
+    padding: 24px 78px 24px 72px;
+  }
+
+  border-top: 3px solid color.$medium-gray;
+}

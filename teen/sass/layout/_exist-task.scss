@@ -1,11 +1,12 @@
 @use '../components/background-theme';
+@use '../components/section-spacing';
 @use '../components/input-style';
 @use '../components/textarea';
 @use '../components/icon';
 @use '../components/task-content';
 
 .task_header {
-  padding: 24px 32px;
+  @extend %task-header-spacing;
 
   // main form
   form {
@@ -42,11 +43,7 @@
   }
 
   &.more_info {
-    padding-bottom: 16px;
-
     .info_group {
-      margin-top: 16px;
-
       @extend %record-icon;
       display: flex;
       align-items: center;
@@ -59,8 +56,9 @@
 }
 
 .task_body {
-  // overflow: scroll;
+  @extend %task-body-spacing;
   @extend %task-normal-background;
+  // overflow: scroll;
 }
 
 // task-card: task(normal), task_important, task_done
