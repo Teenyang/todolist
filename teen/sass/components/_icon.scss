@@ -1,6 +1,7 @@
 @use '../utilities/font';
 @use '../utilities/color';
 @use '../utilities/position';
+@use '../utilities/mediaquery';
 
 %add-icon {
   width: 20px;
@@ -11,4 +12,60 @@
 
   font-size: 24px;
   color: color.$medium-gray;
+}
+
+// task-header
+%marker-icon {
+  margin-left: auto;
+  order: 2;
+  @include mediaquery.mediaquery-tablet {
+    order: 3;
+  }
+
+  button {
+    width: 24px;
+    height: 24px;
+  }
+  button:first-child {
+    margin-left: 16px;
+  }
+  button + button {
+    margin-left: 32px;
+  }
+
+  .marker_general {
+    color: color.$black;
+  }
+  .marker_major {
+    color: color.$yellow;
+  }
+  .marker_edit {
+    color: color.$blue;
+  }
+
+  i {
+    font-size: 24px;
+  }
+}
+
+// task-header
+%record-icon {
+  @include mediaquery.mediaquery-tablet {
+    margin-left: 40px;
+  }
+
+  span {
+    @include font.regular(16px) {
+      color: color.$heavy-gray;
+    }
+
+    i {
+      margin-right: 8px;
+    }
+  }
+
+  i {
+    font-size: 18px;
+    color: color.$heavy-gray;
+  }
 }

@@ -21,3 +21,36 @@
     }
   }
 }
+
+%check-input {
+  display: none;
+
+  & ~ label {
+    margin-right: 16px;
+    width: 24px;
+    height: 24px;
+    text-align: center;
+
+    background-color: color.$white;
+    cursor: pointer;
+
+    i {
+      vertical-align: middle;
+
+      font-size: 14px;
+      color: color.$white;
+    }
+  }
+
+  &:checked ~ label {
+    background-color: color.$blue;
+  }
+
+  &:checked ~ textarea {
+    text-decoration: line-through color.$dark-gray;
+
+    &::placeholder {
+      color: color.$dark-gray;
+    }
+  }
+}

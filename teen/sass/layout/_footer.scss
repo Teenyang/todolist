@@ -1,3 +1,16 @@
+@use '../utilities/color';
+@use '../utilities/font';
+// bottom: task status
+.task_status {
+  margin-top: 24px;
+  padding: 0 32px;
+
+  @include font.regular(24px) {
+    color: color.$medium-gray;
+    font-style: italic;
+  }
+}
+
 // tast type: task_all, task_progress, task_completed
 // status: task_status
 .task_all,

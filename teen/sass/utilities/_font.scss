@@ -1,9 +1,9 @@
 // ------ Medium font-weight: 500 ------
 // Title: Roboto Medium 24px
 // Subtitle: Roboto Medium 20px
-@mixin medium($size){
-  font-family: 'Roboto', sans-serif;
-  font-size: #{$size/16px}rem;  // 1rem = 16px
+@mixin medium($size) {
+  font-family: "Roboto", sans-serif;
+  font-size: #{$size/16px}rem; // 1rem = 16px
   font-weight: 500;
   @content;
 }
@@ -11,9 +11,9 @@
 // ------ Regular font-weight: 400 ------
 // Status: Roboto Italic 24px
 // Paragraph: Roboto Regular 16px (black)
-// Remark/Placeholder: Roboto Regular 16px (dark-gray)
-@mixin regular($size){
-  font-family: 'Roboto', sans-serif;
+// Remark/Placeholder: Roboto Regular 16px (heavy-gray)
+@mixin regular($size) {
+  font-family: "Roboto", sans-serif;
   font-size: #{$size/16px}rem;
   font-weight: 400;
   @content;

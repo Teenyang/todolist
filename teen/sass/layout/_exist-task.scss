@@ -1,6 +1,62 @@
 @use '../components/background-theme';
-@use '../components/task-card';
+@use '../components/input-style';
+@use '../components/textarea';
+@use '../components/icon';
 @use '../components/task-content';
+
+.task_header {
+  padding: 24px 32px;
+
+  // main form
+  form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  input {
+    @extend %check-input;
+  }
+
+  textarea {
+    @extend %header-text;
+    resize: none;
+  }
+
+  .marker_group {
+    @extend %marker-icon;
+    font-size: 0; // 消除<i>inline-block間距
+
+    button {
+      display: none;
+    }
+    button.show {
+      display: inline-block;
+    }
+  }
+
+  // task info
+  .info_group,
+  .info_group > * {
+    display: none;
+  }
+
+  &.more_info {
+    padding-bottom: 16px;
+
+    .info_group {
+      margin-top: 16px;
+
+      @extend %record-icon;
+      display: flex;
+      align-items: center;
+    }
+
+    .show {
+      display: inline-block;
+    }
+  }
+}
 
 .task_body {
   // overflow: scroll;
@@ -109,10 +165,10 @@
 }
 
 // status: record_link icon
-// 在編輯模式及完成任務的情況下，不顯示.record_group
+// 在編輯模式及完成任務的情況下，不顯示.info_group
 .task_edit_mode,
 .task_done {
-  .record_group {
+  .info_group {
     display: none;
   }
 }
