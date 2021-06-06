@@ -1,0 +1,25 @@
+@use '../utilities/color';
+@use '../utilities/font';
+@use '../utilities/mediaquery';
+@use '../utilities/position';
+
+%editor-title {
+  margin-bottom: 8px;
+
+  vertical-align: middle;
+
+  @include font.medium(20px);
+}
+
+%editor-content {
+  p {
+    @include font.regular(16px) {
+      color: color.$black;
+    }
+  }
+  span {
+    @include font.regular(16px) {
+      color: color.$heavy-gray;
+    }
+  }
+}

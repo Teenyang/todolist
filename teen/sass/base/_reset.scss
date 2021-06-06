@@ -7,12 +7,6 @@ div {
   box-sizing: border-box;
 }
 
-input,
-button,
-textarea {
-  padding: 0;
-}
-
 ul,
 li {
   list-style: none;
@@ -23,9 +17,22 @@ a {
   text-decoration: none;
 }
 
+label,
+input,
 button,
 textarea {
-  outline: none;
+  padding: 0;
+
   border: none;
   border-radius: 2px;
+
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+textarea {
+  resize: none;
 }

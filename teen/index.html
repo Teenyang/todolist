@@ -42,7 +42,7 @@
       <!----------- header ----------->
       <!-- <section class="task_header more_info"> -->
       <section class="task_header">
-        <form id="task-header-form">
+        <form id="task-title">
           <input type="checkbox" class="add_task" id="add-task">
           <label for="add-task"><i class="far fa-check"></i></label>
           <textarea name="task title" id="" rows="1" placeholder="Type Something Here..."></textarea>
@@ -62,47 +62,40 @@
         </div>
       </section>
 
-
       <!---------------- task content ---------------->
       <!----------- body ----------->
       <section class="task_body">
-        <form class="task_edit_group">
-          <div class="task_body_item deadline">
-            <p class="task_body_subtitle">
-              <i class="far fa-calendar-alt fa-fw"></i>
-              <span>Deadline</span>
-            </p>
-            <div class="task_body_content">
-              <!-- 用 JS 改變 focus 後的 input type: date -->
-              <input type="text" placeholder="yyyy/mm/dd" name="deadline date" class="deadline_date">
-              <!-- 用 JS 改變 focus 後的 input type: time -->
-              <input type="text" placeholder="hh:mm" name="deadline time" class="deadline_time">
+        <form id="task-edit">
+
+          <div class="edit_item deadline">
+            <label for="date time"><i class="far fa-calendar-alt fa-fw"></i>Deadline</label>
+            <div class="edit_content">
+              <input id="date" type="text" placeholder="yyyy/mm/dd" name="deadline-date">
+              <input id="time" type="text" placeholder="hh:mm" name="deadline-time">
             </div>
           </div>
-          <div class="task_body_item file">
-            <p class="task_body_subtitle">
-              <i class="far fa-file fa-fw"></i>
-              <span>File</span>
-            </p>
-            <div class="task_body_content">
-              <label class="file_upload">
-                <i class="fal fa-plus fa-fw"></i>
-                <!-- 用 JS 改變 focus 後的 input type: file -->
-                <input type="file" name="attached file" class="file_input">
-              </label>
+
+          <div class="edit_item file">
+            <label for="upload"><i class="far fa-file fa-fw"></i>File</label>
+            <div class="edit_content">
+              <div class="file_data">
+                <p>20180514.zip</p>
+                <span>uploaded yesterday</span>
+              </div>
+              <input id="upload" type="file" name="file-upload">
+              <label for="upload"><i class="fal fa-plus fa-fw"></i></label>
             </div>
           </div>
-          <div class="task_body_item comment">
-            <p class="task_body_subtitle">
-              <i class="far fa-comment-dots fa-fw"></i>
-              <span>Comment</span>
-            </p>
-            <div class="task_body_content">
+
+          <div class="edit_item comment">
+            <label for="text"><i class="far fa-comment-dots fa-fw"></i>Comment</label>
+            <div class="edit_content">
               <!-- 用 JS 設定雙擊後編輯 -->
-              <textarea name="comment" cols="60" rows="10" placeholder="Type your memo here…">meet him at Lorence Cafe
-                </textarea>
+              <textarea name="comment" cols="60" rows="10"
+                placeholder="Type your memo here…">meet him at Lorence Cafe</textarea>
             </div>
           </div>
+
         </form>
       </section>
 

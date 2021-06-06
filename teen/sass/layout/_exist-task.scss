@@ -3,8 +3,9 @@
 @use '../components/input-style';
 @use '../components/textarea';
 @use '../components/icon';
-@use '../components/task-content';
+@use '../components/editor';
 
+// TASK HEADER
 .task_header {
   @extend %task-header-spacing;
 
@@ -14,14 +15,11 @@
     flex-wrap: wrap;
     align-items: center;
   }
-
   input {
     @extend %check-input;
   }
-
   textarea {
     @extend %header-text;
-    resize: none;
   }
 
   .marker_group {
@@ -41,26 +39,76 @@
   .info_group > * {
     display: none;
   }
-
   &.more_info {
     .info_group {
       @extend %record-icon;
       display: flex;
       align-items: center;
     }
-
     .show {
       display: inline-block;
     }
   }
 }
 
+// TASK BODY
 .task_body {
   @extend %task-body-spacing;
   @extend %task-normal-background;
-  // overflow: scroll;
+
+  .edit_item + .edit_item {
+    margin-top: 24px;
+  }
+
+  .edit_item {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+
+    font-size: 0; // 消除inline-block間距
+
+    > label {
+      @extend %editor-title;
+
+      i {
+        @extend %editor-icon;
+      }
+    }
+  }
+
+  .edit_content {
+    margin-left: 28px;
+  }
+
+  .deadline input {
+    @include input-style.content-input(162px, 35px);
+    @extend %edit-date;
+  }
+
+  .file {
+    .edit_content {
+      display: flex;
+      align-items: center;
+    }
+    .file_data {
+      margin-right: 24px;
+      @extend %editor-content;
+    }
+    input {
+      @extend %edit-upload;
+    }
+  }
+
+  .comment textarea {
+    @include input-style.content-input(100%, 120px);
+  }
 }
 
+// old
+// old
+// old
+// old
+// old
 // task-card: task(normal), task_important, task_done
 // each task-card spacing
 .task:not(:nth-child(5)) {
