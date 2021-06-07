@@ -94,7 +94,7 @@
     background-color: color.$hover-white;
   }
 
-  @include font.regular(16px) {
+  @include font.regular(18px) {
     color: color.$red;
   }
   @include mediaquery.mediaquery-tablet {
@@ -108,7 +108,7 @@
     background-color: color.$hover-blue;
   }
 
-  @include font.regular(16px) {
+  @include font.regular(18px) {
     color: color.$white;
   }
   @include mediaquery.mediaquery-tablet {

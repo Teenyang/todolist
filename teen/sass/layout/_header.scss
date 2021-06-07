@@ -1,5 +1,6 @@
 @use '../components/background-theme';
 @use '../components/navbar';
+@use '../components/spacing';
 
 header {
   position: sticky;
@@ -21,9 +22,7 @@ nav {
 // nav item
 .nav {
   &_link {
-    height: 76px;
-    line-height: 76px;
-    box-sizing: border-box;
+    @extend %nav-link-spacing;
 
     flex: 1 0 0;
     text-align: center;
