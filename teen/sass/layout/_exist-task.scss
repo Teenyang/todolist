@@ -1,12 +1,21 @@
 @use '../components/background-theme';
-@use '../components/section-spacing';
+@use '../components/spacing';
 @use '../components/input-style';
 @use '../components/textarea';
-@use '../components/icon';
+@use '../components/icon-button';
 @use '../components/editor';
+
+// JS classList add & remove
+button {
+  display: none;
+}
+button.show {
+  display: inline-block;
+}
 
 // TASK HEADER
 .task_header {
+  @extend %task-general-background;
   @extend %task-header-spacing;
 
   // main form
@@ -25,13 +34,6 @@
   .marker_group {
     @extend %marker-icon;
     font-size: 0; // 消除<i>inline-block間距
-
-    button {
-      display: none;
-    }
-    button.show {
-      display: inline-block;
-    }
   }
 
   // task info
@@ -40,13 +42,13 @@
     display: none;
   }
   &.more_info {
+    .show {
+      display: inline-block;
+    }
     .info_group {
       @extend %record-icon;
       display: flex;
       align-items: center;
-    }
-    .show {
-      display: inline-block;
     }
   }
 }
@@ -54,7 +56,7 @@
 // TASK BODY
 .task_body {
   @extend %task-body-spacing;
-  @extend %task-normal-background;
+  @extend %task-general-background;
 
   .edit_item + .edit_item {
     margin-top: 24px;
@@ -104,22 +106,46 @@
   }
 }
 
-// old
-// old
-// old
-// old
-// old
-// task-card: task(normal), task_important, task_done
-// each task-card spacing
-.task:not(:nth-child(5)) {
-  margin-top: 8px;
+.task_footer {
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+
+  button {
+    flex: 1 0 0;
+  }
+
+  .task_cancel {
+    @extend %reset-button;
+
+    border-radius: 0 0 0 5px;
+  }
+  .task_add,
+  .task_save {
+    @extend %submit-button;
+
+    border-radius: 0 0 5px 0;
+  }
+
+  i {
+    margin-right: 16px;
+  }
+}
+
+// WHOLE TASK
+.task {
+  margin-bottom: 24px;
+  border-radius: 5px;
+
+  &_header.major {
+    @extend %task-major-background;
+  }
 }
 
 // status: marker_link icon
 // 點擊".icon_checkbox"，增加".task_done"
 .task,
 .task.task_done {
-  @extend %task-normal-background;
   .marker_link_star {
     display: inline-block;
   }
@@ -130,7 +156,6 @@
 
 // 點擊".marker_link_fullstar"，增加".task_important"
 .task.task_important {
-  @extend %task-star-background;
   .marker_link_star {
     display: none;
   }

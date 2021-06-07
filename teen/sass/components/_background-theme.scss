@@ -1,17 +1,17 @@
 @use '../utilities/color';
 
-%nav-background{
+%nav-background {
   background-color: color.$blue;
 }
 
-%main-background{
+%main-background {
   background-color: color.$gray;
 }
 
-%task-normal-background{
+%task-general-background {
   background-color: color.$light-gray;
 }
 
-%task-star-background{
+%task-major-background {
   background-color: color.$light-yellow;
 }

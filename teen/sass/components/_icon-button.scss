@@ -3,6 +3,7 @@
 @use '../utilities/position';
 @use '../utilities/mediaquery';
 
+// ADD
 %add-icon {
   width: 20px;
 
@@ -14,41 +15,48 @@
   color: color.$medium-gray;
 }
 
-// task-header
+// HEADER
 %marker-icon {
   margin-left: auto;
   order: 2;
   @include mediaquery.mediaquery-tablet {
+    margin-left: 0;
     order: 3;
   }
 
   button {
     width: 24px;
-  }
-  button:first-child {
-    margin-left: 16px;
-  }
-  button + button {
-    margin-left: 32px;
+    background-color: transparent;
+
+    &:first-child {
+      margin-left: 16px;
+    }
+    & + button {
+      margin-left: 32px;
+    }
   }
 
-  .marker_general {
-    color: color.$black;
-  }
-  .marker_major {
-    color: color.$yellow;
-  }
-  .marker_edit {
-    color: color.$blue;
+  .marker {
+    &_general {
+      color: color.$black;
+    }
+    &_major {
+      color: color.$yellow;
+    }
+    &_edit {
+      color: color.$blue;
+    }
   }
 
   i {
+    width: 24px;
+
     font-size: 24px;
     line-height: 28px;
   }
 }
 
-// task-header
+// HEADER
 %record-icon {
   @include mediaquery.mediaquery-tablet {
     margin-left: 40px;
@@ -58,7 +66,6 @@
     @include font.regular(16px) {
       color: color.$heavy-gray;
     }
-
     i {
       margin-right: 8px;
     }
@@ -70,11 +77,40 @@
   }
 }
 
-// task-body{
+// BODY
 %editor-icon {
   margin-right: 8px;
 
   vertical-align: top;
   font-size: 16px;
   line-height: 24px;
+}
+
+// FOOTER
+%reset-button {
+  background-color: color.$white;
+  &:hover {
+    background-color: color.$hover-white;
+  }
+
+  @include font.regular(16px) {
+    color: color.$red;
+  }
+  @include mediaquery.mediaquery-tablet {
+    @include font.regular(24px);
+  }
+}
+
+%submit-button {
+  background-color: color.$blue;
+  &:hover {
+    background-color: color.$hover-blue;
+  }
+
+  @include font.regular(16px) {
+    color: color.$white;
+  }
+  @include mediaquery.mediaquery-tablet {
+    @include font.regular(24px);
+  }
 }
