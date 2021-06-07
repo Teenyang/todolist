@@ -49,7 +49,7 @@ body {
   background-color: #f2f2f2;
 }
 
-.task_header.major {
+.task.major .task_header {
   background-color: #fff2dc;
 }
 
@@ -226,7 +226,7 @@ main i {
 .task_header .marker_group button + button {
   margin-left: 32px;
 }
-.task_header .marker_group .marker_general {
+.task_header .marker_group .marker_star, .task_header .marker_group .marker_pen {
   color: #000000;
 }
 .task_header .marker_group .marker_major {
@@ -242,20 +242,20 @@ main i {
 }
 
 @media (min-width: 576px) {
-  .task_header.more_info .info_group {
+  .task.progress .info_group {
     margin-left: 40px;
   }
 }
-.task_header.more_info .info_group span {
+.task.progress .info_group span {
   font-family: "Roboto", sans-serif;
   font-size: 1rem;
   font-weight: 400;
   color: #757575;
 }
-.task_header.more_info .info_group span i {
+.task.progress .info_group span i {
   margin-right: 8px;
 }
-.task_header.more_info .info_group i {
+.task.progress .info_group i {
   font-size: 18px;
   color: #757575;
 }
@@ -285,21 +285,18 @@ main i {
   }
 }
 
-.task_footer .task_add,
-.task_footer .task_save {
+.task_footer .task_editing {
   background-color: #4a90e2;
   font-family: "Roboto", sans-serif;
   font-size: 1rem;
   font-weight: 400;
   color: #ffffff;
 }
-.task_footer .task_add:hover,
-.task_footer .task_save:hover {
+.task_footer .task_editing:hover {
   background-color: #3982d7;
 }
 @media (min-width: 576px) {
-  .task_footer .task_add,
-.task_footer .task_save {
+  .task_footer .task_editing {
     font-family: "Roboto", sans-serif;
     font-size: 1.5rem;
     font-weight: 400;
@@ -312,16 +309,6 @@ main {
 main form {
   position: relative;
 }
-.task_header {
-  padding: 24px 32px;
-}
-.more_info.task_header {
-  padding-bottom: 16px;
-}
-.task_header .info_group {
-  margin-top: 16px;
-}
-
 .task_body {
   padding: 24px 32px;
   border-top: 3px solid #c8c8c8;
@@ -373,14 +360,9 @@ main form {
   color: #757575;
 }
 
-button {
-  display: none;
+.task_header {
+  padding: 24px 32px;
 }
-
-button.show {
-  display: inline-block;
-}
-
 .task_header form {
   display: flex;
   flex-wrap: wrap;
@@ -388,17 +370,6 @@ button.show {
 }
 .task_header .marker_group {
   font-size: 0;
-}
-.task_header .info_group,
-.task_header .info_group > * {
-  display: none;
-}
-.task_header.more_info .show {
-  display: inline-block;
-}
-.task_header.more_info .info_group {
-  display: flex;
-  align-items: center;
 }
 
 .task_body .edit_item + .edit_item {
@@ -466,8 +437,7 @@ button.show {
 .task_footer .task_cancel {
   border-radius: 0 0 0 5px;
 }
-.task_footer .task_add,
-.task_footer .task_save {
+.task_footer .task_editing {
   border-radius: 0 0 5px 0;
 }
 .task_footer i {
@@ -475,81 +445,60 @@ button.show {
 }
 
 .task {
-  margin-bottom: 24px;
+  margin-bottom: 8px;
+}
+.task .task_header {
   border-radius: 5px;
 }
-.task .marker_link_star,
-.task.task_done .marker_link_star {
-  display: inline-block;
+.task.editing {
+  margin-bottom: 24px;
 }
-.task .marker_link_fullstar,
-.task.task_done .marker_link_fullstar {
-  display: none;
+.task.editing .task_header {
+  border-radius: 5px 5px 0 0;
 }
-
-.task.task_important .marker_link_star {
-  display: none;
-}
-.task.task_important .marker_link_fullstar {
-  display: inline-block;
-}
-
-.add_task:focus {
-  display: none;
-}
-.add_task ~ .task {
-  display: none;
-}
-.add_task ~ .task.task_edit_mode {
+.task.editing .task_content {
   display: block;
 }
-.add_task ~ .task.task_edit_mode .marker_link_edit {
+.task .task_content {
+  display: none;
+}
+.task .marker_star {
   display: inline-block;
 }
-.add_task ~ .task.task_edit_mode .marker_link_pen {
+.task .marker_major {
   display: none;
 }
-.add_task ~ .task.task_edit_mode .task_button_add {
-  display: block;
-}
-.add_task ~ .task.task_edit_mode .task_button_save {
+.task.major .marker_star {
   display: none;
 }
-
-.exist_task {
-  display: none;
-}
-.exist_task ~ .task {
-  display: block;
-}
-.exist_task ~ .task .marker_link_edit {
-  display: none;
-}
-.exist_task ~ .task .marker_link_pen {
+.task.major .marker_major {
   display: inline-block;
 }
-.exist_task ~ .task .task_edit_group {
-  display: none;
-}
-.exist_task ~ .task.task_edit_mode .marker_link_edit {
+.task .marker_pen {
   display: inline-block;
 }
-.exist_task ~ .task.task_edit_mode .marker_link_pen {
+.task .marker_edit {
   display: none;
 }
-.exist_task ~ .task.task_edit_mode .task_edit_group {
-  display: block;
-}
-.exist_task ~ .task.task_edit_mode .task_button_add {
+.task.editing .marker_pen {
   display: none;
 }
-.exist_task ~ .task.task_edit_mode .task_button_save {
-  display: block;
+.task.editing .marker_edit {
+  display: inline-block;
 }
-
-.task_edit_mode .info_group,
-.task_done .info_group {
+.task .info_group {
   display: none;
+}
+.task.progress.editing .info_group {
+  display: none;
+}
+.task.progress .task_header {
+  padding-bottom: 16px;
+}
+.task.progress .info_group {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
 }
 
 .task_status {

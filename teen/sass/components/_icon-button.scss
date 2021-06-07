@@ -37,7 +37,8 @@
   }
 
   .marker {
-    &_general {
+    &_star,
+    &_pen {
       color: color.$black;
     }
     &_major {

@@ -38,20 +38,19 @@
 
     <!---------------- task card ---------------->
     <!-- tast(normal), task_important, task_done, task_edit_mode -->
-    <article class="task">
+    <article class="task major editing progress">
       <!----------- header ----------->
-      <!-- <section class="task_header more_info"> -->
-      <section class="task_header major">
+      <section class="task_header">
         <form id="task-title">
           <input type="checkbox" class="add_task" id="add-task">
           <label for="add-task"><i class="far fa-check"></i></label>
           <textarea name="task title" rows="1" placeholder="Type Something Here..."></textarea>
           <!-- marker icon -->
           <div class="marker_group">
-            <button type="button" class="star marker_general show"><i class="far fa-star"></i></button>
-            <button type="button" class="star marker_major"><i class="fas fa-star"></i></button>
-            <button type="button" class="pen marker_general show"><i class="far fa-pen"></i></button>
-            <button type="button" class="pen marker_edit"><i class="fas fa-pen"></i></button>
+            <button type="button" class="marker_star show"><i class="far fa-star"></i></button>
+            <button type="button" class="marker_major"><i class="fas fa-star"></i></button>
+            <button type="button" class="marker_pen show"><i class="far fa-pen"></i></button>
+            <button type="button" class="marker_edit"><i class="fas fa-pen"></i></button>
           </div>
         </form>
         <!-- info icon -->
@@ -63,42 +62,42 @@
       </section>
 
       <!---------------- task content ---------------->
-      <!----------- body ----------->
-      <section class="task_body">
-        <form id="task-edit">
-          <div class="edit_item deadline">
-            <label for="date time"><i class="far fa-calendar-alt fa-fw"></i>Deadline</label>
-            <div class="edit_content">
-              <input id="date" type="text" placeholder="yyyy/mm/dd" name="deadline-date">
-              <input id="time" type="text" placeholder="hh:mm" name="deadline-time">
+      <div class="task_content">
+        <!----------- body ----------->
+        <section class="task_body">
+          <form id="task-edit">
+            <div class="edit_item deadline">
+              <label for="date time"><i class="far fa-calendar-alt fa-fw"></i>Deadline</label>
+              <div class="edit_content">
+                <input id="date" type="text" placeholder="yyyy/mm/dd" name="deadline-date">
+                <input id="time" type="text" placeholder="hh:mm" name="deadline-time">
+              </div>
             </div>
-          </div>
-          <div class="edit_item file">
-            <label for="upload"><i class="far fa-file fa-fw"></i>File</label>
-            <div class="edit_content">
-              <!-- <div class="file_data">
+            <div class="edit_item file">
+              <label for="upload"><i class="far fa-file fa-fw"></i>File</label>
+              <div class="edit_content">
+                <!-- <div class="file_data">
                 <p>20180514.zip</p>
                 <span>uploaded yesterday</span>
               </div> -->
-              <input id="upload" type="file" name="file-upload">
-              <label for="upload"><i class="fal fa-plus fa-fw"></i></label>
+                <input id="upload" type="file" name="file-upload">
+                <label for="upload"><i class="fal fa-plus fa-fw"></i></label>
+              </div>
             </div>
-          </div>
-          <div class="edit_item comment">
-            <label for="text"><i class="far fa-comment-dots fa-fw"></i>Comment</label>
-            <div class="edit_content">
-              <textarea name="comment" placeholder="Type your memo here…">meet him at Lorence Cafe</textarea>
+            <div class="edit_item comment">
+              <label for="text"><i class="far fa-comment-dots fa-fw"></i>Comment</label>
+              <div class="edit_content">
+                <textarea name="comment" placeholder="Type your memo here…">meet him at Lorence Cafe</textarea>
+              </div>
             </div>
-          </div>
-        </form>
-      </section>
-
-      <!----------- footer ----------->
-      <section class="task_footer">
-        <button type="reset" class="task_cancel show"><i class="fal fa-times fa-fw"></i>Cancel</button>
-        <button type="submit" class="task_add"><i class="fal fa-plus fa-fw"></i>Add Task</button>
-        <button type="submit" class="task_save show"><i class="fal fa-plus fa-fw"></i>Save</button>
-      </section>
+          </form>
+        </section>
+        <!----------- footer ----------->
+        <section class="task_footer">
+          <button type="reset" class="task_cancel show"><i class="fal fa-times fa-fw"></i>Cancel</button>
+          <button type="submit" class="task_editing"><i class="fal fa-plus fa-fw"></i>Add Task</button>
+        </section>
+      </div>
 
     </article>
 
