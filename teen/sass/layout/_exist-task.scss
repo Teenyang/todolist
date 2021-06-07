@@ -82,7 +82,7 @@
 }
 
 .task_footer {
-  height: 60px;
+  @extend %task-footer-spacing;
   display: flex;
   flex-direction: row;
 
