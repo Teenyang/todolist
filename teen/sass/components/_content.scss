@@ -3,7 +3,7 @@
 @use '../utilities/mediaquery';
 @use '../utilities/position';
 
-%editor-title {
+%edit-title {
   margin-bottom: 8px;
 
   vertical-align: middle;
@@ -11,7 +11,7 @@
   @include font.medium(20px);
 }
 
-%editor-content {
+%edit-content {
   p {
     @include font.regular(16px) {
       color: color.$black;
@@ -21,5 +21,14 @@
     @include font.regular(16px) {
       color: color.$heavy-gray;
     }
+  }
+}
+
+%task-status {
+  @include font.regular(18px) {
+    color: color.$medium-gray;
+  }
+  @include mediaquery.mediaquery-tablet {
+    @include font.regular(24px);
   }
 }

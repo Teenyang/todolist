@@ -3,7 +3,7 @@
 @use '../components/input-style';
 @use '../components/textarea';
 @use '../components/icon-button';
-@use '../components/editor';
+@use '../components/content';
 
 // TASK HEADER
 .task_header {
@@ -46,9 +46,9 @@
     font-size: 0; // 消除inline-block間距
 
     > label {
-      @extend %editor-title;
+      @extend %edit-title;
       i {
-        @extend %editor-icon;
+        @extend %edit-icon;
       }
     }
   }
@@ -69,7 +69,7 @@
     }
     .file_data {
       margin-right: 24px;
-      @extend %editor-content;
+      @extend %edit-content;
     }
     input {
       @extend %edit-upload;

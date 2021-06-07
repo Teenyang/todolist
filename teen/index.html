@@ -20,14 +20,13 @@
 <body>
   <header>
     <nav>
-      <a href="##" class="nav_link nav_all">My Tasks</a>
-      <a href="##" class="nav_link nav_progress">In Progress</a>
-      <a href="##" class="nav_link nav_completed">Completed</a>
+      <a href="##" data-nav="1" class="nav_link nav_all">My Tasks</a>
+      <a href="##" date-nav="2" class="nav_link nav_progress">In Progress</a>
+      <a href="##" date-nav="3" class="nav_link nav_completed">Completed</a>
     </nav>
   </header>
 
-
-  <div class="container task_all task_progress task_completed">
+  <div class="container">
     <!---------------- add task ---------------->
     <main>
       <form id="add-task-form">
@@ -37,7 +36,6 @@
     </main>
 
     <!---------------- task card ---------------->
-    <!-- tast(normal), task_important, task_done, task_edit_mode -->
     <article class="task major editing progress">
       <!----------- header ----------->
       <section class="task_header">
@@ -47,9 +45,9 @@
           <textarea name="task title" rows="1" placeholder="Type Something Here..."></textarea>
           <!-- marker icon -->
           <div class="marker_group">
-            <button type="button" class="marker_star show"><i class="far fa-star"></i></button>
+            <button type="button" class="marker_star"><i class="far fa-star"></i></button>
             <button type="button" class="marker_major"><i class="fas fa-star"></i></button>
-            <button type="button" class="marker_pen show"><i class="far fa-pen"></i></button>
+            <button type="button" class="marker_pen"><i class="far fa-pen"></i></button>
             <button type="button" class="marker_edit"><i class="fas fa-pen"></i></button>
           </div>
         </form>
@@ -94,24 +92,16 @@
         </section>
         <!----------- footer ----------->
         <section class="task_footer">
-          <button type="reset" class="task_cancel show"><i class="fal fa-times"></i>Cancel</button>
+          <button type="reset" class="task_cancel"><i class="fal fa-times"></i>Cancel</button>
           <button type="submit" class="task_editing"><i class="fal fa-plus"></i>Add Task</button>
         </section>
       </div>
-
     </article>
-
-
-
-
 
 
     <footer>
       <!---------------- task status ---------------->
-      <section class="task_status">
-        <span class="task_status_normal">4 tasks left</span>
-        <span class="task_status_completed">1 task completed</span>
-      </section>
+      <span class="task_status"><em>0 task left</em></span>
     </footer>
   </div>
 

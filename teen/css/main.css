@@ -380,6 +380,20 @@ main form {
   color: #757575;
 }
 
+.task_status {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: #c8c8c8;
+}
+@media (min-width: 576px) {
+  .task_status {
+    font-family: "Roboto", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+  }
+}
+
 .task_header {
   padding: 24px 32px;
 }
@@ -520,30 +534,13 @@ main form {
   align-items: center;
 }
 
-.task_status {
+footer {
   margin-top: 8px;
-  padding: 0 32px;
-  font-family: "Roboto", sans-serif;
-  font-size: 1.5rem;
-  font-weight: 400;
-  color: #c8c8c8;
-  font-style: italic;
+  font-size: 0;
 }
 
-.task_all .task_status_normal,
-.task_progress .task_status_normal {
-  display: inline;
-}
-.task_all .task_status_completed,
-.task_progress .task_status_completed {
-  display: none;
-}
-
-.task_completed .task_status_normal {
-  display: none;
-}
-.task_completed .task_status_completed {
-  display: inline;
+.task_status {
+  padding-left: 32px;
 }
 
 * {
