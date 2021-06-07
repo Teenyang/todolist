@@ -19,17 +19,15 @@ nav {
   display: flex;
 }
 
-// nav item
-.nav {
-  &_link {
-    @extend %nav-link-spacing;
+.nav_link {
+  @extend %nav-link-spacing;
 
-    flex: 1 0 0;
-    text-align: center;
+  flex: 1 0 0;
+  text-align: center;
 
-    @extend %nav-title;
-    &:hover {
-      @extend %nav-title-hover;
-    }
+  @extend %nav-title;
+
+  &.select {
+    @extend %nav-title-select;
   }
 }
