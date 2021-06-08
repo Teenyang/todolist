@@ -4,6 +4,8 @@
 main {
   margin-bottom: 24px;
 
+  transition: all 0.2s ease;
+
   form {
     position: relative;
   }
@@ -14,5 +16,11 @@ main {
 
   i {
     @extend %add-icon;
+  }
+
+  &.adding {
+    margin-bottom: 0;
+    height: 0;
+    overflow: hidden;
   }
 }

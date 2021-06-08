@@ -1,47 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
+const main = document.querySelector('main');
+const addTaskForm = document.querySelector('#add-task-form');
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>To-do List</title>
+const container = document.querySelector('.container');
+const taskList = document.querySelector('.task_list');
 
-  <!-- Google Font -->
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link
-    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap"
-    rel="stylesheet">
-  <!-- Fontawesome -->
-  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+function addTask(event) {
+  // 增加class，讓Add Task <input>高度變成 0
+  main.classList.add('adding');
 
-  <link rel="stylesheet" href="css/main.css">
+  // 每次點擊Add Task <input>便會產生task區塊及classLsit，並將此附加在Add Task <input>之後、taskList之前
+  const task = document.createElement('article');
+  task.className = "task editing";
+  container.insertBefore(task, taskList);
 
-  <!-- <script type="module">
-    import addTask from './script/addTask.js';
-  </script> -->
-</head>
-
-<body>
-  <header>
-    <nav>
-      <a href="##" data-nav="all" class="nav_link select">My Tasks</a>
-      <a href="##" date-nav="progress" class="nav_link">In Progress</a>
-      <a href="##" date-nav="completed" class="nav_link">Completed</a>
-    </nav>
-  </header>
-
-  <div class="container">
-    <!---------------- add task ---------------->
-    <main>
-      <form id="add-task-form">
-        <input type="text" placeholder="Add Task">
-        <i class="fal fa-plus"></i>
-      </form>
-    </main>
-
-    <!---------------- task card ---------------->
-    <div class="task_list">
-      <!-- <article class="task">
+  task.innerHTML = `
       <section class="task_header">
         <form id="task-title">
           <input type="checkbox" class="add_task" id="add-task">
@@ -60,7 +32,6 @@
           <i class="far fa-comment-dots fa-fw show"></i>
         </div>
       </section>
-
       <div class="task_content">
         <section class="task_body">
           <form id="task-edit">
@@ -91,16 +62,33 @@
           <button type="submit" class="task_editing"><i class="fal fa-plus"></i>Add Task</button>
         </section>
       </div>
-    </article> -->
-    </div>
+  `
 
-    <footer>
-      <span class="task_status"><em>0 task left</em></span>
-    </footer>
-  </div>
+  // task提交按鈕的submit事件
+  const submitAddTask = document.querySelector('.task_footer button[type="submit"]');
+  // submitAddTask.addEventListener('click', submitTask);
+  submitAddTask.addEventListener('click', (event) => {
+    event.preventDefault();
 
-  <script src="script/addTask.js"></script>
+    // 清空Add Task <input>內容
+    addTaskForm.querySelector('input').value = '';
 
-</body>
+    // 讓新增的task永遠在既有task的上方
+    if (!taskList.hasChildNodes()) {
+      taskList.appendChild(task);
+    }
+    else {
+      // 搜尋到既有tasks中的第一個task作為參考點，在其之前放入新增的task
+      const topTask = taskList.querySelector('article');
+      taskList.insertBefore(task, topTask);
+    }
 
-</html>
+    // 恢復Add Task <input>高度
+    main.classList.remove('adding');
+    // 關閉task的編輯區域
+    task.classList.remove('editing');
+  });
+}
+
+// export default
+addTaskForm.addEventListener('click', addTask);

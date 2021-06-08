@@ -335,10 +335,17 @@ main i {
 
 main {
   margin-bottom: 24px;
+  transition: all 0.2s ease;
 }
 main form {
   position: relative;
 }
+main.adding {
+  margin-bottom: 0;
+  height: 0;
+  overflow: hidden;
+}
+
 .task_header textarea {
   margin-top: 8px;
   flex: 1 0 100%;
@@ -541,10 +548,6 @@ footer {
 
 .task_status {
   padding-left: 32px;
-}
-
-* {
-  outline: 1px solid red;
 }
 
 /*# sourceMappingURL=main.css.map */
