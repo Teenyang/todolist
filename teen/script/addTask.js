@@ -1,18 +1,33 @@
 const main = document.querySelector('main');
-const addTaskForm = document.querySelector('#add-task-form');
-
+const addTaskInput = document.querySelector('#add-task-form input');
 const container = document.querySelector('.container');
 const taskList = document.querySelector('.task_list');
+const task = document.createElement('article');
 
-function addTask(event) {
-  // 增加class，讓Add Task <input>高度變成 0
+// JSON.parse：將字串轉回原本陣列格式
+// 初始值為空陣列，或者若Storage已有紀錄則呈現先前保留的資料
+// If the key of getItem() doesn't exist, null is returned. => null為falsy值
+const tasksArray = JSON.parse(localStorage.getItem('lists')) || [];
+
+function addTask() {
+  // focus Add Task input：增加class，main form高度變成0
   main.classList.add('adding');
 
-  // 每次點擊Add Task <input>便會產生task區塊及classLsit，並將此附加在Add Task <input>之後、taskList之前
-  const task = document.createElement('article');
+  // focus Add Task input：創建task，並附加在main之後、taskList之前
   task.className = "task editing";
   container.insertBefore(task, taskList);
+  createNewTask(task);
 
+  // form：task_header's title & task_body's edit
+  const taskForms = task.querySelectorAll('form');
+  const taskEditForm = task.querySelector('#task-edit');
+  // task reset button
+  taskEditForm.addEventListener('reset', () => resetTaskContent(taskForms));
+  // task submit button
+  taskEditForm.addEventListener('submit', submitAddTask);
+}
+
+function createNewTask(task) {
   task.innerHTML = `
       <section class="task_header">
         <form id="task-title">
@@ -32,63 +47,132 @@ function addTask(event) {
           <i class="far fa-comment-dots fa-fw show"></i>
         </div>
       </section>
-      <div class="task_content">
+      <form id="task-edit">
         <section class="task_body">
-          <form id="task-edit">
-            <div class="edit_item deadline">
-              <label for="date time"><i class="far fa-calendar-alt fa-fw"></i>Deadline</label>
-              <div class="edit_content">
-                <input id="date" type="text" placeholder="yyyy/mm/dd" name="deadline-date">
-                <input id="time" type="text" placeholder="hh:mm" name="deadline-time">
-              </div>
+          <div class="edit_item deadline">
+            <label for="date time"><i class="far fa-calendar-alt fa-fw"></i>Deadline</label>
+            <div class="edit_content">
+              <input id="date" type="text" placeholder="yyyy/mm/dd" name="deadline-date">
+              <input id="time" type="text" placeholder="hh:mm" name="deadline-time">
             </div>
-            <div class="edit_item file">
-              <label for="upload"><i class="far fa-file fa-fw"></i>File</label>
-              <div class="edit_content">
-                <input id="upload" type="file" name="file-upload">
-                <label for="upload"><i class="fal fa-plus fa-fw"></i></label>
-              </div>
+          </div>
+          <div class="edit_item file">
+            <label for="upload"><i class="far fa-file fa-fw"></i>File</label>
+            <div class="edit_content">
+              <input id="upload" type="file" name="file-upload">
+              <label for="upload"><i class="fal fa-plus fa-fw"></i></label>
             </div>
-            <div class="edit_item comment">
-              <label for="text"><i class="far fa-comment-dots fa-fw"></i>Comment</label>
-              <div class="edit_content">
-                <textarea name="comment" placeholder="Type your memo here…"></textarea>
-              </div>
+          </div>
+          <div class="edit_item comment">
+            <label for="text"><i class="far fa-comment-dots fa-fw"></i>Comment</label>
+            <div class="edit_content">
+              <textarea name="comment" placeholder="Type your memo here…"></textarea>
             </div>
-          </form>
+          </div>
         </section>
         <section class="task_footer">
           <button type="reset" class="task_cancel"><i class="fal fa-times"></i>Cancel</button>
           <button type="submit" class="task_editing"><i class="fal fa-plus"></i>Add Task</button>
         </section>
-      </div>
+      </form>
   `
-
-  // task提交按鈕的submit事件
-  const submitAddTask = document.querySelector('.task_footer button[type="submit"]');
-  // submitAddTask.addEventListener('click', submitTask);
-  submitAddTask.addEventListener('click', (event) => {
-    event.preventDefault();
-
-    // 清空Add Task <input>內容
-    addTaskForm.querySelector('input').value = '';
-
-    // 讓新增的task永遠在既有task的上方
-    if (!taskList.hasChildNodes()) {
-      taskList.appendChild(task);
-    }
-    else {
-      // 搜尋到既有tasks中的第一個task作為參考點，在其之前放入新增的task
-      const topTask = taskList.querySelector('article');
-      taskList.insertBefore(task, topTask);
-    }
-
-    // 恢復Add Task <input>高度
-    main.classList.remove('adding');
-    // 關閉task的編輯區域
-    task.classList.remove('editing');
-  });
+  return task;
 }
 
-// export default
-addTaskForm.addEventListener('click', addTask);
+function resetTaskContent(taskForms) {
+  taskForms.forEach(taskForm => taskForm.reset())
+}
+
+function submitAddTask(event) {
+  // 阻止<form>預設的提交行為
+  event.preventDefault();
+
+  // task data以物件形式紀錄後再推進tasksArray中
+  const eachTask = {
+    title: document.querySelector('.task_header textarea').value,
+    done: false,
+    major: false,
+    edit: false,
+    deadlineDate: document.querySelector('.task_body #date').value,
+    deadlineTime: document.querySelector('.task_body #time').value,
+    file: document.querySelector('.task_body #upload').files,
+    comment: document.querySelector('.task_body textarea').value,
+  }
+
+  // 新增的task永遠在最上方：從（第1個參數）index 0位置開始，刪除（第2個參數）0個元素，並插入eachTask
+  tasksArray.splice(0, 0, eachTask);
+
+  // 將tasksArray更新至taskList區域中
+  updateTasks(tasksArray, taskList);
+
+  // 將tasksArray更新儲存在Storage，並用JSON.stringify將陣列格式轉成字串以便讀取
+  localStorage.setItem('lists', JSON.stringify(tasksArray));
+
+  // 恢復Add Task input高度
+  main.classList.remove('adding');
+
+  // 因新增的Task只需將edit form的data存在localStorage中，所以表單submit後，將task node移除；
+  // 而每次點擊Add Task都會重新insert task node，故最後省略edit form的reset()清空內容的設定
+  task.remove();
+}
+
+function updateTasks(tasksArray, taskList) {
+  // ${task.done ? 'checked' : ''} -> 若task.done為true，則加上checked屬性
+  // join()將所有模板字串接在一起，全部賦值給itemsLists.innerHTML
+  taskList.innerHTML = tasksArray.map((task) => {
+    return `
+  <article class="task">
+    <section class="task_header">
+      <form id="task-title">
+        <input type="checkbox" class="add_task" id="add-task" ${task.done ? 'checked' : ''}>
+        <label for="add-task"><i class="far fa-check"></i></label>
+        <textarea name="task title" rows="1" placeholder="Type Something Here...">${task.title}</textarea>
+        <div class="marker_group">
+          <button type="button" class="marker_star"><i class="far fa-star"></i></button>
+          <button type="button" class="marker_major"><i class="fas fa-star"></i></button>
+          <button type="button" class="marker_pen"><i class="far fa-pen"></i></button>
+          <button type="button" class="marker_edit"><i class="fas fa-pen"></i></button>
+        </div>
+      </form>
+      <div class="info_group">
+        <span class=""><i class="far fa-calendar-alt fa-fw"></i>6/18</span>
+        <i class="far fa-file fa-fw"></i>
+        <i class="far fa-comment-dots fa-fw show"></i>
+      </div>
+    </section>
+    <form id="task-edit">
+      <section class="task_body">
+        <div class="edit_item deadline">
+          <label for="date time"><i class="far fa-calendar-alt fa-fw"></i>Deadline</label>
+          <div class="edit_content">
+            <input id="date" type="text" placeholder="yyyy/mm/dd" name="deadline-date" value="${task.deadlineDate}">
+            <input id="time" type="text" placeholder="hh:mm" name="deadline-time" value="${task.deadlineTime}">
+          </div>
+        </div>
+        <div class="edit_item file">
+          <label for="upload"><i class="far fa-file fa-fw"></i>File</label>
+          <div class="edit_content">
+            <input id="upload" type="file" name="file-upload" file="${task.file}>
+            <label for="upload"><i class="fal fa-plus fa-fw"></i></label>
+          </div>
+        </div>
+        <div class="edit_item comment">
+          <label for="text"><i class="far fa-comment-dots fa-fw"></i>Comment</label>
+          <div class="edit_content">
+            <textarea name="comment" placeholder="Type your memo here…">${task.comment}</textarea>
+          </div>
+        </div>
+      </section>
+      <section class="task_footer">
+        <button type="reset" class="task_cancel"><i class="fal fa-times"></i>Cancel</button>
+        <button type="submit" class="task_editing"><i class="fal fa-plus"></i>Save</button>
+      </section>
+    </form>
+  </article>
+  `
+  }).join('');
+  // 儲存後的submit button文字變成“Save”
+}
+
+export default addTaskInput.addEventListener('focus', addTask);
+updateTasks(tasksArray, taskList);
