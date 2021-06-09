@@ -13,14 +13,9 @@
   border-radius: 5px;
   background-color: color.$white;
 
+  text-align: left;
   @include font.regular(24px) {
-    color: color.$black;
-  }
-
-  &::placeholder {
-    @include font.regular(24px) {
-      color: color.$medium-gray;
-    }
+    color: color.$medium-gray;
   }
 }
 

@@ -117,12 +117,18 @@
       border-radius: 5px 5px 0 0;
     }
 
-    .task_content {
-      display: block;
+    // .task_content {
+    #task-edit {
+      // display: block;
+      height: auto;
     }
   }
-  .task_content {
-    display: none;
+  // .task_content {
+  #task-edit {
+    // display: none;
+    height: 0;
+    overflow: hidden;
+    transition: height 2s ease;
   }
 
   // major
