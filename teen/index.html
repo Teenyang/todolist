@@ -44,14 +44,20 @@
       <!-- <article class="task">
         <section class="task_header">
           <form id="task-title">
-            <input type="checkbox" class="add_task" id="add-task">
-            <label for="add-task"><i class="far fa-check"></i></label>
+            <input type="checkbox" class="done_task" id="done-task">
+            <label for="done-task"><i class="far fa-check"></i></label>
             <textarea name="task title" rows="1" placeholder="Type Something Here..."></textarea>
             <div class="marker_group">
-              <button type="button" class="marker_star"><i class="far fa-star"></i></button>
-              <button type="button" class="marker_major"><i class="fas fa-star"></i></button>
-              <button type="button" class="marker_pen"><i class="far fa-pen"></i></button>
-              <button type="button" class="marker_edit"><i class="fas fa-pen"></i></button>
+              <input type="checkbox" class="marker_star" id="marker-star">
+              <label for="marker_star">
+                <i class="far fa-star general"></i>
+                <i class="fas fa-star major"></i>
+              </label>
+              <input type="checkbox" class="marker_pen" id="marker-pen">
+              <label for="marker_pen">
+                <i class="far fa-pen general"></i>
+                <i class="fas fa-pen edit"></i>
+              </label>
             </div>
           </form>
           <div class="info_group">

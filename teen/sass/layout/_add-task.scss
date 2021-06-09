@@ -1,5 +1,5 @@
 @use '../components/input-style';
-@use '../components/icon-button';
+@use '../components/icon';
 
 main {
   margin-bottom: 24px;
@@ -12,10 +12,6 @@ main {
 
   input {
     @extend %add-input;
-  }
-
-  i {
-    @extend %add-icon;
   }
 
   &.adding {

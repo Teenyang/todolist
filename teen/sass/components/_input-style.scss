@@ -3,6 +3,7 @@
 @use '../utilities/mediaquery';
 @use '../utilities/position';
 
+// ADD TASK
 %add-input {
   padding: 16.5px;
   padding-left: 67px;
@@ -17,8 +18,20 @@
   @include font.regular(24px) {
     color: color.$medium-gray;
   }
+
+  ~ i {
+    width: 20px;
+
+    @include position.position-absolute(50%, auto, auto, 32px);
+    transform: translateY(-50%);
+    vertical-align: top;
+
+    font-size: 24px;
+    color: color.$medium-gray;
+  }
 }
 
+// TASK-HEADER
 %check-input {
   display: none;
 
@@ -26,14 +39,14 @@
     margin-right: 16px;
     width: 24px;
     height: 24px;
+
     text-align: center;
 
     background-color: color.$white;
 
     i {
-      vertical-align: middle;
-
       font-size: 14px;
+      line-height: 24px;
       color: color.$white;
     }
   }
@@ -48,6 +61,39 @@
 
     &::placeholder {
       color: color.$dark-gray;
+    }
+  }
+}
+
+%marker-input {
+  display: none;
+
+  & ~ label {
+    margin-left: 32px;
+    &:first-of-type {
+      margin-left: 8px;
+    }
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+
+    background-color: transparent;
+
+    i {
+      width: 24px;
+
+      font-size: 24px;
+      color: color.$white;
+
+      &.general {
+        color: color.$black;
+      }
+      &.major {
+        color: color.$yellow;
+      }
+      &.edit {
+        color: color.$blue;
+      }
     }
   }
 }

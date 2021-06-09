@@ -32,14 +32,20 @@ function createNewTask(task) {
   task.innerHTML = `
       <section class="task_header">
         <form id="task-title">
-          <input type="checkbox" class="add_task" id="add-task">
-          <label for="add-task"><i class="far fa-check"></i></label>
+          <input type="checkbox" class="done_task" id="done-task">
+          <label for="done-task"><i class="far fa-check"></i></label>
           <textarea name="task title" rows="1" placeholder="Type Something Here..."></textarea>
           <div class="marker_group">
-            <button type="button" class="marker_star"><i class="far fa-star"></i></button>
-            <button type="button" class="marker_major"><i class="fas fa-star"></i></button>
-            <button type="button" class="marker_pen"><i class="far fa-pen"></i></button>
-            <button type="button" class="marker_edit"><i class="fas fa-pen"></i></button>
+            <input type="checkbox" class="marker_star" id="marker-star">
+            <label for="marker-star">
+              <i class="far fa-star general"></i>
+              <i class="fas fa-star major"></i>
+            </label>
+            <input type="checkbox" class="marker_pen" id="marker-pen">
+            <label for="marker-pen">
+              <i class="far fa-pen general"></i>
+              <i class="fas fa-pen edit"></i>
+            </label>
           </div>
         </form>
         <div class="info_group">
@@ -122,17 +128,23 @@ function updateTasks(tasksArray, taskList) {
   // join()將所有模板字串接在一起，全部賦值給itemsLists.innerHTML
   taskList.innerHTML = tasksArray.map((task, index) => {
     return `
-  <article class="task" data-item="${index}">
+  <article class="task">
     <section class="task_header">
       <form id="task-title">
-        <input type="checkbox" data-index="${index}" class="add_task" id="add-task${index}" ${task.done ? 'checked' : ''}>
-        <label for="add-task${index}"><i class="far fa-check"></i></label>
+        <input type="checkbox" data-done="${index}" class="done_task" id="done-task${index}" ${task.done ? 'checked' : ''}>
+        <label for="done-task${index}"><i class="far fa-check"></i></label>
         <textarea name="task title" rows="1" placeholder="Type Something Here...">${task.title}</textarea>
         <div class="marker_group">
-          <button type="button" class="marker_star"><i class="far fa-star"></i></button>
-          <button type="button" class="marker_major"><i class="fas fa-star"></i></button>
-          <button type="button" class="marker_pen"><i class="far fa-pen"></i></button>
-          <button type="button" class="marker_edit"><i class="fas fa-pen"></i></button>
+          <input type="checkbox" data-major="${index}" class="marker_star" id="marker-star${index}" ${task.major ? 'checked' : ''}>
+          <label for="marker-star${index}">
+            <i class="far fa-star general"></i>
+            <i class="fas fa-star major"></i>
+          </label>
+          <input type="checkbox" data-edit="${index}" class="marker_pen" id="marker-pen${index}" ${task.edit ? 'checked' : ''}>
+          <label for="marker-pen${index}">
+            <i class="far fa-pen general"></i>
+            <i class="fas fa-pen edit"></i>
+          </label>
         </div>
       </form>
       <div class="info_group">
@@ -175,33 +187,42 @@ function updateTasks(tasksArray, taskList) {
   // 儲存後的submit button文字變成“Save”
 }
 
-function checkTask(event) {
-  // Element.matches(selectorString)：若元素不相符則結束函式
-  if (!event.target.matches('input')) {
-    return;
+function checkCompletion(event) {
+  // done
+  if (event.target.className === 'done_task') {
+    const checkInput = event.target;
+    const checkStatus = checkInput.checked;
+    const taskIndex = checkInput.dataset.done;
+
+    // 依checked狀態增刪class
+    if (checkStatus) {
+      this.querySelectorAll('.task')[taskIndex].classList.add('completed');
+    }
+    else {
+      this.querySelectorAll('.task')[taskIndex].classList.remove('completed');
+    }
+
+    // 觸發click事件時，將done狀態進行取反後，更新存至Storage
+    tasksArray[taskIndex].done = !tasksArray[taskIndex].done;
+    localStorage.setItem('lists', JSON.stringify(tasksArray));
   }
 
-  const checkInput = event.target;
-  const checkStatus = checkInput.checked;
-  const taskIndex = checkInput.dataset.index;
-
-  // 依checked狀態增刪class
-  if (checkStatus) {
-    this.querySelectorAll('.task')[taskIndex].classList.add('completed');
-  }
-  else {
-    this.querySelectorAll('.task')[taskIndex].classList.remove('completed');
-  }
-
-  // 觸發click事件時，將done狀態進行取反後，更新存至Storage
-  tasksArray[taskIndex].done = !tasksArray[taskIndex].done;
-  localStorage.setItem('lists', JSON.stringify(tasksArray));
 }
 
+function toggleEditArea(event) {
+  // Element.matches(selectorString)：若元素不相符則結束函式
+  // if (!event.target.matches('button')) {
+  //   return;
+  // }
+
+  console.log(event.target);
+
+}
 
 
 // 自動載入以保存在LocalStorage中的tasks
 export default updateTasks(tasksArray, taskList);
 
 addTaskInput.addEventListener('focus', addTask);
-taskList.addEventListener('click', checkTask);
+taskList.addEventListener('click', checkCompletion);
+taskList.addEventListener('click', toggleEditArea);

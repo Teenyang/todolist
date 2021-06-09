@@ -1,0 +1,32 @@
+@use '../utilities/font';
+@use '../utilities/color';
+@use '../utilities/mediaquery';
+
+// FOOTER
+%reset-button {
+  background-color: color.$white;
+  &:hover {
+    background-color: color.$hover-white;
+  }
+
+  @include font.regular(18px) {
+    color: color.$red;
+  }
+  @include mediaquery.mediaquery-tablet {
+    @include font.regular(24px);
+  }
+}
+
+%submit-button {
+  background-color: color.$blue;
+  &:hover {
+    background-color: color.$hover-blue;
+  }
+
+  @include font.regular(18px) {
+    color: color.$white;
+  }
+  @include mediaquery.mediaquery-tablet {
+    @include font.regular(24px);
+  }
+}

@@ -1,0 +1,33 @@
+@use '../utilities/font';
+@use '../utilities/color';
+@use '../utilities/mediaquery';
+
+// HEADER
+%record-icon {
+  @include mediaquery.mediaquery-tablet {
+    margin-left: 40px;
+  }
+
+  span {
+    @include font.regular(16px) {
+      color: color.$heavy-gray;
+    }
+    i {
+      margin-right: 8px;
+    }
+  }
+
+  i {
+    font-size: 18px;
+    color: color.$heavy-gray;
+  }
+}
+
+// BODY
+%edit-icon {
+  margin-right: 8px;
+
+  vertical-align: top;
+  font-size: 16px;
+  line-height: 24px;
+}

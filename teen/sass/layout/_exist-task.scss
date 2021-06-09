@@ -2,7 +2,8 @@
 @use '../components/spacing';
 @use '../components/input-style';
 @use '../components/textarea';
-@use '../components/icon-button';
+@use '../components/icon';
+@use '../components/button';
 @use '../components/content';
 
 // TASK HEADER
@@ -15,17 +16,23 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-  }
-  input {
-    @extend %check-input;
+
+    > input {
+      @extend %check-input;
+    }
   }
   textarea {
     @extend %header-text;
   }
 
   .marker_group {
-    @extend %marker-icon;
     font-size: 0; // 消除<i>inline-block間距
+
+    @extend %marker-group-spacing;
+
+    input {
+      @extend %marker-input;
+    }
   }
 }
 
@@ -131,38 +138,46 @@
     transition: height 2s ease;
   }
 
-  // major
+  // marker of major
   .marker_star {
-    display: inline-block;
-  }
-  .marker_major {
-    display: none;
+    ~ label .general {
+      display: inline-block;
+    }
+    ~ label .major {
+      display: none;
+    }
   }
   &.major {
     .task_header {
       @extend %task-major-background;
     }
     .marker_star {
-      display: none;
-    }
-    .marker_major {
-      display: inline-block;
+      + label .general {
+        display: none;
+      }
+      ~ label .major {
+        display: inline-block;
+      }
     }
   }
 
-  // editing
+  // marker of editing
   .marker_pen {
-    display: inline-block;
-  }
-  .marker_edit {
-    display: none;
+    + label > .general {
+      display: inline-block;
+    }
+    ~ label .edit {
+      display: none;
+    }
   }
   &.editing {
     .marker_pen {
-      display: none;
-    }
-    .marker_edit {
-      display: inline-block;
+      ~ label .general {
+        display: none;
+      }
+      ~ label .edit {
+        display: inline-block;
+      }
     }
   }
 
