@@ -16,9 +16,9 @@
 
   <link rel="stylesheet" href="css/main.css">
 
-  <!-- <script type="module">
+  <script type="module">
     import addTask from './script/addTask.js';
-  </script> -->
+  </script>
 </head>
 
 <body>
@@ -34,7 +34,7 @@
     <!---------------- add task ---------------->
     <main>
       <form id="add-task-form">
-        <input type="text" placeholder="Add Task">
+        <input type="button" value="Add Task">
         <i class="fal fa-plus"></i>
       </form>
     </main>
@@ -42,28 +42,27 @@
     <!---------------- task card ---------------->
     <div class="task_list">
       <!-- <article class="task">
-      <section class="task_header">
-        <form id="task-title">
-          <input type="checkbox" class="add_task" id="add-task">
-          <label for="add-task"><i class="far fa-check"></i></label>
-          <textarea name="task title" rows="1" placeholder="Type Something Here..."></textarea>
-          <div class="marker_group">
-            <button type="button" class="marker_star"><i class="far fa-star"></i></button>
-            <button type="button" class="marker_major"><i class="fas fa-star"></i></button>
-            <button type="button" class="marker_pen"><i class="far fa-pen"></i></button>
-            <button type="button" class="marker_edit"><i class="fas fa-pen"></i></button>
+        <section class="task_header">
+          <form id="task-title">
+            <input type="checkbox" class="add_task" id="add-task">
+            <label for="add-task"><i class="far fa-check"></i></label>
+            <textarea name="task title" rows="1" placeholder="Type Something Here..."></textarea>
+            <div class="marker_group">
+              <button type="button" class="marker_star"><i class="far fa-star"></i></button>
+              <button type="button" class="marker_major"><i class="fas fa-star"></i></button>
+              <button type="button" class="marker_pen"><i class="far fa-pen"></i></button>
+              <button type="button" class="marker_edit"><i class="fas fa-pen"></i></button>
+            </div>
+          </form>
+          <div class="info_group">
+            <span class=""><i class="far fa-calendar-alt fa-fw"></i>6/18</span>
+            <i class="far fa-file fa-fw"></i>
+            <i class="far fa-comment-dots fa-fw show"></i>
           </div>
-        </form>
-        <div class="info_group">
-          <span class=""><i class="far fa-calendar-alt fa-fw"></i>6/18</span>
-          <i class="far fa-file fa-fw"></i>
-          <i class="far fa-comment-dots fa-fw show"></i>
-        </div>
-      </section>
+        </section>
 
-      <div class="task_content">
-        <section class="task_body">
-          <form id="task-edit">
+        <form id="task-edit">
+          <section class="task_body">
             <div class="edit_item deadline">
               <label for="date time"><i class="far fa-calendar-alt fa-fw"></i>Deadline</label>
               <div class="edit_content">
@@ -84,14 +83,13 @@
                 <textarea name="comment" placeholder="Type your memo here…"></textarea>
               </div>
             </div>
-          </form>
-        </section>
-        <section class="task_footer">
-          <button type="reset" class="task_cancel"><i class="fal fa-times"></i>Cancel</button>
-          <button type="submit" class="task_editing"><i class="fal fa-plus"></i>Add Task</button>
-        </section>
-      </div>
-    </article> -->
+          </section>
+          <section class="task_footer">
+            <button type="reset" class="task_cancel"><i class="fal fa-times"></i>Cancel</button>
+            <button type="submit" class="task_editing"><i class="fal fa-plus"></i>Add Task</button>
+          </section>
+        </form>
+      </article> -->
     </div>
 
     <footer>
@@ -99,7 +97,14 @@
     </footer>
   </div>
 
-  <script src="script/addTask.js"></script>
+  <script>
+    // 清除所有Storage紀錄
+    function clear() {
+      localStorage.clear();
+    }
+  </script>
+  <!-- <script src="script/addTask.js"></script> -->
+  <!-- <script src="script/markerOrEditTask.js"></script> -->
 
 </body>
 
