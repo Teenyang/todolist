@@ -175,4 +175,6 @@ function updateTasks(tasksArray, taskList) {
 }
 
 export default addTaskInput.addEventListener('focus', addTask);
+
+// 自動載入以保存在LocalStorage中的tasks
 updateTasks(tasksArray, taskList);
