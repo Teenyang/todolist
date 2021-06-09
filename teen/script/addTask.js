@@ -9,6 +9,7 @@ const task = document.createElement('article');
 // If the key of getItem() doesn't exist, null is returned. => null為falsy值
 const tasksArray = JSON.parse(localStorage.getItem('lists')) || [];
 
+
 function addTask() {
   // focus Add Task input：增加class，main form高度變成0
   main.classList.add('adding');
@@ -121,7 +122,7 @@ function updateTasks(tasksArray, taskList) {
   // join()將所有模板字串接在一起，全部賦值給itemsLists.innerHTML
   taskList.innerHTML = tasksArray.map((task, index) => {
     return `
-  <article class="task">
+  <article class="task" data-item="${index}">
     <section class="task_header">
       <form id="task-title">
         <input type="checkbox" data-index="${index}" class="add_task" id="add-task${index}" ${task.done ? 'checked' : ''}>
@@ -174,7 +175,33 @@ function updateTasks(tasksArray, taskList) {
   // 儲存後的submit button文字變成“Save”
 }
 
-export default addTaskInput.addEventListener('focus', addTask);
+function checkTask(event) {
+  // Element.matches(selectorString)：若元素不相符則結束函式
+  if (!event.target.matches('input')) {
+    return;
+  }
+
+  const checkInput = event.target;
+  const checkStatus = checkInput.checked;
+  const taskIndex = checkInput.dataset.index;
+
+  // 依checked狀態增刪class
+  if (checkStatus) {
+    this.querySelectorAll('.task')[taskIndex].classList.add('completed');
+  }
+  else {
+    this.querySelectorAll('.task')[taskIndex].classList.remove('completed');
+  }
+
+  // 觸發click事件時，將done狀態進行取反後，更新存至Storage
+  tasksArray[taskIndex].done = !tasksArray[taskIndex].done;
+  localStorage.setItem('lists', JSON.stringify(tasksArray));
+}
+
+
 
 // 自動載入以保存在LocalStorage中的tasks
-updateTasks(tasksArray, taskList);
+export default updateTasks(tasksArray, taskList);
+
+addTaskInput.addEventListener('focus', addTask);
+taskList.addEventListener('click', checkTask);
