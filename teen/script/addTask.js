@@ -19,12 +19,9 @@ function addTask() {
   container.insertBefore(task, taskList);
   createNewTask(task);
 
-  // form：task_header's title & task_body's edit
-  const taskForms = task.querySelectorAll('form');
+  // task-footer button
   const taskEditForm = task.querySelector('#task-edit');
-  // task reset button
-  taskEditForm.addEventListener('reset', () => resetTaskContent(taskForms));
-  // task submit button
+  taskEditForm.addEventListener('click', cancelTask);
   taskEditForm.addEventListener('submit', submitAddTask);
 }
 
@@ -78,7 +75,7 @@ function createNewTask(task) {
           </div>
         </section>
         <section class="task_footer">
-          <button type="reset" class="task_cancel"><i class="fal fa-times"></i>Cancel</button>
+          <button type="button" class="task_cancel"><i class="fal fa-times"></i>Cancel</button>
           <button type="submit" class="task_editing"><i class="fal fa-plus"></i>Add Task</button>
         </section>
       </form>
@@ -86,8 +83,9 @@ function createNewTask(task) {
   return task;
 }
 
-function resetTaskContent(taskForms) {
-  taskForms.forEach(taskForm => taskForm.reset())
+function cancelTask() {
+  main.classList.remove('adding');
+  task.remove();
 }
 
 function submitAddTask(event) {
@@ -177,7 +175,7 @@ function updateTasks(tasksArray, taskList) {
         </div>
       </section>
       <section class="task_footer">
-        <button type="reset" class="task_cancel"><i class="fal fa-times"></i>Cancel</button>
+        <button type="button" class="task_cancel"><i class="fal fa-times"></i>Cancel</button>
         <button type="submit" class="task_editing"><i class="fal fa-plus"></i>Save</button>
       </section>
     </form>
@@ -188,35 +186,61 @@ function updateTasks(tasksArray, taskList) {
 }
 
 function checkCompletion(event) {
-  // done
-  if (event.target.className === 'done_task') {
-    const checkInput = event.target;
-    const checkStatus = checkInput.checked;
-    const taskIndex = checkInput.dataset.done;
+  if (event.target.className !== 'done_task') {
+    return;
+  }
+  const checkboxStatus = event.target.checked;
+  const taskIndex = event.target.dataset.done;
 
-    // 依checked狀態增刪class
-    if (checkStatus) {
-      this.querySelectorAll('.task')[taskIndex].classList.add('completed');
-    }
-    else {
-      this.querySelectorAll('.task')[taskIndex].classList.remove('completed');
-    }
-
-    // 觸發click事件時，將done狀態進行取反後，更新存至Storage
-    tasksArray[taskIndex].done = !tasksArray[taskIndex].done;
-    localStorage.setItem('lists', JSON.stringify(tasksArray));
+  // 依checked狀態增刪class
+  if (checkboxStatus) {
+    this.querySelectorAll('.task')[taskIndex].classList.add('completed');
+  }
+  else {
+    this.querySelectorAll('.task')[taskIndex].classList.remove('completed');
   }
 
+  // 觸發click事件時，將done狀態進行取反後，更新存至Storage
+  tasksArray[taskIndex].done = !tasksArray[taskIndex].done;
+  localStorage.setItem('lists', JSON.stringify(tasksArray));
 }
-
 function toggleEditArea(event) {
-  // Element.matches(selectorString)：若元素不相符則結束函式
-  // if (!event.target.matches('button')) {
-  //   return;
-  // }
+  if (event.target.className !== 'marker_pen') {
+    return;
+  }
+  const checkboxStatus = event.target.checked;
+  const taskIndex = event.target.dataset.edit;
 
-  console.log(event.target);
+  // 依checked狀態增刪class
+  if (checkboxStatus) {
+    this.querySelectorAll('.task')[taskIndex].classList.add('editing');
+  }
+  else {
+    this.querySelectorAll('.task')[taskIndex].classList.remove('editing');
+  }
 
+  // 觸發click事件時，將done狀態進行取反後，更新存至Storage
+  tasksArray[taskIndex].edit = !tasksArray[taskIndex].edit;
+  localStorage.setItem('lists', JSON.stringify(tasksArray));
+}
+function markupTask(event) {
+  if (event.target.className !== 'marker_star') {
+    return;
+  }
+  const checkboxStatus = event.target.checked;
+  const taskIndex = event.target.dataset.major;
+
+  // 依checked狀態增刪class
+  if (checkboxStatus) {
+    this.querySelectorAll('.task')[taskIndex].classList.add('major');
+  }
+  else {
+    this.querySelectorAll('.task')[taskIndex].classList.remove('major');
+  }
+
+  // 觸發click事件時，將done狀態進行取反後，更新存至Storage
+  tasksArray[taskIndex].major = !tasksArray[taskIndex].major;
+  localStorage.setItem('lists', JSON.stringify(tasksArray));
 }
 
 
@@ -226,3 +250,4 @@ export default updateTasks(tasksArray, taskList);
 addTaskInput.addEventListener('focus', addTask);
 taskList.addEventListener('click', checkCompletion);
 taskList.addEventListener('click', toggleEditArea);
+taskList.addEventListener('click', markupTask);
