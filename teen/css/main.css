@@ -152,12 +152,7 @@ main input {
   border: 2px solid #c8c8c8;
   border-radius: 5px;
   background-color: #ffffff;
-  font-family: "Roboto", sans-serif;
-  font-size: 1.5rem;
-  font-weight: 400;
-  color: #000000;
-}
-main input::placeholder {
+  text-align: left;
   font-family: "Roboto", sans-serif;
   font-size: 1.5rem;
   font-weight: 400;
@@ -184,6 +179,7 @@ main input::placeholder {
 }
 .task_header input:checked ~ textarea {
   text-decoration: line-through #9b9b9b;
+  color: #9b9b9b;
 }
 .task_header input:checked ~ textarea::placeholder {
   color: #9b9b9b;
@@ -335,7 +331,7 @@ main i {
 
 main {
   margin-bottom: 24px;
-  transition: all 0.2s ease;
+  transition: margin 0.3s ease;
 }
 main form {
   position: relative;
@@ -496,11 +492,13 @@ main.adding {
 .task.editing .task_header {
   border-radius: 5px 5px 0 0;
 }
-.task.editing .task_content {
-  display: block;
+.task.editing #task-edit {
+  height: auto;
 }
-.task .task_content {
-  display: none;
+.task #task-edit {
+  height: 0;
+  overflow: hidden;
+  transition: height 2s ease;
 }
 .task .marker_star {
   display: inline-block;

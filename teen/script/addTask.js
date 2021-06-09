@@ -119,13 +119,13 @@ function submitAddTask(event) {
 function updateTasks(tasksArray, taskList) {
   // ${task.done ? 'checked' : ''} -> 若task.done為true，則加上checked屬性
   // join()將所有模板字串接在一起，全部賦值給itemsLists.innerHTML
-  taskList.innerHTML = tasksArray.map((task) => {
+  taskList.innerHTML = tasksArray.map((task, index) => {
     return `
   <article class="task">
     <section class="task_header">
       <form id="task-title">
-        <input type="checkbox" class="add_task" id="add-task" ${task.done ? 'checked' : ''}>
-        <label for="add-task"><i class="far fa-check"></i></label>
+        <input type="checkbox" data-index="${index}" class="add_task" id="add-task${index}" ${task.done ? 'checked' : ''}>
+        <label for="add-task${index}"><i class="far fa-check"></i></label>
         <textarea name="task title" rows="1" placeholder="Type Something Here...">${task.title}</textarea>
         <div class="marker_group">
           <button type="button" class="marker_star"><i class="far fa-star"></i></button>

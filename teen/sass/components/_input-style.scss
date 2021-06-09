@@ -44,6 +44,7 @@
 
   &:checked ~ textarea {
     text-decoration: line-through color.$dark-gray;
+    color: color.$dark-gray;
 
     &::placeholder {
       color: color.$dark-gray;
