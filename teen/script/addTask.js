@@ -8,12 +8,16 @@ const newTaskTitleCheckbox = newTask.querySelector('.title_group');
 
 // taskList：exist tasks
 const taskList = document.querySelector('.task_list');
+// const majorTaskList = document.querySelector('.major_task_list');
+// const generalTaskList = document.querySelector('.general_task_list');
 
 
 // JSON.parse：將字串轉回原本陣列格式
 // 初始值為空陣列，或者若Storage已有紀錄則呈現先前保留的資料
 // If the key of getItem() doesn't exist, null is returned. => null為falsy值
 const tasksArray = JSON.parse(localStorage.getItem('lists')) || [];
+// const majorTasksArray = JSON.parse(localStorage.getItem('lists')) || [];
+// const generalTasksArray = JSON.parse(localStorage.getItem('lists')) || [];
 
 // Listerner Function
 function addTask() {
@@ -51,8 +55,15 @@ function submitAddTask(event) {
   // 阻止<form>預設的提交行為
   event.preventDefault();
 
+  const taskAmount = tasksArray.length + 1;
+  const majorTasks = document.querySelectorAll('.task.major');
+  const majorTaskAmount = document.querySelectorAll('.task.major').length;
+  const generalTaskAmount = taskAmount - majorTaskAmount;
+  console.log(taskAmount, majorTaskAmount, generalTaskAmount);
+
   // task data以物件形式紀錄後再推進tasksArray中
   const eachTask = {
+    number: taskAmount, // 1為起始數，等同於個數
     title: newTask.querySelector('.task_header textarea').value,
     done: newTask.querySelector('.done_task').checked,
     major: newTask.querySelector('.marker_star').checked,
@@ -63,8 +74,20 @@ function submitAddTask(event) {
     comment: newTask.querySelector('.task_body textarea').value,
   }
 
-  // 新增的task永遠在最上方：從（第1個參數）index 0位置開始，刪除（第2個參數）0個元素，並插入eachTask
-  tasksArray.splice(0, 0, eachTask);
+  if (newTask.querySelector('.marker_star').checked) {
+    // 新增的major task：永遠在最上方
+    eachTask.number = 1;
+    tasksArray.forEach(task => task.number += 1);
+  }
+  else {
+    // 新增的一般task：位在major task之後、舊的task之前
+    eachTask.number = majorTaskAmount + 1;
+    tasksArray.forEach(task => (task.number > majorTaskAmount) ? (task.number += 1) : '');
+  }
+  tasksArray.push(eachTask);
+  tasksArray.sort((a, b) => {
+    return a.number - b.number;
+  })
 
   // 將tasksArray更新至taskList區域中
   updateTasks(tasksArray, taskList);
@@ -74,18 +97,23 @@ function submitAddTask(event) {
 
   // 恢復Add Task input高度並隱藏new task
   cancelButton();
+
+  newTask.classList.remove('completed');
+  newTask.classList.remove('major');
 }
+
+
 
 
 function modifyTaskTitle(event) {
   if (event.target.className !== 'task_title') {
     return;
   }
-  const checkboxStatus = event.target.checked;
-  const taskIndex = event.target.dataset.done;
+  const modifyTitle = event.target.value;
+  const taskIndex = event.target.dataset.title;
 
   // 觸發click事件時，將done狀態進行取反後，更新存至Storage
-  tasksArray[taskIndex].title = tasksArray[taskIndex].title;
+  tasksArray[taskIndex].title = modifyTitle;
   localStorage.setItem('lists', JSON.stringify(tasksArray));
 }
 function checkCompletion(event) {
@@ -125,6 +153,19 @@ function markupTask(event) {
 
   // 觸發click事件時，將done狀態進行取反後，更新存至Storage
   tasksArray[taskIndex]['major'] = !tasksArray[taskIndex]['major'];
+
+
+  // if (newTask.querySelector('.marker_star').checked) {
+  //   // major task永遠在最上方：從（第1個參數）index 0位置開始，刪除（第2個參數）0個元素，並插入eachTask
+  //   tasksArray.splice(0, 0, eachTask);
+  // }
+  // else {
+  //   // 新增的一般task：位在major task之後、舊的task之前
+  //   const majorTaskNumber = document.querySelectorAll('.task.major').length;
+  //   tasksArray.splice(majorTaskNumber, 0, eachTask);
+  // }
+
+
   localStorage.setItem('lists', JSON.stringify(tasksArray));
 }
 function toggleEditArea(event) {
@@ -164,13 +205,13 @@ function updateTasks(tasksArray, taskList) {
   // join()將所有模板字串接在一起，全部賦值給itemsLists.innerHTML
   taskList.innerHTML = tasksArray.map((task, index) => {
     return `
-      <article class="task ${task.done ? 'completed' : ''} ${task.major ? 'major' : ''}">
+      <article data-task="${index}" class="task ${task.done ? 'completed' : ''} ${task.major ? 'major' : ''}">
         <form id="task-edit">
           <section class="task_header">
             <div class="title_group">
               <input type="checkbox" data-done="${index}" class="done_task" id="doneTask${index}" ${task.done ? 'checked' : ''}>
               <label for="doneTask${index}"><i class="far fa-check"></i></label>
-              <textarea class="task_title" name="task title" rows="1" placeholder="Type Something Here...">${task.title}</textarea>
+              <textarea data-title="${index}" class="task_title" name="task title" rows="1" placeholder="Type Something Here...">${task.title}</textarea>
               <div class="marker_group">
                 <input type="checkbox" data-major="${index}" class="marker_star" id="markerStar${index}" ${task.major ? 'checked' : ''}>
                 <label for="markerStar${index}">
@@ -228,6 +269,8 @@ function updateTasks(tasksArray, taskList) {
 
 // 自動載入以保存在LocalStorage中的tasks
 export default updateTasks(tasksArray, taskList);
+// export default updateTasks(majorTasksArray, majorTaskList);
+//     updateTasks(generalTasksArray, generalTaskList);
 
 // add new task
 addTaskButton.addEventListener('focus', addTask);
@@ -238,7 +281,7 @@ newTask.addEventListener('submit', submitAddTask);
 
 // exist tasks
 // 既有task的cancel：代表移除整個task，若只是修改內容應該toggle edit icon收合編輯區塊
-taskList.addEventListener('change', modifyTaskTitle);
+taskList.addEventListener('input', modifyTaskTitle);
 taskList.addEventListener('click', checkCompletion);
 taskList.addEventListener('click', markupTask);
 taskList.addEventListener('click', toggleEditArea);
