@@ -330,20 +330,20 @@ main .task .warning {
   color: #ffffff;
 }
 
-.task_header .title_group textarea {
+.task_header .title_group .task_title {
   margin-top: 8px;
   flex: 1 0 100%;
   order: 3;
   background-color: transparent;
 }
 @media (min-width: 576px) {
-  .task_header .title_group textarea {
+  .task_header .title_group .task_title {
     margin-top: 0;
     flex: 1 0 0;
     order: 2;
   }
 }
-.task_header .title_group textarea, .task_header .title_group textarea::placeholder {
+.task_header .title_group .task_title, .task_header .title_group .task_title::placeholder {
   font-family: "Roboto", sans-serif;
   font-size: 1.5rem;
   font-weight: 500;

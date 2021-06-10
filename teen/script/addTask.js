@@ -76,6 +76,18 @@ function submitAddTask(event) {
   cancelButton();
 }
 
+
+function modifyTaskTitle(event) {
+  if (event.target.className !== 'task_title') {
+    return;
+  }
+  const checkboxStatus = event.target.checked;
+  const taskIndex = event.target.dataset.done;
+
+  // 觸發click事件時，將done狀態進行取反後，更新存至Storage
+  tasksArray[taskIndex].title = tasksArray[taskIndex].title;
+  localStorage.setItem('lists', JSON.stringify(tasksArray));
+}
 function checkCompletion(event) {
   if (event.target.className !== 'done_task') {
     return;
@@ -158,7 +170,7 @@ function updateTasks(tasksArray, taskList) {
             <div class="title_group">
               <input type="checkbox" data-done="${index}" class="done_task" id="doneTask${index}" ${task.done ? 'checked' : ''}>
               <label for="doneTask${index}"><i class="far fa-check"></i></label>
-              <textarea name="task title" rows="1" placeholder="Type Something Here...">${task.title}</textarea>
+              <textarea class="task_title" name="task title" rows="1" placeholder="Type Something Here...">${task.title}</textarea>
               <div class="marker_group">
                 <input type="checkbox" data-major="${index}" class="marker_star" id="markerStar${index}" ${task.major ? 'checked' : ''}>
                 <label for="markerStar${index}">
@@ -226,6 +238,7 @@ newTask.addEventListener('submit', submitAddTask);
 
 // exist tasks
 // 既有task的cancel：代表移除整個task，若只是修改內容應該toggle edit icon收合編輯區塊
+taskList.addEventListener('change', modifyTaskTitle);
 taskList.addEventListener('click', checkCompletion);
 taskList.addEventListener('click', markupTask);
 taskList.addEventListener('click', toggleEditArea);

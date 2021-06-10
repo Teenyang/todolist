@@ -3,7 +3,7 @@
 @use './layout/container'; // body, main container
 @use './layout/header'; // sticky navbar
 @use './layout/add-task'; // add task
-@use './layout/exist-task'; // task-card, task-content
+@use './layout/task-card'; // task-card, task-content
 @use './layout/footer'; // task status
 
 // * {
