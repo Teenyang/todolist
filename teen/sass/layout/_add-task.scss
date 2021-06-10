@@ -4,19 +4,32 @@
 main {
   margin-bottom: 24px;
 
-  transition: margin 0.3s ease;
-
-  form {
+  > form {
     position: relative;
-  }
 
-  input {
-    @extend %add-input;
+    input {
+      @extend %add-input;
+    }
   }
 
   &.adding {
     margin-bottom: 0;
-    height: 0;
-    overflow: hidden;
+
+    > form {
+      height: 0;
+      overflow: hidden;
+    }
+  }
+
+  .task {
+    display: none;
+    &.new_task {
+      display: block;
+    }
+
+    // .warning {
+    //   text-align: center;
+    //   color: red;
+    // }
   }
 }

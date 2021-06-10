@@ -155,7 +155,7 @@ nav {
   flex: 1 0 0;
   text-align: center;
 }
-main input {
+main > form input {
   padding: 16.5px;
   padding-left: 67px;
   width: 100%;
@@ -169,7 +169,7 @@ main input {
   font-weight: 400;
   color: #c8c8c8;
 }
-main input ~ i {
+main > form input ~ i {
   width: 20px;
   margin: auto;
   position: absolute;
@@ -183,29 +183,29 @@ main input ~ i {
   color: #c8c8c8;
 }
 
-.task_header form > input {
+.task_header .title_group > input {
   display: none;
 }
-.task_header form > input ~ label {
+.task_header .title_group > input ~ label {
   margin-right: 16px;
   width: 24px;
   height: 24px;
   text-align: center;
   background-color: #ffffff;
 }
-.task_header form > input ~ label i {
+.task_header .title_group > input ~ label i {
   font-size: 14px;
   line-height: 24px;
   color: #ffffff;
 }
-.task_header form > input:checked ~ label {
+.task_header .title_group > input:checked ~ label {
   background-color: #4a90e2;
 }
-.task_header form > input:checked ~ textarea {
+.task_header .title_group > input:checked ~ textarea {
   text-decoration: line-through #9b9b9b;
   color: #9b9b9b;
 }
-.task_header form > input:checked ~ textarea::placeholder {
+.task_header .title_group > input:checked ~ textarea::placeholder {
   color: #9b9b9b;
 }
 
@@ -271,20 +271,20 @@ main input ~ i {
 }
 
 @media (min-width: 576px) {
-  .task.progress .info_group {
+  .task_header .info_group {
     margin-left: 40px;
   }
 }
-.task.progress .info_group span {
+.task_header .info_group span {
   font-family: "Roboto", sans-serif;
   font-size: 1rem;
   font-weight: 400;
   color: #757575;
 }
-.task.progress .info_group span i {
+.task_header .info_group span i {
   margin-right: 8px;
 }
-.task.progress .info_group i {
+.task_header .info_group i {
   font-size: 18px;
   color: #757575;
 }
@@ -298,31 +298,38 @@ main input ~ i {
 
 main {
   margin-bottom: 24px;
-  transition: margin 0.3s ease;
 }
-main form {
+main > form {
   position: relative;
 }
 main.adding {
   margin-bottom: 0;
+}
+main.adding > form {
   height: 0;
   overflow: hidden;
 }
+main .task {
+  display: none;
+}
+main .task.new_task {
+  display: block;
+}
 
-.task_header textarea {
+.task_header .title_group textarea {
   margin-top: 8px;
   flex: 1 0 100%;
   order: 3;
   background-color: transparent;
 }
 @media (min-width: 576px) {
-  .task_header textarea {
+  .task_header .title_group textarea {
     margin-top: 0;
     flex: 1 0 0;
     order: 2;
   }
 }
-.task_header textarea, .task_header textarea::placeholder {
+.task_header .title_group textarea, .task_header .title_group textarea::placeholder {
   font-family: "Roboto", sans-serif;
   font-size: 1.5rem;
   font-weight: 500;
@@ -403,7 +410,7 @@ main.adding {
 .task_header {
   padding: 24px 32px;
 }
-.task_header form {
+.task_header .title_group {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -411,6 +418,12 @@ main.adding {
 .task_header .marker_group {
   font-size: 0;
 }
+.task_header .info_group {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+}
+
 .task_body .edit_item + .edit_item {
   margin-top: 24px;
 }
@@ -494,13 +507,11 @@ main.adding {
 .task.editing .task_header {
   border-radius: 5px 5px 0 0;
 }
-.task.editing #task-edit {
-  height: auto;
+.task.editing .task_content {
+  display: block;
 }
-.task #task-edit {
-  height: 0;
-  overflow: hidden;
-  transition: height 2s ease;
+.task .task_content {
+  display: none;
 }
 .task .marker_star ~ label .general {
   display: inline-block;
@@ -532,13 +543,11 @@ main.adding {
 .task.progress.editing .info_group {
   display: none;
 }
+.task.progress.editing .task_header {
+  padding-bottom: 24px;
+}
 .task.progress .task_header {
   padding-bottom: 16px;
-}
-.task.progress .info_group {
-  margin-top: 16px;
-  display: flex;
-  align-items: center;
 }
 
 footer {

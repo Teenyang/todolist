@@ -11,8 +11,7 @@
   padding: 24px 32px;
   @extend %task-general-background;
 
-  // main form
-  form {
+  .title_group {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -20,19 +19,25 @@
     > input {
       @extend %check-input;
     }
-  }
-  textarea {
-    @extend %header-text;
+    textarea {
+      @extend %header-text;
+    }
   }
 
   .marker_group {
     font-size: 0; // 消除<i>inline-block間距
-
     @extend %marker-group-spacing;
 
     input {
       @extend %marker-input;
     }
+  }
+
+  .info_group {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    @extend %record-icon;
   }
 }
 
@@ -124,18 +129,12 @@
       border-radius: 5px 5px 0 0;
     }
 
-    // .task_content {
-    #task-edit {
-      // display: block;
-      height: auto;
+    .task_content {
+      display: block;
     }
   }
-  // .task_content {
-  #task-edit {
-    // display: none;
-    height: 0;
-    overflow: hidden;
-    transition: height 2s ease;
+  .task_content {
+    display: none;
   }
 
   // marker of major
@@ -186,17 +185,16 @@
     display: none;
   }
   &.progress {
-    &.editing .info_group {
-      display: none;
+    &.editing {
+      .info_group {
+        display: none;
+      }
+      .task_header {
+        padding-bottom: 24px;
+      }
     }
     .task_header {
       padding-bottom: 16px;
-    }
-    .info_group {
-      margin-top: 16px;
-      display: flex;
-      align-items: center;
-      @extend %record-icon;
     }
   }
 }
