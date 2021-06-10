@@ -1,11 +1,10 @@
 // MAIN：Add Task
 const main = document.querySelector('main');
-const addTaskInput = document.querySelector('#add-task-form input');
+const addTaskButton = document.querySelector('main > button');
+// const addTaskInput = document.querySelector('#add-task-form input');
 // MAIN：New Task
-const addNewTask = document.querySelector('main .task');
-const newTaskAllForms = addNewTask.querySelectorAll('form');
-const newTaskHeaderInputs = addNewTask.querySelectorAll('#task-title input');
-const newTaskEditForm = addNewTask.querySelector('#task-edit');
+const newTask = document.querySelector('main .task');
+const newTaskForm = newTask.querySelector('#task-edit');
 
 // taskList：exist tasks
 const taskList = document.querySelector('.task_list');
@@ -18,10 +17,13 @@ const tasksArray = JSON.parse(localStorage.getItem('lists')) || [];
 
 // Listerner Function
 function addTask() {
+  console.log(this);
+
+
   // focus Add Task input：增加class，main form高度變成0
   main.classList.add('adding');
   // 顯示Add Task input下方的new task
-  addNewTask.classList.add('new_task');
+  newTask.classList.add('new_task');
 }
 
 function cancelTask() {
@@ -32,30 +34,28 @@ function submitAddTask(event) {
   // 阻止<form>預設的提交行為
   event.preventDefault();
 
+  console.log(event.target);
 
-  // newTaskHeaderInputs.forEach(newTaskHeaderInput => newTaskHeaderInput.addEventListener('click'), () => {
-  //   console.log(newTaskHeaderInput);
-
-  //   if (event.target.className === 'marker_star') {
-  //     if (addNewTask.querySelector('.marker_star').checked) {
-  //       addNewTask.classList.add('major');
-  //     }
-  //     else {
-  //       addNewTask.classList.remove('major');
-  //     }
-  //   }
-  // })
+  if (event.target.className === 'marker_star') {
+    if (newTask.querySelector('.marker_star').checked) {
+      console.log(newTask.querySelector('.marker_star').checked);
+      newTask.classList.add('major');
+    }
+    else {
+      newTask.classList.remove('major');
+    }
+  }
 
   // task data以物件形式紀錄後再推進tasksArray中
   const eachTask = {
-    title: addNewTask.querySelector('.task_header textarea').value,
-    done: addNewTask.querySelector('.done_task').checked,
-    major: addNewTask.querySelector('.marker_star').checked,
-    edit: addNewTask.querySelector('.marker_pen').checked,
-    deadlineDate: addNewTask.querySelector('.task_body #date').value,
-    deadlineTime: addNewTask.querySelector('.task_body #time').value,
-    file: addNewTask.querySelector('.task_body #upload').files,
-    comment: addNewTask.querySelector('.task_body textarea').value,
+    title: newTask.querySelector('.task_header textarea').value,
+    done: newTask.querySelector('.done_task').checked,
+    major: newTask.querySelector('.marker_star').checked,
+    edit: newTask.querySelector('.marker_pen').checked,
+    deadlineDate: newTask.querySelector('.task_body #date').value,
+    deadlineTime: newTask.querySelector('.task_body #time').value,
+    file: newTask.querySelector('.task_body #upload').files,
+    comment: newTask.querySelector('.task_body textarea').value,
   }
 
   // 新增的task永遠在最上方：從（第1個參數）index 0位置開始，刪除（第2個參數）0個元素，並插入eachTask
@@ -136,9 +136,9 @@ function cancelButton() {
   // 移除class，恢復main form原始高度
   main.classList.remove('adding');
   // 隱藏Add Task input下方的new task
-  addNewTask.classList.remove('new_task');
-  // 清空new task header title & body內容
-  newTaskAllForms.forEach(newTaskAllForm => newTaskAllForm.reset());
+  newTask.classList.remove('new_task');
+  // 清空form內容
+  newTaskForm.reset();
 }
 
 function updateTasks(tasksArray, taskList) {
@@ -212,12 +212,13 @@ function updateTasks(tasksArray, taskList) {
 export default updateTasks(tasksArray, taskList);
 
 // add new task
-addTaskInput.addEventListener('focus', addTask);
-newTaskEditForm.addEventListener('reset', cancelTask); // 未新增task的cancel：代表reset表單
-newTaskEditForm.addEventListener('submit', submitAddTask);
+addTaskButton.addEventListener('focus', addTask);
+newTask.addEventListener('reset', cancelTask); // 未新增task的cancel：代表reset表單
+newTask.addEventListener('submit', submitAddTask);
+// newTask.addEventListener('click', submitAddTask);
 
 // exist tasks
+// 既有task的cancel：代表移除整個task，若只是修改內容應該toggle edit icon收合編輯區塊
 taskList.addEventListener('click', checkCompletion);
 taskList.addEventListener('click', toggleEditArea);
 taskList.addEventListener('click', markupTask);
-// 既有task的cancel：代表移除整個task，若只是修改內容應該toggle edit icon收合編輯區塊

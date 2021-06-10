@@ -3,34 +3,6 @@
 @use '../utilities/mediaquery';
 @use '../utilities/position';
 
-// ADD TASK
-%add-input {
-  padding: 16.5px;
-  padding-left: 67px;
-  width: 100%;
-  box-sizing: border-box;
-
-  border: 2px solid color.$medium-gray;
-  border-radius: 5px;
-  background-color: color.$white;
-
-  text-align: left;
-  @include font.regular(24px) {
-    color: color.$medium-gray;
-  }
-
-  ~ i {
-    width: 20px;
-
-    @include position.position-absolute(50%, auto, auto, 32px);
-    transform: translateY(-50%);
-    vertical-align: top;
-
-    font-size: 24px;
-    color: color.$medium-gray;
-  }
-}
-
 // TASK-HEADER
 %check-input {
   display: none;

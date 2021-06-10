@@ -155,7 +155,7 @@ nav {
   flex: 1 0 0;
   text-align: center;
 }
-main > form input {
+main > button {
   padding: 16.5px;
   padding-left: 67px;
   width: 100%;
@@ -169,7 +169,7 @@ main > form input {
   font-weight: 400;
   color: #c8c8c8;
 }
-main > form input ~ i {
+main > button i {
   width: 20px;
   margin: auto;
   position: absolute;
@@ -181,6 +181,61 @@ main > form input ~ i {
   vertical-align: top;
   font-size: 24px;
   color: #c8c8c8;
+}
+
+.task_footer .task_cancel {
+  background-color: #ffffff;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: #d0021b;
+}
+.task_footer .task_cancel:hover {
+  background-color: #fdfdfd;
+}
+@media (min-width: 576px) {
+  .task_footer .task_cancel {
+    font-family: "Roboto", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+  }
+}
+
+.task_footer .task_editing {
+  background-color: #4a90e2;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: #ffffff;
+}
+.task_footer .task_editing:hover {
+  background-color: #3982d7;
+}
+@media (min-width: 576px) {
+  .task_footer .task_editing {
+    font-family: "Roboto", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+  }
+}
+
+main {
+  margin-bottom: 24px;
+}
+main > button {
+  position: relative;
+}
+main.adding {
+  margin-bottom: 0;
+}
+main.adding > button {
+  display: none;
+}
+main .task {
+  display: none;
+}
+main .task.new_task {
+  display: block;
 }
 
 .task_header .title_group > input {
@@ -270,6 +325,26 @@ main > form input ~ i {
   color: #ffffff;
 }
 
+.task_header .title_group textarea {
+  margin-top: 8px;
+  flex: 1 0 100%;
+  order: 3;
+  background-color: transparent;
+}
+@media (min-width: 576px) {
+  .task_header .title_group textarea {
+    margin-top: 0;
+    flex: 1 0 0;
+    order: 2;
+  }
+}
+.task_header .title_group textarea, .task_header .title_group textarea::placeholder {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #000000;
+}
+
 @media (min-width: 576px) {
   .task_header .info_group {
     margin-left: 40px;
@@ -294,82 +369,6 @@ main > form input ~ i {
   vertical-align: top;
   font-size: 16px;
   line-height: 24px;
-}
-
-main {
-  margin-bottom: 24px;
-}
-main > form {
-  position: relative;
-}
-main.adding {
-  margin-bottom: 0;
-}
-main.adding > form {
-  height: 0;
-  overflow: hidden;
-}
-main .task {
-  display: none;
-}
-main .task.new_task {
-  display: block;
-}
-
-.task_header .title_group textarea {
-  margin-top: 8px;
-  flex: 1 0 100%;
-  order: 3;
-  background-color: transparent;
-}
-@media (min-width: 576px) {
-  .task_header .title_group textarea {
-    margin-top: 0;
-    flex: 1 0 0;
-    order: 2;
-  }
-}
-.task_header .title_group textarea, .task_header .title_group textarea::placeholder {
-  font-family: "Roboto", sans-serif;
-  font-size: 1.5rem;
-  font-weight: 500;
-  color: #000000;
-}
-
-.task_footer .task_cancel {
-  background-color: #ffffff;
-  font-family: "Roboto", sans-serif;
-  font-size: 1.125rem;
-  font-weight: 400;
-  color: #d0021b;
-}
-.task_footer .task_cancel:hover {
-  background-color: #fdfdfd;
-}
-@media (min-width: 576px) {
-  .task_footer .task_cancel {
-    font-family: "Roboto", sans-serif;
-    font-size: 1.5rem;
-    font-weight: 400;
-  }
-}
-
-.task_footer .task_editing {
-  background-color: #4a90e2;
-  font-family: "Roboto", sans-serif;
-  font-size: 1.125rem;
-  font-weight: 400;
-  color: #ffffff;
-}
-.task_footer .task_editing:hover {
-  background-color: #3982d7;
-}
-@media (min-width: 576px) {
-  .task_footer .task_editing {
-    font-family: "Roboto", sans-serif;
-    font-size: 1.5rem;
-    font-weight: 400;
-  }
 }
 
 .task_body .edit_item > label {
