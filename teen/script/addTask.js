@@ -55,15 +55,15 @@ function submitAddTask(event) {
   // 阻止<form>預設的提交行為
   event.preventDefault();
 
-  const taskAmount = tasksArray.length + 1;
-  const majorTasks = document.querySelectorAll('.task.major');
-  const majorTaskAmount = document.querySelectorAll('.task.major').length;
-  const generalTaskAmount = taskAmount - majorTaskAmount;
-  console.log(taskAmount, majorTaskAmount, generalTaskAmount);
+  // const taskAmount = tasksArray.length + 1;
+  // const majorTasks = document.querySelectorAll('.task.major');
+  // const majorTaskAmount = document.querySelectorAll('.task.major').length;
+  // const generalTaskAmount = taskAmount - majorTaskAmount;
+  // console.log(taskAmount, majorTaskAmount, generalTaskAmount);
 
   // task data以物件形式紀錄後再推進tasksArray中
   const eachTask = {
-    number: taskAmount, // 1為起始數，等同於個數
+    // number: taskAmount, // 1為起始數，等同於個數
     title: newTask.querySelector('.task_header textarea').value,
     done: newTask.querySelector('.done_task').checked,
     major: newTask.querySelector('.marker_star').checked,
@@ -75,19 +75,14 @@ function submitAddTask(event) {
   }
 
   if (newTask.querySelector('.marker_star').checked) {
-    // 新增的major task：永遠在最上方
-    eachTask.number = 1;
-    tasksArray.forEach(task => task.number += 1);
+    // major task永遠在最上方：從（第1個參數）index 0位置開始，刪除（第2個參數）0個元素，並插入eachTask
+    tasksArray.splice(0, 0, eachTask);
   }
   else {
     // 新增的一般task：位在major task之後、舊的task之前
-    eachTask.number = majorTaskAmount + 1;
-    tasksArray.forEach(task => (task.number > majorTaskAmount) ? (task.number += 1) : '');
+    const majorTaskCount = document.querySelectorAll('.task.major').length;
+    tasksArray.splice(majorTaskCount, 0, eachTask);
   }
-  tasksArray.push(eachTask);
-  tasksArray.sort((a, b) => {
-    return a.number - b.number;
-  })
 
   // 將tasksArray更新至taskList區域中
   updateTasks(tasksArray, taskList);
@@ -140,31 +135,23 @@ function markupTask(event) {
   if (event.target.className !== 'marker_star') {
     return;
   }
+
   const checkboxStatus = event.target.checked;
   const taskIndex = event.target.dataset['major'];
+  const majorTaskEndIndex = document.querySelectorAll('.task.major').length - 1;
 
   // 依checked狀態增刪class
   if (checkboxStatus) {
     this.querySelectorAll('.task')[taskIndex].classList.add('major');
+    // 觸發click事件時，將done狀態進行取反後，更新存至Storage
+    tasksArray[taskIndex]['major'] = !tasksArray[taskIndex]['major'];
+    sortTopMajorTask(tasksArray, taskIndex);
   }
   else {
     this.querySelectorAll('.task')[taskIndex].classList.remove('major');
+    tasksArray[taskIndex]['major'] = !tasksArray[taskIndex]['major'];
+    sortTopGeneralTask(tasksArray, taskIndex, majorTaskEndIndex)
   }
-
-  // 觸發click事件時，將done狀態進行取反後，更新存至Storage
-  tasksArray[taskIndex]['major'] = !tasksArray[taskIndex]['major'];
-
-
-  // if (newTask.querySelector('.marker_star').checked) {
-  //   // major task永遠在最上方：從（第1個參數）index 0位置開始，刪除（第2個參數）0個元素，並插入eachTask
-  //   tasksArray.splice(0, 0, eachTask);
-  // }
-  // else {
-  //   // 新增的一般task：位在major task之後、舊的task之前
-  //   const majorTaskNumber = document.querySelectorAll('.task.major').length;
-  //   tasksArray.splice(majorTaskNumber, 0, eachTask);
-  // }
-
 
   localStorage.setItem('lists', JSON.stringify(tasksArray));
 }
@@ -190,7 +177,22 @@ function toggleEditArea(event) {
 
 
 
+
 // General Function
+// 排序置頂
+function sortTopMajorTask(arr, topIndex) {
+  // arr.splice(startIndex. deleteCount, insertItem)：回傳值為包含被刪除元素的陣列
+  const moveItem = arr.splice(topIndex, 1)[0];
+  // arr.splice(topIndex, 1)[0])等於被刪除的值，再被arr.unshift()重新添加到arr的開頭
+  arr.unshift(moveItem);
+  return arr;
+};
+// 排序置於major之後、general第一個
+function sortTopGeneralTask(arr, middleIndex, majorEndIndex) {
+  const moveItem = arr.splice(middleIndex, 1)[0];
+  arr.splice(majorEndIndex, 0, moveItem);
+  return arr;
+};
 function cancelButton() {
   // 移除class，恢復main form原始高度
   main.classList.remove('adding');
@@ -199,7 +201,6 @@ function cancelButton() {
   // 清空form內容
   newTaskForm.reset();
 }
-
 function updateTasks(tasksArray, taskList) {
   // ${task.done ? 'checked' : ''} -> 若task.done為true，則加上checked屬性
   // join()將所有模板字串接在一起，全部賦值給itemsLists.innerHTML
@@ -270,7 +271,7 @@ function updateTasks(tasksArray, taskList) {
 // 自動載入以保存在LocalStorage中的tasks
 export default updateTasks(tasksArray, taskList);
 // export default updateTasks(majorTasksArray, majorTaskList);
-//     updateTasks(generalTasksArray, generalTaskList);
+// updateTasks(generalTasksArray, generalTaskList);
 
 // add new task
 addTaskButton.addEventListener('focus', addTask);
