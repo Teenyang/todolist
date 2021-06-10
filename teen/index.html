@@ -36,25 +36,25 @@
       <button type="button"><i class="fal fa-plus"></i>Add Task</button>
       <!---------------- adding new task ---------------->
       <article class="task editing">
-        <!-- <p class="warning">
+        <p class="warning">
           <i class="fal fa-exclamation-triangle"></i>
-          新增任務後，才能執行勾選完成、標示置頂、開關編輯
+          新增任務後，點選鉛筆才能開關編輯區域
           <i class="fal fa-exclamation-triangle"></i>
-        </p> -->
+        </p>
         <form id="task-edit">
           <section class="task_header">
             <div class="title_group">
-              <input type="checkbox" class="done_task" id="done-task">
-              <label for="done-task"><i class="far fa-check"></i></label>
+              <input type="checkbox" class="done_task" id="doneTask">
+              <label for="doneTask"><i class="far fa-check"></i></label>
               <textarea name="task title" rows="1" placeholder="Type Something Here..."></textarea>
               <div class="marker_group">
-                <input type="checkbox" class="marker_star" id="marker-star">
-                <label for="marker_star">
+                <input type="checkbox" class="marker_star" id="markerStar">
+                <label for="markerStar">
                   <i class="far fa-star general"></i>
                   <i class="fas fa-star major"></i>
                 </label>
-                <input type="checkbox" class="marker_pen" id="marker-pen">
-                <label for="marker_pen">
+                <input type="checkbox" class="marker_pen" id="markerPen">
+                <label for="markerPen">
                   <i class="far fa-pen general"></i>
                   <i class="fas fa-pen edit"></i>
                 </label>
@@ -100,6 +100,8 @@
 
     <!---------------- task list ---------------->
     <div class="task_list">
+      <div class="major_task_list"></div>
+      <div class="general_task_list"></div>
     </div>
 
     <footer>

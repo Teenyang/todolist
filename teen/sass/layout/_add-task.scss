@@ -13,8 +13,6 @@ main {
 
     > button {
       display: none;
-      // height: 0;
-      // overflow: hidden;
     }
   }
 
@@ -24,9 +22,10 @@ main {
       display: block;
     }
 
-    // .warning {
-    //   text-align: center;
-    //   color: red;
-    // }
+    .warning {
+      margin-bottom: 8px;
+      text-align: center;
+      color: red;
+    }
   }
 }

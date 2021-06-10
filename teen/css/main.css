@@ -237,6 +237,11 @@ main .task {
 main .task.new_task {
   display: block;
 }
+main .task .warning {
+  margin-bottom: 8px;
+  text-align: center;
+  color: red;
+}
 
 .task_header .title_group > input {
   display: none;

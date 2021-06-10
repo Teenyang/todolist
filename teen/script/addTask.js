@@ -1,10 +1,10 @@
 // MAIN：Add Task
 const main = document.querySelector('main');
 const addTaskButton = document.querySelector('main > button');
-// const addTaskInput = document.querySelector('#add-task-form input');
 // MAIN：New Task
 const newTask = document.querySelector('main .task');
 const newTaskForm = newTask.querySelector('#task-edit');
+const newTaskTitleCheckbox = newTask.querySelector('.title_group');
 
 // taskList：exist tasks
 const taskList = document.querySelector('.task_list');
@@ -17,9 +17,6 @@ const tasksArray = JSON.parse(localStorage.getItem('lists')) || [];
 
 // Listerner Function
 function addTask() {
-  console.log(this);
-
-
   // focus Add Task input：增加class，main form高度變成0
   main.classList.add('adding');
   // 顯示Add Task input下方的new task
@@ -30,28 +27,36 @@ function cancelTask() {
   cancelButton();
 }
 
-function submitAddTask(event) {
-  // 阻止<form>預設的提交行為
-  event.preventDefault();
-
-  console.log(event.target);
+function toggleNewTaskTitleCheckbox(event) {
+  if (event.target.className === 'done_task') {
+    if (event.target.checked) {
+      newTask.classList.add('completed');
+    }
+    else {
+      newTask.classList.remove('completed');
+    }
+  }
 
   if (event.target.className === 'marker_star') {
-    if (newTask.querySelector('.marker_star').checked) {
-      console.log(newTask.querySelector('.marker_star').checked);
+    if (event.target.checked) {
       newTask.classList.add('major');
     }
     else {
       newTask.classList.remove('major');
     }
   }
+}
+
+function submitAddTask(event) {
+  // 阻止<form>預設的提交行為
+  event.preventDefault();
 
   // task data以物件形式紀錄後再推進tasksArray中
   const eachTask = {
     title: newTask.querySelector('.task_header textarea').value,
     done: newTask.querySelector('.done_task').checked,
     major: newTask.querySelector('.marker_star').checked,
-    edit: newTask.querySelector('.marker_pen').checked,
+    edit: false,
     deadlineDate: newTask.querySelector('.task_body #date').value,
     deadlineTime: newTask.querySelector('.task_body #time').value,
     file: newTask.querySelector('.task_body #upload').files,
@@ -90,6 +95,26 @@ function checkCompletion(event) {
   tasksArray[taskIndex].done = !tasksArray[taskIndex].done;
   localStorage.setItem('lists', JSON.stringify(tasksArray));
 }
+// object select []
+function markupTask(event) {
+  if (event.target.className !== 'marker_star') {
+    return;
+  }
+  const checkboxStatus = event.target.checked;
+  const taskIndex = event.target.dataset['major'];
+
+  // 依checked狀態增刪class
+  if (checkboxStatus) {
+    this.querySelectorAll('.task')[taskIndex].classList.add('major');
+  }
+  else {
+    this.querySelectorAll('.task')[taskIndex].classList.remove('major');
+  }
+
+  // 觸發click事件時，將done狀態進行取反後，更新存至Storage
+  tasksArray[taskIndex]['major'] = !tasksArray[taskIndex]['major'];
+  localStorage.setItem('lists', JSON.stringify(tasksArray));
+}
 function toggleEditArea(event) {
   if (event.target.className !== 'marker_pen') {
     return;
@@ -107,25 +132,6 @@ function toggleEditArea(event) {
 
   // 觸發click事件時，將done狀態進行取反後，更新存至Storage
   tasksArray[taskIndex].edit = !tasksArray[taskIndex].edit;
-  localStorage.setItem('lists', JSON.stringify(tasksArray));
-}
-function markupTask(event) {
-  if (event.target.className !== 'marker_star') {
-    return;
-  }
-  const checkboxStatus = event.target.checked;
-  const taskIndex = event.target.dataset.major;
-
-  // 依checked狀態增刪class
-  if (checkboxStatus) {
-    this.querySelectorAll('.task')[taskIndex].classList.add('major');
-  }
-  else {
-    this.querySelectorAll('.task')[taskIndex].classList.remove('major');
-  }
-
-  // 觸發click事件時，將done狀態進行取反後，更新存至Storage
-  tasksArray[taskIndex].major = !tasksArray[taskIndex].major;
   localStorage.setItem('lists', JSON.stringify(tasksArray));
 }
 
@@ -146,21 +152,21 @@ function updateTasks(tasksArray, taskList) {
   // join()將所有模板字串接在一起，全部賦值給itemsLists.innerHTML
   taskList.innerHTML = tasksArray.map((task, index) => {
     return `
-      <article class="task">
+      <article class="task ${task.done ? 'completed' : ''} ${task.major ? 'major' : ''}">
         <form id="task-edit">
           <section class="task_header">
             <div class="title_group">
-              <input type="checkbox" data-done="${index}" class="done_task" id="done-task${index}" ${task.done ? 'checked' : ''}>
-              <label for="done-task${index}"><i class="far fa-check"></i></label>
+              <input type="checkbox" data-done="${index}" class="done_task" id="doneTask${index}" ${task.done ? 'checked' : ''}>
+              <label for="doneTask${index}"><i class="far fa-check"></i></label>
               <textarea name="task title" rows="1" placeholder="Type Something Here...">${task.title}</textarea>
               <div class="marker_group">
-                <input type="checkbox" data-major="${index}" class="marker_star" id="marker-star${index}" ${task.major ? 'checked' : ''}>
-                <label for="marker-star${index}">
+                <input type="checkbox" data-major="${index}" class="marker_star" id="markerStar${index}" ${task.major ? 'checked' : ''}>
+                <label for="markerStar${index}">
                   <i class="far fa-star general"></i>
                   <i class="fas fa-star major"></i>
                 </label>
-                <input type="checkbox" data-edit="${index}" class="marker_pen" id="marker-pen${index}" ${task.edit ? 'checked' : ''}>
-                <label for="marker-pen${index}">
+                <input type="checkbox" data-edit="${index}" class="marker_pen" id="markerPen${index}" ${task.edit ? 'checked' : ''}>
+                <label for="markerPen${index}">
                   <i class="far fa-pen general"></i>
                   <i class="fas fa-pen edit"></i>
                 </label>
@@ -214,11 +220,12 @@ export default updateTasks(tasksArray, taskList);
 // add new task
 addTaskButton.addEventListener('focus', addTask);
 newTask.addEventListener('reset', cancelTask); // 未新增task的cancel：代表reset表單
+newTaskTitleCheckbox.addEventListener('click', toggleNewTaskTitleCheckbox);
 newTask.addEventListener('submit', submitAddTask);
-// newTask.addEventListener('click', submitAddTask);
+
 
 // exist tasks
 // 既有task的cancel：代表移除整個task，若只是修改內容應該toggle edit icon收合編輯區塊
 taskList.addEventListener('click', checkCompletion);
-taskList.addEventListener('click', toggleEditArea);
 taskList.addEventListener('click', markupTask);
+taskList.addEventListener('click', toggleEditArea);
