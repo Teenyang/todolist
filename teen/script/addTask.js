@@ -55,7 +55,7 @@ function submitAddTask(event) {
     title: newTask.querySelector('.task_header textarea').value,
     done: newTask.querySelector('.done_task').checked,
     major: newTask.querySelector('.marker_star').checked,
-    edit: false,
+    // edit: false,
     deadlineDate: newTask.querySelector('.task_body #date').value,
     deadlineTime: newTask.querySelector('.task_body #time').value,
     file: newTask.querySelector('.task_body #upload').files,
@@ -85,6 +85,31 @@ function submitAddTask(event) {
   newTask.classList.remove('major');
 }
 
+function saveTask(event) {
+  // 阻止<form>預設的提交行為
+  event.preventDefault();
+
+  const taskIndex = event.target.dataset['form'];
+  const allTasks = this.querySelectorAll('.task');
+  const currentTask = allTasks[taskIndex];
+  console.log(taskIndex, this, event.target);
+
+  const updateTask = {
+    title: currentTask.querySelector('.task_header textarea').value,
+    done: currentTask.querySelector('.done_task').checked,
+    major: currentTask.querySelector('.marker_star').checked,
+    // edit: false,
+    deadlineDate: currentTask.querySelector('.task_body #date').value,
+    deadlineTime: currentTask.querySelector('.task_body #time').value,
+    file: currentTask.querySelector('.task_body #upload').files,
+    comment: currentTask.querySelector('.task_body textarea').value,
+  }
+
+  tasksArray.splice(taskIndex, 1, updateTask);
+  localStorage.setItem('lists', JSON.stringify(tasksArray));
+
+  currentTask.classList.remove('editing');
+}
 
 function modifyTaskTitle(event) {
   if (event.target.className !== 'task_title') {
@@ -102,10 +127,10 @@ function checkCompletion(event) {
   if (event.target.className !== 'done_task') {
     return;
   }
+
   const checkboxStatus = event.target.checked;
   const taskIndex = event.target.dataset['done'];
 
-  // this = taskList
   const allTasks = this.querySelectorAll('.task');
   const eachTaskSpacing = allTasks[1].offsetTop - allTasks[0].offsetTop; // height + gap
   const currentTask = allTasks[taskIndex];
@@ -163,7 +188,7 @@ function markupTask(event) {
 
   const checkboxStatus = event.target.checked;
   const taskIndex = event.target.dataset['major'];
-  // this = taskList
+
   const allTasks = this.querySelectorAll('.task');
   const eachTaskSpacing = allTasks[1].offsetTop - allTasks[0].offsetTop; // height + gap
   const currentTask = allTasks[taskIndex];
@@ -212,38 +237,33 @@ function markupTask(event) {
   }, 750);
 }
 
+// pen只負責展開編輯區塊，若要結束編輯狀態則透過form的cancel或add/save的結果而定
+// 若所在表失去focus，則alert提醒要cancel or save
 function toggleEditArea(event) {
   if (event.target.className !== 'marker_pen') {
     return;
   }
+
+  event.target.checked = true;
   const checkboxStatus = event.target.checked;
   const taskIndex = event.target.dataset.edit;
 
-  // 依checked狀態增刪class
+  const allTasks = this.querySelectorAll('.task');
+  const currentTask = allTasks[taskIndex];
+
   if (checkboxStatus) {
-    this.querySelectorAll('.task')[taskIndex].classList.add('editing');
-  }
-  else {
-    this.querySelectorAll('.task')[taskIndex].classList.remove('editing');
+    currentTask.classList.add('editing');
   }
 
-  // 觸發click事件時，將done狀態進行取反後，更新存至Storage
-  tasksArray[taskIndex].edit = !tasksArray[taskIndex].edit;
   localStorage.setItem('lists', JSON.stringify(tasksArray));
+
+
+  // 若所在表失去focus，則alert提醒要cancel or save
+  currentTask.focus();
 }
 
 
-
 // General Function
-// 置頂
-// function sortTopTask(arr, topIndex) {
-//   // arr.splice(startIndex. deleteCount, insertItem)：回傳值為包含被刪除元素的陣列
-//   const moveItem = arr.splice(topIndex, 1)[0];
-//   // arr.splice(topIndex, 1)[0])等於被刪除的值，再被arr.unshift()重新添加到arr的開頭
-//   arr.unshift(moveItem);
-//   return arr;
-// }
-
 // 排序置於前項最末index之後、本項第一個
 function sortTask(arr, moveTaskIndex, destinationIndex) {
   const moveTask = arr.splice(moveTaskIndex, 1)[0];
@@ -259,13 +279,14 @@ function cancelButton() {
   // 清空form內容
   newTaskForm.reset();
 }
+
 function updateTasks(tasksArray, taskList) {
   // ${task.done ? 'checked' : ''} -> 若task.done為true，則加上checked屬性
   // join()將所有模板字串接在一起，全部賦值給itemsLists.innerHTML
   taskList.innerHTML = tasksArray.map((task, index) => {
     return `
       <article data-task="${index}" class="task ${task.done ? 'completed' : ''} ${task.major ? 'major' : ''}">
-        <form id="task-edit">
+        <form data-form="${index}" id="task-edit">
           <section class="task_header">
             <div class="title_group">
               <input type="checkbox" data-done="${index}" class="done_task" id="doneTask${index}" ${task.done ? 'checked' : ''}>
@@ -277,7 +298,7 @@ function updateTasks(tasksArray, taskList) {
                   <i class="far fa-star general"></i>
                   <i class="fas fa-star major"></i>
                 </label>
-                <input type="checkbox" data-edit="${index}" class="marker_pen" id="markerPen${index}" ${task.edit ? 'checked' : ''} ${task.done ? 'disabled' : ''}>
+                <input type="checkbox" data-edit="${index}" class="marker_pen" id="markerPen${index}" ${task.done ? 'disabled' : ''}>
                 <label for="markerPen${index}">
                   <i class="far fa-pen general"></i>
                   <i class="fas fa-pen edit"></i>
@@ -328,8 +349,6 @@ function updateTasks(tasksArray, taskList) {
 
 // 自動載入以保存在LocalStorage中的tasks
 export default updateTasks(tasksArray, taskList);
-// export default updateTasks(majorTasksArray, majorTaskList);
-// updateTasks(generalTasksArray, generalTaskList);
 
 
 // add new task
@@ -346,3 +365,4 @@ taskList.addEventListener('input', modifyTaskTitle);
 taskList.addEventListener('click', checkCompletion);
 taskList.addEventListener('click', markupTask);
 taskList.addEventListener('click', toggleEditArea);
+taskList.addEventListener('submit', saveTask);
