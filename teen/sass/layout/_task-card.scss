@@ -72,13 +72,6 @@
   }
 
   .deadline {
-    .edit_content {
-      // position: relative;
-      i {
-        // @extend %date-toggle;
-      }
-    }
-
     input {
       position: relative;
       @include input-style.content-input(162px, 35px);

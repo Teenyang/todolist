@@ -32,13 +32,3 @@
   font-size: 16px;
   line-height: 24px;
 }
-
-%date-toggle {
-  @include position.position-absolute(12px, 0, 0, 130px);
-  z-index: 1;
-
-  font-size: 5px;
-  color: color.$black;
-
-  cursor: pointer;
-}
