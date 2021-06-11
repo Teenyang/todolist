@@ -82,10 +82,29 @@
   @include font.regular(16px) {
     color: color.$black;
   }
+
+  &:focus {
+    border: 1px solid color.$blue;
+    box-shadow: 0 0 4px 0 color.$blue;
+  }
+
   &::placeholder {
     @include font.regular(16px) {
       color: color.$medium-gray;
     }
+  }
+
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    background-color: color.$white;
+  }
+
+  &::-webkit-datetime-edit-day-field:focus,
+  &::-webkit-datetime-edit-month-field:focus,
+  &::-webkit-datetime-edit-year-field:focus {
+    background-color: color.$blue;
   }
 
   @content;
@@ -111,6 +130,9 @@
     position: relative;
 
     background-color: color.$medium-gray;
+    &:hover {
+      background-color: color.$blue;
+    }
 
     i {
       @include position.position-absolute(0, 0, 0, 0);
