@@ -314,21 +314,22 @@ function updateTasks(tasksArray, taskList) {
           <div class="task_content">
             <section class="task_body">
               <div class="edit_item deadline">
-                <label for="date time"><i class="far fa-calendar-alt fa-fw"></i>Deadline</label>
+                <label><i class="far fa-calendar-alt fa-fw"></i>Deadline</label>
                 <div class="edit_content">
-                  <input id="date" type="text" placeholder="yyyy/mm/dd" name="deadline-date" value="${task.deadlineDate}">
+                  <i class="fas fa-caret-down"></i>
+                  <input id="date" type="date" placeholder="yyyy/mm/dd" name="deadline-date" value="${task.deadlineDate}">
                   <input id="time" type="text" placeholder="hh:mm" name="deadline-time" value="${task.deadlineTime}">
                 </div>
               </div>
               <div class="edit_item file">
-                <label for="upload"><i class="far fa-file fa-fw"></i>File</label>
+                <label><i class="far fa-file fa-fw"></i>File</label>
                 <div class="edit_content">
-                  <input id="upload" type="file" name="file-upload" file="${task.file}>
+                  <input id="upload" type="file" name="file-upload" file="${task.file}">
                   <label for="upload"><i class="fal fa-plus fa-fw"></i></label>
                 </div>
               </div>
               <div class="edit_item comment">
-                <label for="text"><i class="far fa-comment-dots fa-fw"></i>Comment</label>
+                <label><i class="far fa-comment-dots fa-fw"></i>Comment</label>
                 <div class="edit_content">
                   <textarea name="comment" placeholder="Type your memo here…">${task.comment}</textarea>
                 </div>

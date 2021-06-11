@@ -118,6 +118,16 @@ body {
   }
 }
 
+.task_body .deadline input:nth-of-type(1) {
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+@media (min-width: 576px) {
+  .task_body .deadline input:nth-of-type(1) {
+    margin-bottom: 0;
+  }
+}
+
 .task_body {
   padding: 24px 32px;
   border-top: 3px solid #c8c8c8;
@@ -237,11 +247,6 @@ main .task {
 main .task.new_task {
   display: block;
 }
-main .task .warning {
-  margin-bottom: 8px;
-  text-align: center;
-  color: red;
-}
 
 .task_header .title_group > input {
   display: none;
@@ -297,16 +302,6 @@ main .task .warning {
   color: #4a90e2;
 }
 
-.task_body .deadline input:nth-of-type(1) {
-  margin-right: 8px;
-  margin-bottom: 8px;
-}
-@media (min-width: 576px) {
-  .task_body .deadline input:nth-of-type(1) {
-    margin-bottom: 0;
-  }
-}
-
 .task_body .file input {
   display: none;
 }
@@ -316,6 +311,9 @@ main .task .warning {
   height: 32px;
   position: relative;
   background-color: #c8c8c8;
+}
+.task_body .file input ~ label:hover {
+  background-color: #4a90e2;
 }
 .task_body .file input ~ label i {
   margin: auto;
@@ -437,10 +435,14 @@ main .task .warning {
   flex-direction: column;
   font-size: 0;
 }
+.task_body .edit_item > label {
+  cursor: auto;
+}
 .task_body .edit_content {
   margin-left: 28px;
 }
 .task_body .deadline input {
+  position: relative;
   padding: 8px 16px;
   width: 162px;
   height: 35px;
@@ -451,11 +453,35 @@ main .task .warning {
   font-weight: 400;
   color: #000000;
 }
+.task_body .deadline input:focus {
+  border: 1px solid #4a90e2;
+  box-shadow: 0 0 4px 0 #4a90e2;
+}
 .task_body .deadline input::placeholder {
   font-family: "Roboto", sans-serif;
   font-size: 1rem;
   font-weight: 400;
   color: #c8c8c8;
+}
+.task_body .deadline input:-webkit-autofill, .task_body .deadline input:-webkit-autofill:hover, .task_body .deadline input:-webkit-autofill:focus, .task_body .deadline input:-webkit-autofill:active {
+  background-color: #ffffff;
+}
+.task_body .deadline input::-webkit-datetime-edit-day-field:focus, .task_body .deadline input::-webkit-datetime-edit-month-field:focus, .task_body .deadline input::-webkit-datetime-edit-year-field:focus {
+  background-color: #4a90e2;
+}
+.task_body .deadline input::-webkit-calendar-picker-indicator {
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  bottom: 0;
+  left: 0;
+  margin: 0 0 0 auto;
+  transform: translateY(-50%);
+  width: 7px;
+  height: 7px;
+  background-color: black;
+  clip-path: polygon(50% 100%, 0 0, 100% 0);
 }
 .task_body .file .edit_content {
   display: flex;
@@ -475,11 +501,35 @@ main .task .warning {
   font-weight: 400;
   color: #000000;
 }
+.task_body .comment textarea:focus {
+  border: 1px solid #4a90e2;
+  box-shadow: 0 0 4px 0 #4a90e2;
+}
 .task_body .comment textarea::placeholder {
   font-family: "Roboto", sans-serif;
   font-size: 1rem;
   font-weight: 400;
   color: #c8c8c8;
+}
+.task_body .comment textarea:-webkit-autofill, .task_body .comment textarea:-webkit-autofill:hover, .task_body .comment textarea:-webkit-autofill:focus, .task_body .comment textarea:-webkit-autofill:active {
+  background-color: #ffffff;
+}
+.task_body .comment textarea::-webkit-datetime-edit-day-field:focus, .task_body .comment textarea::-webkit-datetime-edit-month-field:focus, .task_body .comment textarea::-webkit-datetime-edit-year-field:focus {
+  background-color: #4a90e2;
+}
+.task_body .comment textarea::-webkit-calendar-picker-indicator {
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  bottom: 0;
+  left: 0;
+  margin: 0 0 0 auto;
+  transform: translateY(-50%);
+  width: 7px;
+  height: 7px;
+  background-color: black;
+  clip-path: polygon(50% 100%, 0 0, 100% 0);
 }
 
 .task_footer {

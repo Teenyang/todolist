@@ -36,11 +36,6 @@
       <button type="button"><i class="fal fa-plus"></i>Add Task</button>
       <!---------------- adding new task ---------------->
       <article class="task editing">
-        <p class="warning">
-          <i class="fal fa-exclamation-triangle"></i>
-          新增任務後，點選鉛筆才能開關編輯區域
-          <i class="fal fa-exclamation-triangle"></i>
-        </p>
         <form id="task-edit">
           <section class="task_header">
             <div class="title_group">
@@ -69,21 +64,22 @@
           <div class="task_content">
             <section class="task_body">
               <div class="edit_item deadline">
-                <label for="date time"><i class="far fa-calendar-alt fa-fw"></i>Deadline</label>
+                <label><i class="far fa-calendar-alt fa-fw"></i>Deadline</label>
                 <div class="edit_content">
+                  <i class="fas fa-caret-down"></i>
                   <input id="date" type="text" placeholder="yyyy/mm/dd" name="deadline-date">
                   <input id="time" type="text" placeholder="hh:mm" name="deadline-time">
                 </div>
               </div>
               <div class="edit_item file">
-                <label for="upload"><i class="far fa-file fa-fw"></i>File</label>
+                <label><i class="far fa-file fa-fw"></i>File</label>
                 <div class="edit_content">
                   <input id="upload" type="file" name="file-upload">
                   <label for="upload"><i class="fal fa-plus fa-fw"></i></label>
                 </div>
               </div>
               <div class="edit_item comment">
-                <label for="text"><i class="far fa-comment-dots fa-fw"></i>Comment</label>
+                <label><i class="far fa-comment-dots fa-fw"></i>Comment</label>
                 <div class="edit_content">
                   <textarea name="comment" placeholder="Type your memo here…"></textarea>
                 </div>
@@ -100,8 +96,6 @@
 
     <!---------------- task list ---------------->
     <div class="task_list">
-      <div class="major_task_list"></div>
-      <div class="general_task_list"></div>
     </div>
 
     <footer>

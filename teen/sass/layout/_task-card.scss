@@ -59,6 +59,8 @@
 
     > label {
       @extend %edit-title;
+      cursor: auto;
+
       i {
         @extend %edit-icon;
       }
@@ -69,9 +71,19 @@
     margin-left: 28px;
   }
 
-  .deadline input {
-    @include input-style.content-input(162px, 35px);
-    @extend %edit-date;
+  .deadline {
+    .edit_content {
+      // position: relative;
+      i {
+        // @extend %date-toggle;
+      }
+    }
+
+    input {
+      position: relative;
+      @include input-style.content-input(162px, 35px);
+      @extend %edit-date-spacing;
+    }
   }
 
   .file {
@@ -84,7 +96,7 @@
       @extend %edit-content;
     }
     input {
-      @extend %edit-upload;
+      @extend %edit-upload-input;
     }
   }
 

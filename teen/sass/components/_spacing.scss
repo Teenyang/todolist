@@ -23,6 +23,16 @@
   }
 }
 
+%edit-date-spacing {
+  &:nth-of-type(1) {
+    margin-right: 8px;
+    margin-bottom: 8px;
+    @include mediaquery.mediaquery-tablet {
+      margin-bottom: 0;
+    }
+  }
+}
+
 %task-edit-spacing {
   padding: 24px 32px;
   @include mediaquery.mediaquery-tablet {
