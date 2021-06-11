@@ -5,19 +5,14 @@ const addTaskButton = document.querySelector('main > button');
 const newTask = document.querySelector('main .task');
 const newTaskForm = newTask.querySelector('#task-edit');
 const newTaskTitleCheckbox = newTask.querySelector('.title_group');
-
 // taskList：exist tasks
 const taskList = document.querySelector('.task_list');
-// const majorTaskList = document.querySelector('.major_task_list');
-// const generalTaskList = document.querySelector('.general_task_list');
-
 
 // JSON.parse：將字串轉回原本陣列格式
 // 初始值為空陣列，或者若Storage已有紀錄則呈現先前保留的資料
 // If the key of getItem() doesn't exist, null is returned. => null為falsy值
 const tasksArray = JSON.parse(localStorage.getItem('lists')) || [];
-// const majorTasksArray = JSON.parse(localStorage.getItem('lists')) || [];
-// const generalTasksArray = JSON.parse(localStorage.getItem('lists')) || [];
+
 
 // Listerner Function
 function addTask() {
@@ -55,15 +50,8 @@ function submitAddTask(event) {
   // 阻止<form>預設的提交行為
   event.preventDefault();
 
-  // const taskAmount = tasksArray.length + 1;
-  // const majorTasks = document.querySelectorAll('.task.major');
-  // const majorTaskAmount = document.querySelectorAll('.task.major').length;
-  // const generalTaskAmount = taskAmount - majorTaskAmount;
-  // console.log(taskAmount, majorTaskAmount, generalTaskAmount);
-
   // task data以物件形式紀錄後再推進tasksArray中
   const eachTask = {
-    // number: taskAmount, // 1為起始數，等同於個數
     title: newTask.querySelector('.task_header textarea').value,
     done: newTask.querySelector('.done_task').checked,
     major: newTask.querySelector('.marker_star').checked,
@@ -98,8 +86,6 @@ function submitAddTask(event) {
 }
 
 
-
-
 function modifyTaskTitle(event) {
   if (event.target.className !== 'task_title') {
     return;
@@ -111,26 +97,65 @@ function modifyTaskTitle(event) {
   tasksArray[taskIndex].title = modifyTitle;
   localStorage.setItem('lists', JSON.stringify(tasksArray));
 }
+
 function checkCompletion(event) {
   if (event.target.className !== 'done_task') {
     return;
   }
   const checkboxStatus = event.target.checked;
-  const taskIndex = event.target.dataset.done;
+  const taskIndex = event.target.dataset['done'];
 
-  // 依checked狀態增刪class
+  // this = taskList
+  const allTasks = this.querySelectorAll('.task');
+  const eachTaskSpacing = allTasks[1].offsetTop - allTasks[0].offsetTop; // height + gap
+  const currentTask = allTasks[taskIndex];
+  const generalTaskEndIndex = (allTasks.length - document.querySelectorAll('.task.completed').length) - 1;
+
   if (checkboxStatus) {
-    this.querySelectorAll('.task')[taskIndex].classList.add('completed');
+    // 已完成任務：無法設為重要
+    currentTask.classList.add('completed');
+    tasksArray[taskIndex]['done'] = !tasksArray[taskIndex]['done'];
+    currentTask.classList.remove('major');
+    tasksArray[taskIndex]['major'] = false;
+
+    // 置於general最末、completed最前
+    allTasks.forEach((task, index) => {
+      if (taskIndex < index && index <= generalTaskEndIndex) {
+        task.style.transform = `translateY(-${eachTaskSpacing}px)`;
+        task.style.transition = `all 0.7s`;
+      }
+    })
+    currentTask.style.transform = `translateY(${(generalTaskEndIndex - taskIndex) * eachTaskSpacing}px)`;
+    currentTask.style.transition = `all 0.5s`;
+
+    sortTask(tasksArray, taskIndex, generalTaskEndIndex);
   }
   else {
-    this.querySelectorAll('.task')[taskIndex].classList.remove('completed');
+    currentTask.classList.remove('completed');
+    tasksArray[taskIndex]['done'] = !tasksArray[taskIndex]['done'];
+
+    // 置於general最末、completed最前
+    allTasks.forEach((task, index) => {
+      if (generalTaskEndIndex < index && index < taskIndex) {
+        task.style.transform = `translateY(${eachTaskSpacing}px)`;
+        task.style.transition = `all 0.7s`;
+      }
+    })
+    currentTask.style.transform = `translateY(${(generalTaskEndIndex - taskIndex + 1) * eachTaskSpacing}px)`;
+    currentTask.style.transition = `all 0.5s`;
+
+    // 因置於completed最前，但不取代general最末，因此需加回1
+    sortTask(tasksArray, taskIndex, generalTaskEndIndex + 1);
   }
 
-  // 觸發click事件時，將done狀態進行取反後，更新存至Storage
-  tasksArray[taskIndex].done = !tasksArray[taskIndex].done;
   localStorage.setItem('lists', JSON.stringify(tasksArray));
+
+  // 設定固定時間後重新刷新頁面，讓DOM重新渲染
+  setTimeout(() => {
+    window.location.reload();
+  }, 750);
 }
-// object select []
+
 function markupTask(event) {
   if (event.target.className !== 'marker_star') {
     return;
@@ -138,23 +163,55 @@ function markupTask(event) {
 
   const checkboxStatus = event.target.checked;
   const taskIndex = event.target.dataset['major'];
+  // this = taskList
+  const allTasks = this.querySelectorAll('.task');
+  const eachTaskSpacing = allTasks[1].offsetTop - allTasks[0].offsetTop; // height + gap
+  const currentTask = allTasks[taskIndex];
   const majorTaskEndIndex = document.querySelectorAll('.task.major').length - 1;
 
-  // 依checked狀態增刪class
   if (checkboxStatus) {
-    this.querySelectorAll('.task')[taskIndex].classList.add('major');
-    // 觸發click事件時，將done狀態進行取反後，更新存至Storage
+    // 重要任務
+    currentTask.classList.add('major');
     tasksArray[taskIndex]['major'] = !tasksArray[taskIndex]['major'];
-    sortTopMajorTask(tasksArray, taskIndex);
+
+    // 置於major最前
+    allTasks.forEach((task, index) => {
+      if (index < taskIndex) {
+        task.style.transform = `translateY(${eachTaskSpacing}px)`;
+        task.style.transition = `all 0.7s`;
+      }
+    })
+    currentTask.style.transform = `translateY(-${taskIndex * eachTaskSpacing}px)`;
+    currentTask.style.transition = `all 0.5s`;
+
+    const majorTaskStartIndex = 0;
+    sortTask(tasksArray, taskIndex, majorTaskStartIndex);
   }
   else {
-    this.querySelectorAll('.task')[taskIndex].classList.remove('major');
+    currentTask.classList.remove('major');
     tasksArray[taskIndex]['major'] = !tasksArray[taskIndex]['major'];
-    sortTopGeneralTask(tasksArray, taskIndex, majorTaskEndIndex)
+
+    // 置於major最末、general最前
+    allTasks.forEach((task, index) => {
+      if (taskIndex < index && index <= majorTaskEndIndex) {
+        task.style.transform = `translateY(-${eachTaskSpacing}px)`;
+        task.style.transition = `all 0.7s`;
+      }
+    })
+    currentTask.style.transform = `translateY(${(majorTaskEndIndex - taskIndex) * eachTaskSpacing}px)`;
+    currentTask.style.transition = `all 0.5s`;
+
+    sortTask(tasksArray, taskIndex, majorTaskEndIndex);
   }
 
   localStorage.setItem('lists', JSON.stringify(tasksArray));
+
+  // 設定固定時間後重新刷新頁面，讓DOM重新渲染
+  setTimeout(() => {
+    window.location.reload();
+  }, 750);
 }
+
 function toggleEditArea(event) {
   if (event.target.className !== 'marker_pen') {
     return;
@@ -177,22 +234,23 @@ function toggleEditArea(event) {
 
 
 
-
 // General Function
-// 排序置頂
-function sortTopMajorTask(arr, topIndex) {
-  // arr.splice(startIndex. deleteCount, insertItem)：回傳值為包含被刪除元素的陣列
-  const moveItem = arr.splice(topIndex, 1)[0];
-  // arr.splice(topIndex, 1)[0])等於被刪除的值，再被arr.unshift()重新添加到arr的開頭
-  arr.unshift(moveItem);
+// 置頂
+// function sortTopTask(arr, topIndex) {
+//   // arr.splice(startIndex. deleteCount, insertItem)：回傳值為包含被刪除元素的陣列
+//   const moveItem = arr.splice(topIndex, 1)[0];
+//   // arr.splice(topIndex, 1)[0])等於被刪除的值，再被arr.unshift()重新添加到arr的開頭
+//   arr.unshift(moveItem);
+//   return arr;
+// }
+
+// 排序置於前項最末index之後、本項第一個
+function sortTask(arr, moveTaskIndex, destinationIndex) {
+  const moveTask = arr.splice(moveTaskIndex, 1)[0];
+  arr.splice(destinationIndex, 0, moveTask);
   return arr;
-};
-// 排序置於major之後、general第一個
-function sortTopGeneralTask(arr, middleIndex, majorEndIndex) {
-  const moveItem = arr.splice(middleIndex, 1)[0];
-  arr.splice(majorEndIndex, 0, moveItem);
-  return arr;
-};
+}
+
 function cancelButton() {
   // 移除class，恢復main form原始高度
   main.classList.remove('adding');
@@ -214,12 +272,12 @@ function updateTasks(tasksArray, taskList) {
               <label for="doneTask${index}"><i class="far fa-check"></i></label>
               <textarea data-title="${index}" class="task_title" name="task title" rows="1" placeholder="Type Something Here...">${task.title}</textarea>
               <div class="marker_group">
-                <input type="checkbox" data-major="${index}" class="marker_star" id="markerStar${index}" ${task.major ? 'checked' : ''}>
+                <input type="checkbox" data-major="${index}" class="marker_star" id="markerStar${index}" ${task.major ? 'checked' : ''} ${task.done ? 'disabled' : ''}>
                 <label for="markerStar${index}">
                   <i class="far fa-star general"></i>
                   <i class="fas fa-star major"></i>
                 </label>
-                <input type="checkbox" data-edit="${index}" class="marker_pen" id="markerPen${index}" ${task.edit ? 'checked' : ''}>
+                <input type="checkbox" data-edit="${index}" class="marker_pen" id="markerPen${index}" ${task.edit ? 'checked' : ''} ${task.done ? 'disabled' : ''}>
                 <label for="markerPen${index}">
                   <i class="far fa-pen general"></i>
                   <i class="fas fa-pen edit"></i>
@@ -273,6 +331,7 @@ export default updateTasks(tasksArray, taskList);
 // export default updateTasks(majorTasksArray, majorTaskList);
 // updateTasks(generalTasksArray, generalTaskList);
 
+
 // add new task
 addTaskButton.addEventListener('focus', addTask);
 newTask.addEventListener('reset', cancelTask); // 未新增task的cancel：代表reset表單
@@ -281,6 +340,7 @@ newTask.addEventListener('submit', submitAddTask);
 
 
 // exist tasks
+const completedTasks = taskList.querySelectorAll('.task.completed');
 // 既有task的cancel：代表移除整個task，若只是修改內容應該toggle edit icon收合編輯區塊
 taskList.addEventListener('input', modifyTaskTitle);
 taskList.addEventListener('click', checkCompletion);
