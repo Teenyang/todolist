@@ -66,15 +66,15 @@
               <div class="edit_item deadline">
                 <label><i class="far fa-calendar-alt fa-fw"></i>Deadline</label>
                 <div class="edit_content">
-                  <i class="fas fa-caret-down"></i>
-                  <input id="date" type="text" placeholder="yyyy/mm/dd" name="deadline-date">
-                  <input id="time" type="text" placeholder="hh:mm" name="deadline-time">
+                  <input id="date" type="text" class="deadline_date" placeholder="yyyy/mm/dd" name="deadline-date">
+                  <input id="time" type="text" class="deadline_time" placeholder="hh:mm" name="deadline-time">
                 </div>
               </div>
               <div class="edit_item file">
                 <label><i class="far fa-file fa-fw"></i>File</label>
                 <div class="edit_content">
-                  <input id="upload" type="file" name="file-upload">
+                  <div class="file_data"></div>
+                  <input id="upload" type="file" class="upload_file" name="file-upload">
                   <label for="upload"><i class="fal fa-plus fa-fw"></i></label>
                 </div>
               </div>

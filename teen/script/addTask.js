@@ -50,6 +50,9 @@ function submitAddTask(event) {
   // 阻止<form>預設的提交行為
   event.preventDefault();
 
+  // const upload = uploadFileDataSave();
+
+
   // task data以物件形式紀錄後再推進tasksArray中
   const eachTask = {
     title: newTask.querySelector('.task_header textarea').value,
@@ -58,7 +61,8 @@ function submitAddTask(event) {
     // edit: false,
     deadlineDate: newTask.querySelector('.task_body #date').value,
     deadlineTime: newTask.querySelector('.task_body #time').value,
-    file: newTask.querySelector('.task_body #upload').files,
+    file: (newTask.querySelector('.task_body #upload').value).replace(/.*[\/\\]/, ''),
+    fileUpload: 'today',
     comment: newTask.querySelector('.task_body textarea').value,
   }
 
@@ -89,10 +93,13 @@ function saveTask(event) {
   // 阻止<form>預設的提交行為
   event.preventDefault();
 
+  const todayMillisecond = Date.now();
+  const uploadMillisecond = todayMillisecond;
+  const fileUpload = compareDate(todayMillisecond, uploadMillisecond);
+
   const taskIndex = event.target.dataset['form'];
   const allTasks = this.querySelectorAll('.task');
   const currentTask = allTasks[taskIndex];
-  console.log(taskIndex, this, event.target);
 
   const updateTask = {
     title: currentTask.querySelector('.task_header textarea').value,
@@ -101,7 +108,8 @@ function saveTask(event) {
     // edit: false,
     deadlineDate: currentTask.querySelector('.task_body #date').value,
     deadlineTime: currentTask.querySelector('.task_body #time').value,
-    file: currentTask.querySelector('.task_body #upload').files,
+    file: currentTask.querySelector('.task_body .upload_file').files[0],
+    fileUpload: fileUpload,
     comment: currentTask.querySelector('.task_body textarea').value,
   }
 
@@ -262,6 +270,56 @@ function toggleEditArea(event) {
   currentTask.focus();
 }
 
+function changeDate(event) {
+  if (event.target.className === 'deadline_date') {
+    event.target.type = 'date';
+  }
+  else if (event.target.className === 'deadline_time') {
+    event.target.type = 'time';
+  }
+}
+
+function uploadFile(event) {
+  if (event.target.className === 'upload_file') {
+    const fileName = event.target.files[0].name;
+
+    const todayMillisecond = Date.now();
+    const uploadMillisecond = todayMillisecond;
+    const fileUpload = compareDate(todayMillisecond, uploadMillisecond);
+
+    const fileData = this.querySelector('.file_data');
+    fileData.classList.add('show');
+    fileData.innerHTML = `
+      <p>${fileName}</p>
+      <span>uploaded ${fileUpload}</span>
+    `
+  }
+}
+
+function compareDate(todayMs, uploadMs) {
+  const today = new Date();
+  const uploadHour = today.getHours();
+  const uploadMin = today.getMinutes();
+  const uploadSec = today.getSeconds();
+  const onedayMs = 60 * 60 * 24 * 1000;
+  const countdownMs = ((24 - uploadHour) * 3600 + (60 - uploadMin) * 60 + (60 - uploadSec)) * 1000;
+
+  // getMonth()介於0~11
+  // const fileUploadTime = `${today.getFullYear()}/${fillZero(today.getMonth() + 1)}/${fillZero(today.getDate())}`;
+
+  if ((todayMs - uploadMs) < countdownMs) {
+    return 'today';
+  }
+  else if (countdownMs <= (todayMs - uploadMs) && (todayMs - uploadMs) < (countdownMs + onedayMs)) {
+    return 'yesterday';
+  }
+  else if ((todayMs - uploadMs) >= (countdownMs + onedayMs)) {
+    const days = Math.ceil((todayMs - countdownMs) / onedayMs);
+    return `${days} days ago`;
+  }
+}
+
+
 
 // General Function
 // 排序置於前項最末index之後、本項第一個
@@ -280,12 +338,16 @@ function cancelButton() {
   newTaskForm.reset();
 }
 
+function fillZero(number) {
+  return (number < 10) ? `0${number} ` : `${number} `;
+}
+
 function updateTasks(tasksArray, taskList) {
   // ${task.done ? 'checked' : ''} -> 若task.done為true，則加上checked屬性
   // join()將所有模板字串接在一起，全部賦值給itemsLists.innerHTML
   taskList.innerHTML = tasksArray.map((task, index) => {
     return `
-      <article data-task="${index}" class="task ${task.done ? 'completed' : ''} ${task.major ? 'major' : ''}">
+      <article data - task="${index}" class="task ${task.done ? 'completed' : ''} ${task.major ? 'major' : ''}" >
         <form data-form="${index}" id="task-edit">
           <section class="task_header">
             <div class="title_group">
@@ -316,16 +378,19 @@ function updateTasks(tasksArray, taskList) {
               <div class="edit_item deadline">
                 <label><i class="far fa-calendar-alt fa-fw"></i>Deadline</label>
                 <div class="edit_content">
-                  <i class="fas fa-caret-down"></i>
-                  <input id="date" type="date" placeholder="yyyy/mm/dd" name="deadline-date" value="${task.deadlineDate}">
-                  <input id="time" type="text" placeholder="hh:mm" name="deadline-time" value="${task.deadlineTime}">
+                  <input id="date" type="text" class="deadline_date" placeholder="yyyy/mm/dd" name="deadline-date" value="${task.deadlineDate}">
+                  <input id="time" type="text" class="deadline_time" placeholder="hh:mm" name="deadline-time" value="${task.deadlineTime}">
                 </div>
               </div>
               <div class="edit_item file">
                 <label><i class="far fa-file fa-fw"></i>File</label>
                 <div class="edit_content">
-                  <input id="upload" type="file" name="file-upload" file="${task.file}">
-                  <label for="upload"><i class="fal fa-plus fa-fw"></i></label>
+                  <div class="file_data ${(task.file.length > 0) ? 'show' : ''}">
+                    <p>${task.file}</p>
+                    <span>uploaded ${task.fileUpload}</span>
+                  </div>
+                  <input id="upload${index}" type="file" class="upload_file" name="file-upload" value="${task.file}">
+                  <label for="upload${index}"><i class="fal fa-plus fa-fw"></i></label>
                 </div>
               </div>
               <div class="edit_item comment">
@@ -358,12 +423,21 @@ newTask.addEventListener('reset', cancelTask); // 未新增task的cancel：代�
 newTaskTitleCheckbox.addEventListener('click', toggleNewTaskTitleCheckbox);
 newTask.addEventListener('submit', submitAddTask);
 
+newTask.addEventListener('click', changeDate);
+newTask.addEventListener('change', uploadFile);
+
 
 // exist tasks
 const completedTasks = taskList.querySelectorAll('.task.completed');
 // 既有task的cancel：代表移除整個task，若只是修改內容應該toggle edit icon收合編輯區塊
 taskList.addEventListener('input', modifyTaskTitle);
+
 taskList.addEventListener('click', checkCompletion);
 taskList.addEventListener('click', markupTask);
 taskList.addEventListener('click', toggleEditArea);
+
+taskList.addEventListener('click', changeDate);
+taskList.addEventListener('change', uploadFile);
+
+
 taskList.addEventListener('submit', saveTask);

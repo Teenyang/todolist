@@ -302,6 +302,30 @@ main .task.new_task {
   color: #4a90e2;
 }
 
+.task_body .deadline input::-webkit-datetime-edit-day-field:focus, .task_body .deadline input::-webkit-datetime-edit-month-field:focus, .task_body .deadline input::-webkit-datetime-edit-year-field:focus {
+  background-color: #4a90e2;
+}
+.task_body .deadline input[type=date]::-webkit-datetime-edit-text {
+  color: red;
+}
+.task_body .deadline input::-webkit-datetime-edit-year-field {
+  content: "";
+}
+.task_body .deadline input::-webkit-calendar-picker-indicator {
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  bottom: 0;
+  left: 0;
+  margin: 0 0 0 auto;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  background-color: #000000;
+  clip-path: polygon(50% 100%, 0 0, 100% 0);
+}
+
 .task_body .file input {
   display: none;
 }
@@ -382,13 +406,13 @@ main .task.new_task {
   font-weight: 500;
 }
 
-.task_body .file .file_data p {
+.task_body .file .file_data.show p {
   font-family: "Roboto", sans-serif;
   font-size: 1rem;
   font-weight: 400;
   color: #000000;
 }
-.task_body .file .file_data span {
+.task_body .file .file_data.show span {
   font-family: "Roboto", sans-serif;
   font-size: 1rem;
   font-weight: 400;
@@ -466,28 +490,11 @@ main .task.new_task {
 .task_body .deadline input:-webkit-autofill, .task_body .deadline input:-webkit-autofill:hover, .task_body .deadline input:-webkit-autofill:focus, .task_body .deadline input:-webkit-autofill:active {
   background-color: #ffffff;
 }
-.task_body .deadline input::-webkit-datetime-edit-day-field:focus, .task_body .deadline input::-webkit-datetime-edit-month-field:focus, .task_body .deadline input::-webkit-datetime-edit-year-field:focus {
-  background-color: #4a90e2;
-}
-.task_body .deadline input::-webkit-calendar-picker-indicator {
-  margin: auto;
-  position: absolute;
-  top: 50%;
-  right: 16px;
-  bottom: 0;
-  left: 0;
-  margin: 0 0 0 auto;
-  transform: translateY(-50%);
-  width: 7px;
-  height: 7px;
-  background-color: black;
-  clip-path: polygon(50% 100%, 0 0, 100% 0);
-}
 .task_body .file .edit_content {
   display: flex;
   align-items: center;
 }
-.task_body .file .file_data {
+.task_body .file .file_data.show {
   margin-right: 24px;
 }
 .task_body .comment textarea {
@@ -513,23 +520,6 @@ main .task.new_task {
 }
 .task_body .comment textarea:-webkit-autofill, .task_body .comment textarea:-webkit-autofill:hover, .task_body .comment textarea:-webkit-autofill:focus, .task_body .comment textarea:-webkit-autofill:active {
   background-color: #ffffff;
-}
-.task_body .comment textarea::-webkit-datetime-edit-day-field:focus, .task_body .comment textarea::-webkit-datetime-edit-month-field:focus, .task_body .comment textarea::-webkit-datetime-edit-year-field:focus {
-  background-color: #4a90e2;
-}
-.task_body .comment textarea::-webkit-calendar-picker-indicator {
-  margin: auto;
-  position: absolute;
-  top: 50%;
-  right: 16px;
-  bottom: 0;
-  left: 0;
-  margin: 0 0 0 auto;
-  transform: translateY(-50%);
-  width: 7px;
-  height: 7px;
-  background-color: black;
-  clip-path: polygon(50% 100%, 0 0, 100% 0);
 }
 
 .task_footer {

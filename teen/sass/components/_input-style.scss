@@ -102,6 +102,10 @@
     background-color: color.$white;
   }
 
+  @content;
+}
+
+%input-type-datetime {
   // 改變預設style使用的focus顏色
   &::-webkit-datetime-edit-day-field:focus,
   &::-webkit-datetime-edit-month-field:focus,
@@ -110,18 +114,29 @@
   }
 
   // 隱藏預設format使用的日曆icon
+  &[type="date"]::-webkit-datetime-edit-text {
+    color: red;
+    // content: "/";
+  }
+  // &[type="date"] {
+  &::-webkit-datetime-edit-year-field {
+    content: "";
+  }
   &::-webkit-calendar-picker-indicator {
     @include position.position-absolute(50%, 16px, 0, 0);
     margin: 0 0 0 auto;
     transform: translateY(-50%);
 
-    width: 7px;
-    height: 7px;
-    background-color: black;
+    width: 6px;
+    height: 6px;
+    background-color: color.$black;
+    // clip-path: (center bottom),(left top),(right top)
     clip-path: polygon(50% 100%, 0 0, 100% 0);
   }
-
-  @content;
+  // }
+  // &[type="time"]::-webkit-calendar-picker-indicator {
+  //   background-image: none;
+  // }
 }
 
 %edit-upload-input {

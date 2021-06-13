@@ -76,6 +76,7 @@
       position: relative;
       @include input-style.content-input(162px, 35px);
       @extend %edit-date-spacing;
+      @extend %input-type-datetime;
     }
   }
 
@@ -84,7 +85,7 @@
       display: flex;
       align-items: center;
     }
-    .file_data {
+    .file_data.show {
       margin-right: 24px;
       @extend %edit-content;
     }
