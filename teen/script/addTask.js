@@ -108,10 +108,12 @@ function saveTask(event) {
     // edit: false,
     deadlineDate: currentTask.querySelector('.task_body #date').value,
     deadlineTime: currentTask.querySelector('.task_body #time').value,
-    file: currentTask.querySelector('.task_body .upload_file').files[0],
+    file: currentTask.querySelector('.task_body .upload_file').files[0].name,
     fileUpload: fileUpload,
     comment: currentTask.querySelector('.task_body textarea').value,
   }
+
+  console.log(updateTask.file);
 
   tasksArray.splice(taskIndex, 1, updateTask);
   localStorage.setItem('lists', JSON.stringify(tasksArray));
