@@ -18,6 +18,7 @@
 
   <script type="module">
     import addTask from './script/addTask.js';
+    import { changeDate, uploadFile, editComment } from './script/editTask.js';
   </script>
 </head>
 
@@ -33,10 +34,10 @@
   <div class="container">
     <main>
       <!---------------- add task button ---------------->
-      <button type="button"><i class="fal fa-plus"></i>Add Task</button>
+      <button type="button" class="add_button"><i class="fal fa-plus"></i>Add Task</button>
       <!---------------- adding new task ---------------->
       <article class="task editing">
-        <form id="task-edit">
+        <form id="task-edit" autocomplete="off">
           <section class="task_header">
             <div class="title_group">
               <input type="checkbox" class="done_task" id="doneTask">
@@ -92,11 +93,11 @@
           </div>
         </form>
       </article>
+      <!---------------- task list ---------------->
+      <div class="task_list">
+      </div>
     </main>
 
-    <!---------------- task list ---------------->
-    <div class="task_list">
-    </div>
 
     <footer>
       <span class="task_status"><em>0 task left</em></span>

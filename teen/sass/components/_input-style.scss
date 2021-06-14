@@ -3,16 +3,6 @@
 @use '../utilities/mediaquery';
 @use '../utilities/position';
 
-input {
-  // 改變預設autofill使用的顏色
-  &:-webkit-autofill,
-  &:-webkit-autofill:hover,
-  &:-webkit-autofill:focus,
-  &:-webkit-autofill:active {
-    background-color: color.$white;
-  }
-}
-
 // TASK-HEADER
 %check-input {
   display: none;
@@ -108,6 +98,14 @@ input {
 }
 
 %input-type-datetime {
+  // 改變預設autofill使用的顏色
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    background-color: color.$white;
+  }
+
   // 改變預設style使用的focus顏色
   &::-webkit-datetime-edit-day-field:focus,
   &::-webkit-datetime-edit-month-field:focus,

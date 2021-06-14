@@ -1,23 +1,18 @@
 @use '../components/button';
 
-main {
+.add_button {
   margin-bottom: 24px;
-
-  > button {
-    position: relative;
-    @extend %add-button;
-  }
+  position: relative;
+  @extend %add-button;
 
   &.adding {
     margin-bottom: 0;
-
-    > button {
-      display: none;
-    }
+    display: none;
   }
 
-  .task {
+  & ~ .task {
     display: none;
+
     &.new_task {
       display: block;
     }
