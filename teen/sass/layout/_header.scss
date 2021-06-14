@@ -29,5 +29,6 @@ nav {
 
   &.select {
     @extend %nav-title-select;
+    transition: all 0.5s;
   }
 }

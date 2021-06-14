@@ -165,7 +165,11 @@ nav {
   flex: 1 0 0;
   text-align: center;
 }
-main > button {
+.nav_link.select {
+  transition: all 0.5s;
+}
+
+.add_button {
   padding: 16.5px;
   padding-left: 67px;
   width: 100%;
@@ -179,7 +183,7 @@ main > button {
   font-weight: 400;
   color: #c8c8c8;
 }
-main > button i {
+.add_button i {
   width: 20px;
   margin: auto;
   position: absolute;
@@ -229,27 +233,19 @@ main > button i {
   }
 }
 
-main {
+.add_button {
   margin-bottom: 24px;
-}
-main > button {
   position: relative;
 }
-main.adding {
+.add_button.adding {
   margin-bottom: 0;
-}
-main.adding > button {
   display: none;
 }
-main .task {
+.add_button ~ .task {
   display: none;
 }
-main .task.new_task {
+.add_button ~ .task.new_task {
   display: block;
-}
-
-input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
-  background-color: #ffffff;
 }
 
 .task_header .title_group > input {
@@ -306,6 +302,9 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
   color: #4a90e2;
 }
 
+.task_body .deadline input:-webkit-autofill {
+  background-color: #ffffff;
+}
 .task_body .deadline input::-webkit-datetime-edit-day-field:focus, .task_body .deadline input::-webkit-datetime-edit-month-field:focus, .task_body .deadline input::-webkit-datetime-edit-year-field:focus {
   background-color: #4a90e2;
 }

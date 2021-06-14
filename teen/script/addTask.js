@@ -103,9 +103,6 @@ function saveTask(event) {
   currentTask.classList.remove('editing');
 }
 
-
-
-
 function modifyTaskTitle(event) {
   if (event.target.className !== 'task_title') {
     return;
@@ -257,8 +254,6 @@ function toggleEditArea(event) {
   currentTask.focus();
 }
 
-
-
 // General Function
 function compareDate(todayMs, uploadMs) {
   const today = new Date();
@@ -390,8 +385,6 @@ taskList.addEventListener('click', toggleEditArea);
 taskList.addEventListener('submit', saveTask);
 // cancel既有的task：代表不儲存本次修改的結果
 
-// footer status
-const completedTasks = taskList.querySelectorAll('.task.completed');
 
 // function daysCountdown(uploadMs) {
 // }

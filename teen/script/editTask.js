@@ -1,6 +1,4 @@
 const main = document.querySelector('main');
-console.log(main);
-
 
 function changeDate(event) {
   if (event.target.className === 'deadline_date') {

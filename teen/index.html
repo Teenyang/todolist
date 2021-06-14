@@ -19,15 +19,16 @@
   <script type="module">
     import addTask from './script/addTask.js';
     import { changeDate, uploadFile, editComment } from './script/editTask.js';
+    import { chooseTaskCategory } from './script/taskStatus.js';
   </script>
 </head>
 
 <body>
   <header>
     <nav>
-      <a href="##" data-nav="all" class="nav_link select">My Tasks</a>
-      <a href="##" date-nav="progress" class="nav_link">In Progress</a>
-      <a href="##" date-nav="completed" class="nav_link">Completed</a>
+      <a href="##" data-link="all" class="nav_link select">My Tasks</a>
+      <a href="##" data-link="progress" class="nav_link">In Progress</a>
+      <a href="##" data-link="completed" class="nav_link">Completed</a>
     </nav>
   </header>
 
