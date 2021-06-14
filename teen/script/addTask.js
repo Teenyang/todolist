@@ -61,7 +61,7 @@ function submitAddTask(event) {
     // edit: false,
     deadlineDate: newTask.querySelector('.task_body #date').value,
     deadlineTime: newTask.querySelector('.task_body #time').value,
-    file: (newTask.querySelector('.task_body #upload').value).replace(/.*[\/\\]/, ''),
+    file: (newTask.querySelector('.task_body .upload_file').value).replace(/.*[\/\\]/, ''),
     fileUpload: 'today',
     comment: newTask.querySelector('.task_body textarea').value,
   }
@@ -108,7 +108,7 @@ function saveTask(event) {
     // edit: false,
     deadlineDate: currentTask.querySelector('.task_body #date').value,
     deadlineTime: currentTask.querySelector('.task_body #time').value,
-    file: currentTask.querySelector('.task_body .upload_file').files[0].name,
+    file: (currentTask.querySelector('.task_body .upload_file').value).replace(/.*[\/\\]/, ''),
     fileUpload: fileUpload,
     comment: currentTask.querySelector('.task_body textarea').value,
   }
@@ -298,12 +298,24 @@ function uploadFile(event) {
   }
 }
 
+function editComment(event) {
+  if (event.target.className === 'edit_comment') {
+    event.target.removeAttribute('readonly');
+  }
+
+  event.target.addEventListener('blur', () => {
+    event.target.setAttribute('readonly', '');
+  })
+}
+
+
 function compareDate(todayMs, uploadMs) {
   const today = new Date();
+  const oneDayMs = 60 * 60 * 24 * 1000;
+
   const uploadHour = today.getHours();
   const uploadMin = today.getMinutes();
   const uploadSec = today.getSeconds();
-  const onedayMs = 60 * 60 * 24 * 1000;
   const countdownMs = ((24 - uploadHour) * 3600 + (60 - uploadMin) * 60 + (60 - uploadSec)) * 1000;
 
   // getMonth()介於0~11
@@ -312,15 +324,14 @@ function compareDate(todayMs, uploadMs) {
   if ((todayMs - uploadMs) < countdownMs) {
     return 'today';
   }
-  else if (countdownMs <= (todayMs - uploadMs) && (todayMs - uploadMs) < (countdownMs + onedayMs)) {
+  else if (countdownMs <= (todayMs - uploadMs) && (todayMs - uploadMs) < (countdownMs + oneDayMs)) {
     return 'yesterday';
   }
-  else if ((todayMs - uploadMs) >= (countdownMs + onedayMs)) {
-    const days = Math.ceil((todayMs - countdownMs) / onedayMs);
+  else if ((todayMs - uploadMs) >= (countdownMs + oneDayMs)) {
+    const days = Math.ceil((todayMs - countdownMs) / oneDayMs);
     return `${days} days ago`;
   }
 }
-
 
 
 // General Function
@@ -398,7 +409,7 @@ function updateTasks(tasksArray, taskList) {
               <div class="edit_item comment">
                 <label><i class="far fa-comment-dots fa-fw"></i>Comment</label>
                 <div class="edit_content">
-                  <textarea name="comment" placeholder="Type your memo here…">${task.comment}</textarea>
+                  <textarea class="edit_comment" name="comment" placeholder="Type your memo here…" readonly>${task.comment}</textarea>
                 </div>
               </div>
             </section>
@@ -427,6 +438,7 @@ newTask.addEventListener('submit', submitAddTask);
 
 newTask.addEventListener('click', changeDate);
 newTask.addEventListener('change', uploadFile);
+newTask.addEventListener('dblclick', editComment);
 
 
 // exist tasks
@@ -440,6 +452,13 @@ taskList.addEventListener('click', toggleEditArea);
 
 taskList.addEventListener('click', changeDate);
 taskList.addEventListener('change', uploadFile);
+taskList.addEventListener('dblclick', editComment);
 
 
 taskList.addEventListener('submit', saveTask);
+
+
+
+// function daysCountdown(uploadMs) {
+// }
+// setInterval(daysCountdown, 86400);
