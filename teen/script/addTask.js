@@ -1,8 +1,8 @@
 // MAIN：Add Task
 const main = document.querySelector('main');
-const addTaskButton = document.querySelector('main > button');
-// MAIN：New Task
-const newTask = document.querySelector('main .task');
+const addTaskButton = main.querySelector('.add_button');
+// New Task
+const newTask = main.querySelector('main > .task');
 const newTaskForm = newTask.querySelector('#task-edit');
 const newTaskTitleCheckbox = newTask.querySelector('.title_group');
 // taskList：exist tasks
@@ -14,44 +14,31 @@ const taskList = document.querySelector('.task_list');
 const tasksArray = JSON.parse(localStorage.getItem('lists')) || [];
 
 
-// Listerner Function
+// addEventListener Function
 function addTask() {
-  // focus Add Task input：增加class，main form高度變成0
-  main.classList.add('adding');
-  // 顯示Add Task input下方的new task
+  this.classList.add('adding');
   newTask.classList.add('new_task');
 }
 
-function cancelTask() {
-  cancelButton();
+function cancelAddTask() {
+  resetForm();
+  newTask.querySelector('input[type=date]').type = 'text';
+  newTask.querySelector('input[type=time]').type = 'text';
+  newTask.querySelector('.file_data').classList.remove('show');
 }
 
-function toggleNewTaskTitleCheckbox(event) {
+function toggleNewTaskCheckbox(event) {
   if (event.target.className === 'done_task') {
-    if (event.target.checked) {
-      newTask.classList.add('completed');
-    }
-    else {
-      newTask.classList.remove('completed');
-    }
+    (event.target.checked) ? newTask.classList.add('completed') : newTask.classList.remove('completed');
   }
-
-  if (event.target.className === 'marker_star') {
-    if (event.target.checked) {
-      newTask.classList.add('major');
-    }
-    else {
-      newTask.classList.remove('major');
-    }
+  else if (event.target.className === 'marker_star') {
+    (event.target.checked) ? newTask.classList.add('major') : newTask.classList.remove('major');
   }
 }
 
 function submitAddTask(event) {
   // 阻止<form>預設的提交行為
   event.preventDefault();
-
-  // const upload = uploadFileDataSave();
-
 
   // task data以物件形式紀錄後再推進tasksArray中
   const eachTask = {
@@ -82,15 +69,12 @@ function submitAddTask(event) {
   // 將tasksArray更新儲存在Storage，並用JSON.stringify將陣列格式轉成字串以便讀取
   localStorage.setItem('lists', JSON.stringify(tasksArray));
 
-  // 恢復Add Task input高度並隱藏new task
-  cancelButton();
-
+  resetForm();
   newTask.classList.remove('completed');
   newTask.classList.remove('major');
 }
 
 function saveTask(event) {
-  // 阻止<form>預設的提交行為
   event.preventDefault();
 
   const todayMillisecond = Date.now();
@@ -113,13 +97,14 @@ function saveTask(event) {
     comment: currentTask.querySelector('.task_body textarea').value,
   }
 
-  console.log(updateTask.file);
-
   tasksArray.splice(taskIndex, 1, updateTask);
   localStorage.setItem('lists', JSON.stringify(tasksArray));
 
   currentTask.classList.remove('editing');
 }
+
+
+
 
 function modifyTaskTitle(event) {
   if (event.target.className !== 'task_title') {
@@ -272,43 +257,9 @@ function toggleEditArea(event) {
   currentTask.focus();
 }
 
-function changeDate(event) {
-  if (event.target.className === 'deadline_date') {
-    event.target.type = 'date';
-  }
-  else if (event.target.className === 'deadline_time') {
-    event.target.type = 'time';
-  }
-}
-
-function uploadFile(event) {
-  if (event.target.className === 'upload_file') {
-    const fileName = event.target.files[0].name;
-
-    const todayMillisecond = Date.now();
-    const uploadMillisecond = todayMillisecond;
-    const fileUpload = compareDate(todayMillisecond, uploadMillisecond);
-
-    const fileData = this.querySelector('.file_data');
-    fileData.classList.add('show');
-    fileData.innerHTML = `
-      <p>${fileName}</p>
-      <span>uploaded ${fileUpload}</span>
-    `
-  }
-}
-
-function editComment(event) {
-  if (event.target.className === 'edit_comment') {
-    event.target.removeAttribute('readonly');
-  }
-
-  event.target.addEventListener('blur', () => {
-    event.target.setAttribute('readonly', '');
-  })
-}
 
 
+// General Function
 function compareDate(todayMs, uploadMs) {
   const today = new Date();
   const oneDayMs = 60 * 60 * 24 * 1000;
@@ -332,9 +283,6 @@ function compareDate(todayMs, uploadMs) {
     return `${days} days ago`;
   }
 }
-
-
-// General Function
 // 排序置於前項最末index之後、本項第一個
 function sortTask(arr, moveTaskIndex, destinationIndex) {
   const moveTask = arr.splice(moveTaskIndex, 1)[0];
@@ -342,12 +290,9 @@ function sortTask(arr, moveTaskIndex, destinationIndex) {
   return arr;
 }
 
-function cancelButton() {
-  // 移除class，恢復main form原始高度
-  main.classList.remove('adding');
-  // 隱藏Add Task input下方的new task
+function resetForm() {
+  addTaskButton.classList.remove('adding');
   newTask.classList.remove('new_task');
-  // 清空form內容
   newTaskForm.reset();
 }
 
@@ -361,7 +306,7 @@ function updateTasks(tasksArray, taskList) {
   taskList.innerHTML = tasksArray.map((task, index) => {
     return `
       <article data - task="${index}" class="task ${task.done ? 'completed' : ''} ${task.major ? 'major' : ''}" >
-        <form data-form="${index}" id="task-edit">
+        <form data-form="${index}" id="task-edit" autocomplete="off">
           <section class="task_header">
             <div class="title_group">
               <input type="checkbox" data-done="${index}" class="done_task" id="doneTask${index}" ${task.done ? 'checked' : ''}>
@@ -432,32 +377,21 @@ export default updateTasks(tasksArray, taskList);
 
 // add new task
 addTaskButton.addEventListener('focus', addTask);
-newTask.addEventListener('reset', cancelTask); // 未新增task的cancel：代表reset表單
-newTaskTitleCheckbox.addEventListener('click', toggleNewTaskTitleCheckbox);
+newTaskTitleCheckbox.addEventListener('click', toggleNewTaskCheckbox);
+// cancel未新增的task：代表reset表單
+newTask.addEventListener('reset', cancelAddTask);
 newTask.addEventListener('submit', submitAddTask);
 
-newTask.addEventListener('click', changeDate);
-newTask.addEventListener('change', uploadFile);
-newTask.addEventListener('dblclick', editComment);
-
-
 // exist tasks
-const completedTasks = taskList.querySelectorAll('.task.completed');
-// 既有task的cancel：代表移除整個task，若只是修改內容應該toggle edit icon收合編輯區塊
 taskList.addEventListener('input', modifyTaskTitle);
-
 taskList.addEventListener('click', checkCompletion);
 taskList.addEventListener('click', markupTask);
 taskList.addEventListener('click', toggleEditArea);
-
-taskList.addEventListener('click', changeDate);
-taskList.addEventListener('change', uploadFile);
-taskList.addEventListener('dblclick', editComment);
-
-
 taskList.addEventListener('submit', saveTask);
+// cancel既有的task：代表不儲存本次修改的結果
 
-
+// footer status
+const completedTasks = taskList.querySelectorAll('.task.completed');
 
 // function daysCountdown(uploadMs) {
 // }
