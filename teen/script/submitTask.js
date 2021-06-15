@@ -14,51 +14,57 @@ const taskList = document.querySelector('.task_list');
 const tasksArray = JSON.parse(localStorage.getItem('lists')) || [];
 
 
+// General Function
+function returnBeforeAddTask() {
+  // 顯示addTask button
+  addTaskButton.classList.remove('adding');
+  // 隱藏task
+  newTask.classList.remove('new_task');
+  // 清除表單內容
+  // newTaskForm.reset();
+}
+
+
 // addEventListener Function
 function addTask() {
-  this.classList.add('adding');
+  // 隱藏addTask button
+  addTaskButton.classList.add('adding');
+  // 顯示task
   newTask.classList.add('new_task');
 }
 
 function cancelAddTask() {
-  resetForm();
-  newTask.querySelector('input[type=date]').type = 'text';
-  newTask.querySelector('input[type=time]').type = 'text';
-  newTask.querySelector('.file_data').classList.remove('show');
+  const deadlineInputs = newTask.querySelectorAll('.deadline input');
+  deadlineInputs.forEach(deadlineInput => deadlineInput.type = 'text');
+
+  // 隱藏upload的file信息
+  const fileData = newTask.querySelector('.file_data');
+  fileData.classList.remove('show');
+  fileData.innerHTML = ''
+
+  returnBeforeAddTask();
 }
 
 function toggleNewTaskCheckbox(event) {
   if (event.target.className === 'done_task') {
-    (event.target.checked) ? newTask.classList.add('completed') : newTask.classList.remove('completed');
+    newTask.classList.toggle('completed', event.target.checked);
   }
   else if (event.target.className === 'marker_star') {
-    (event.target.checked) ? newTask.classList.add('major') : newTask.classList.remove('major');
+    newTask.classList.toggle('major', event.target.checked);
   }
 }
 
-function submitAddTask(event) {
-  // 阻止<form>預設的提交行為
-  event.preventDefault();
+function submitAddTask() {
+  // 先以物件形式紀錄task data，再推進tasksArray中進行更新
+  const eachTask = recordTaskData(newTask);
 
-  // task data以物件形式紀錄後再推進tasksArray中
-  const eachTask = {
-    title: newTask.querySelector('.task_header textarea').value,
-    done: newTask.querySelector('.done_task').checked,
-    major: newTask.querySelector('.marker_star').checked,
-    // edit: false,
-    deadlineDate: newTask.querySelector('.task_body #date').value,
-    deadlineTime: newTask.querySelector('.task_body #time').value,
-    file: (newTask.querySelector('.task_body .upload_file').value).replace(/.*[\/\\]/, ''),
-    fileUpload: 'today',
-    comment: newTask.querySelector('.task_body textarea').value,
-  }
-
+  // task順序
   if (newTask.querySelector('.marker_star').checked) {
     // major task永遠在最上方：從（第1個參數）index 0位置開始，刪除（第2個參數）0個元素，並插入eachTask
     tasksArray.splice(0, 0, eachTask);
   }
   else {
-    // 新增的一般task：位在major task之後、舊的task之前
+    // 新增的一般task：位在major task之後、既有task之前
     const majorTaskCount = document.querySelectorAll('.task.major').length;
     tasksArray.splice(majorTaskCount, 0, eachTask);
   }
@@ -67,42 +73,24 @@ function submitAddTask(event) {
   updateTasks(tasksArray, taskList);
 
   // 將tasksArray更新儲存在Storage，並用JSON.stringify將陣列格式轉成字串以便讀取
-  localStorage.setItem('lists', JSON.stringify(tasksArray));
+  updateLocalStorage(tasksArray);
 
-  resetForm();
-  newTask.classList.remove('completed');
-  newTask.classList.remove('major');
+  returnBeforeAddTask();
+  newTask.classList.remove('completed', 'major');
+  // 不使用event.preventDefault()，讓提交表單時刷新畫面並更新資料
 }
 
 function saveTask(event) {
-  event.preventDefault();
-
-  const todayMillisecond = Date.now();
-  const uploadMillisecond = todayMillisecond;
-  const fileUpload = compareDate(todayMillisecond, uploadMillisecond);
-
   const taskIndex = event.target.dataset['form'];
-  const allTasks = this.querySelectorAll('.task');
-  const currentTask = allTasks[taskIndex];
+  const currentTask = this.querySelectorAll('.task')[taskIndex];
+  const updateTask = recordTaskData(currentTask);
 
-  const updateTask = {
-    title: currentTask.querySelector('.task_header textarea').value,
-    done: currentTask.querySelector('.done_task').checked,
-    major: currentTask.querySelector('.marker_star').checked,
-    // edit: false,
-    deadlineDate: currentTask.querySelector('.task_body #date').value,
-    deadlineTime: currentTask.querySelector('.task_body #time').value,
-    file: (currentTask.querySelector('.task_body .upload_file').value).replace(/.*[\/\\]/, ''),
-    fileUpload: fileUpload,
-    comment: currentTask.querySelector('.task_body textarea').value,
-  }
-
-
+  // 先將原先的task data刪除，再插入updateTask
   tasksArray.splice(taskIndex, 1, updateTask);
-  localStorage.setItem('lists', JSON.stringify(tasksArray));
+  updateLocalStorage(tasksArray);
 
   currentTask.classList.remove('editing');
-  window.location.reload();
+  // 不使用event.preventDefault()，讓提交表單時刷新畫面並更新資料
 }
 
 function modifyTaskTitle(event) {
@@ -114,7 +102,7 @@ function modifyTaskTitle(event) {
 
   // 觸發click事件時，將done狀態進行取反後，更新存至Storage
   tasksArray[taskIndex].title = modifyTitle;
-  localStorage.setItem('lists', JSON.stringify(tasksArray));
+  updateLocalStorage(tasksArray);
 }
 
 function checkCompletion(event) {
@@ -167,7 +155,7 @@ function checkCompletion(event) {
     sortTask(tasksArray, taskIndex, generalTaskEndIndex + 1);
   }
 
-  localStorage.setItem('lists', JSON.stringify(tasksArray));
+  updateLocalStorage(tasksArray);
 
   // 設定固定時間後重新刷新頁面，讓DOM重新渲染
   setTimeout(() => {
@@ -223,7 +211,7 @@ function markupTask(event) {
     sortTask(tasksArray, taskIndex, majorTaskEndIndex);
   }
 
-  localStorage.setItem('lists', JSON.stringify(tasksArray));
+  updateLocalStorage(tasksArray);
 
   // 設定固定時間後重新刷新頁面，讓DOM重新渲染
   setTimeout(() => {
@@ -249,7 +237,7 @@ function toggleEditArea(event) {
     currentTask.classList.add('editing');
   }
 
-  localStorage.setItem('lists', JSON.stringify(tasksArray));
+  updateLocalStorage(tasksArray);
 
 
   // 若所在表失去focus，則alert提醒要cancel or save
@@ -287,11 +275,6 @@ function sortTask(arr, moveTaskIndex, destinationIndex) {
   return arr;
 }
 
-function resetForm() {
-  addTaskButton.classList.remove('adding');
-  newTask.classList.remove('new_task');
-  newTaskForm.reset();
-}
 
 function fillZero(number) {
   return (number < 10) ? `0${number} ` : `${number} `;
@@ -306,6 +289,21 @@ function dateFormat(deadline) {
   const date = Number(deadline.match(/\d{2}$/g));
 
   return `${(year === new Date().getFullYear()) ? '' : year + '/'}${month}/${date}`
+}
+
+function recordTaskData(taskArticle) {
+  const today = new Date();
+  return {
+    title: taskArticle.querySelector('.task_header textarea').value,
+    done: taskArticle.querySelector('.done_task').checked,
+    major: taskArticle.querySelector('.marker_star').checked,
+    // edit: false,
+    deadlineDate: taskArticle.querySelector('.task_body #date').value,
+    deadlineTime: taskArticle.querySelector('.task_body #time').value,
+    file: (taskArticle.querySelector('.task_body .upload_file').value).replace(/.*[\/\\]/, ''),
+    fileUpload: `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}`,
+    comment: taskArticle.querySelector('.task_body textarea').value,
+  }
 }
 
 function updateTasks(tasksArray, taskList) {
@@ -378,6 +376,9 @@ function updateTasks(tasksArray, taskList) {
   // 儲存後的submit button文字變成“Save”
 }
 
+function updateLocalStorage(storageArray) {
+  localStorage.setItem('lists', JSON.stringify(tasksArray));
+}
 
 // 自動載入以保存在LocalStorage中的tasks
 export default updateTasks(tasksArray, taskList);
