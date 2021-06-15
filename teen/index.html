@@ -16,9 +16,14 @@
 
   <link rel="stylesheet" href="css/main.css">
 
+  <!-- <script type="module" src="./script/submitTask.js"></script>
+  <script type="module" src="./script/editTask.js"></script>
+  <script type="module" src="./script/sortTask.js"></script>
+  <script type="module" src="./script/taskStatus.js"></script> -->
   <script type="module">
     import addTask from './script/submitTask.js';
     import { changeDateInputType, uploadFile, editComment } from './script/editTask.js';
+    import { checkCompletion, markupTask, toggleEditArea } from './script/sortTask.js';
     import { chooseTaskCategory } from './script/taskStatus.js';
   </script>
 </head>

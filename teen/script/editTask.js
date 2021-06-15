@@ -1,4 +1,4 @@
-const main = document.querySelector('main');
+import { main } from './modules.js';
 
 // Listener function
 function changeDateInputType(event) {
@@ -11,19 +11,21 @@ function changeDateInputType(event) {
 }
 
 function uploadFile(event) {
-  if (event.target.className === 'upload_file') {
-    const fileName = event.target.files[0].name;
-    const today = new Date();
-    // getMonth()介於0~11
-    const uploadDate = `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}`;
+  if (event.target.className !== 'upload_file') {
+    return;
+  }
 
-    const fileData = this.querySelector('.file_data');
-    fileData.classList.add('show');
-    fileData.innerHTML = `
+  const fileName = event.target.files[0].name;
+  const today = new Date();
+  // getMonth()介於0~11
+  const uploadDate = `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}`;
+
+  const fileData = this.querySelector('.file_data');
+  fileData.classList.add('show');
+  fileData.innerHTML = `
       <p>${fileName}</p>
       <span>uploaded ${uploadDate}</span>
     `
-  }
 }
 
 function editComment(event) {
