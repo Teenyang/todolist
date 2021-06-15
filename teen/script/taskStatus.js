@@ -3,34 +3,56 @@ const nav = document.querySelector('nav');
 const navLinks = nav.querySelectorAll('.nav_link');
 // taskList
 const taskList = document.querySelector('.task_list');
-const allTasksCount = taskList.querySelectorAll('.task').length;
-const completedTasksCount = taskList.querySelectorAll('.task.completed').length;
+const allTasks = taskList.querySelectorAll('.task');
+const allTasksCount = allTasks.length;
+const completedTasks = taskList.querySelectorAll('.task.completed');
+const completedTasksCount = completedTasks.length;
 // footer
 const footerStatus = document.querySelector('.task_status');
 
-// Listener function
-function chooseTaskCategory(event) {
-  navLinks.forEach(navLink => event.target.dataset.link === navLink.dataset.link ? navLink.classList.add('select') : navLink.classList.remove('select'));
-  event.target.dataset.link === 'completed' ? completedStatus(completedTasksCount) : generalStatus(allTasksCount, completedTasksCount);
-}
 
-function generalStatus(allTasksCount, completedTasksCount) {
-  const leftTaskCount = allTasksCount - completedTasksCount;
+// General function
+function generalStatus(allCount, completedCount) {
+  const leftTaskCount = allCount - completedCount;
   return footerStatus.innerHTML = `
     <em>${leftTaskCount} ${checkPluralTasks(leftTaskCount)} left</em>
-  `;
+  `
 }
-
-function completedStatus(completedTasksCount) {
+function completedStatus(completedCount) {
   return footerStatus.innerHTML = `
-    <em>${completedTasksCount} ${checkPluralTasks(completedTasksCount)} completed</em>
-  `;
+    <em>${completedCount} ${checkPluralTasks(completedCount)} completed</em>
+  `
 }
-
 function checkPluralTasks(number) {
   return (number > 1) ? 'tasks' : 'task';
 }
 
+function allLink() {
+  allTasks.forEach(allTask => allTask.style.display = 'block');
+}
+function progressLink() {
+  allTasks.forEach(allTask => allTask.classList.contains('progress') ? allTask.style.display = 'block' : allTask.style.display = 'none');
+}
+function completedLink() {
+  allTasks.forEach(allTask => allTask.classList.contains('completed') ? allTask.style.display = 'block' : allTask.style.display = 'none');
+}
+
+
+// Listener function
+function chooseTaskCategory(event) {
+  navLinks.forEach(navLink => navLink.dataset.link === event.target.dataset.link ? navLink.classList.add('select') : navLink.classList.remove('select'));
+  if (event.target.dataset.link === 'completed') {
+    completedStatus(completedTasksCount);
+    completedLink();
+  }
+  else if (event.target.dataset.link === 'progress') {
+    generalStatus(allTasksCount, completedTasksCount);
+    progressLink();
+  }
+  else {
+    allLink();
+  }
+}
 
 generalStatus(allTasksCount, completedTasksCount);
 nav.addEventListener('click', chooseTaskCategory);

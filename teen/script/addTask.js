@@ -300,7 +300,7 @@ function updateTasks(tasksArray, taskList) {
   // join()將所有模板字串接在一起，全部賦值給itemsLists.innerHTML
   taskList.innerHTML = tasksArray.map((task, index) => {
     return `
-      <article data - task="${index}" class="task ${task.done ? 'completed' : ''} ${task.major ? 'major' : ''}" >
+      <article data - task="${index}" class="task ${task.done ? 'completed' : 'progress'} ${task.major ? 'major' : ''}" >
         <form data-form="${index}" id="task-edit" autocomplete="off">
           <section class="task_header">
             <div class="title_group">
