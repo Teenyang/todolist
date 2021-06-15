@@ -97,10 +97,12 @@ function saveTask(event) {
     comment: currentTask.querySelector('.task_body textarea').value,
   }
 
+
   tasksArray.splice(taskIndex, 1, updateTask);
   localStorage.setItem('lists', JSON.stringify(tasksArray));
 
   currentTask.classList.remove('editing');
+  window.location.reload();
 }
 
 function modifyTaskTitle(event) {
@@ -295,12 +297,23 @@ function fillZero(number) {
   return (number < 10) ? `0${number} ` : `${number} `;
 }
 
+function dateFormat(deadline) {
+  // 取開頭四個數字
+  const year = Number(deadline.match(/^\d{4}/g));
+  // 取開頭為中線（但不包含）之後的兩個數字，且數字後為中線
+  const month = Number(deadline.match(/(?<=([-]))\d{2}(?=[-])/g));
+  // 取倒數兩個數字
+  const date = Number(deadline.match(/\d{2}$/g));
+
+  return `${(year === new Date().getFullYear()) ? '' : year + '/'}${month}/${date}`
+}
+
 function updateTasks(tasksArray, taskList) {
   // ${task.done ? 'checked' : ''} -> 若task.done為true，則加上checked屬性
   // join()將所有模板字串接在一起，全部賦值給itemsLists.innerHTML
   taskList.innerHTML = tasksArray.map((task, index) => {
     return `
-      <article data - task="${index}" class="task ${task.done ? 'completed' : 'progress'} ${task.major ? 'major' : ''}" >
+      <article data-task="${index}" class="task ${task.done ? 'completed' : 'progress'} ${task.major ? 'major' : ''}" >
         <form data-form="${index}" id="task-edit" autocomplete="off">
           <section class="task_header">
             <div class="title_group">
@@ -321,9 +334,9 @@ function updateTasks(tasksArray, taskList) {
               </div>
             </div>
             <div class="info_group">
-              <span class=""><i class="far fa-calendar-alt fa-fw"></i>6/18</span>
-              <i class="far fa-file fa-fw"></i>
-              <i class="far fa-comment-dots fa-fw show"></i>
+              <span class="${(task.deadlineDate !== '') ? 'show' : ''}"><i class="far fa-calendar-alt"></i>${(task.deadlineDate !== '') ? dateFormat(task.deadlineDate) : ''}</span>
+              <i class="${(task.fileUpload !== '') ? 'show' : ''} far fa-file"></i>
+              <i class="${(task.comment !== '') ? 'show' : ''} far fa-comment-dots"></i>
             </div>
           </section>
           <div class="task_content">
@@ -331,7 +344,7 @@ function updateTasks(tasksArray, taskList) {
               <div class="edit_item deadline">
                 <label><i class="far fa-calendar-alt fa-fw"></i>Deadline</label>
                 <div class="edit_content">
-                  <input id="date" type="text" class="deadline_date" placeholder="yyyy/mm/dd" name="deadline-date" value="${task.deadlineDate}">
+                  <input data-date="${index}" id="date" type="text" class="deadline_date" placeholder="yyyy/mm/dd" name="deadline-date" value="${task.deadlineDate}">
                   <input id="time" type="text" class="deadline_time" placeholder="hh:mm" name="deadline-time" value="${task.deadlineTime}">
                 </div>
               </div>

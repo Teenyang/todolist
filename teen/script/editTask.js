@@ -1,8 +1,16 @@
 const main = document.querySelector('main');
+const infoGroups = main.querySelectorAll('.info_group');
 
-function changeDate(event) {
+function changeDateInputType(event) {
   if (event.target.className === 'deadline_date') {
     event.target.type = 'date';
+
+    // const dateIndex = event.target.dataset.date;
+
+    // infoGroups.forEach(infoGroup => {
+    //   const infoIndex = infoGroup.dataset.info;
+    //   event.target.classList.toggle('show', infoIndex === dateIndex)
+    // })
   }
   else if (event.target.className === 'deadline_time') {
     event.target.type = 'time';
@@ -36,8 +44,8 @@ function editComment(event) {
   })
 }
 
-main.addEventListener('click', changeDate);
+main.addEventListener('click', changeDateInputType);
 main.addEventListener('change', uploadFile);
 main.addEventListener('dblclick', editComment);
 
-export { changeDate, uploadFile, editComment };
+export { changeDateInputType, uploadFile, editComment };

@@ -374,6 +374,10 @@ nav {
     margin-left: 40px;
   }
 }
+.task_header .info_group span.show + i.show,
+.task_header .info_group i.show + i.show {
+  margin-left: 16px;
+}
 .task_header .info_group span {
   font-family: "Roboto", sans-serif;
   font-size: 1rem;
@@ -574,6 +578,15 @@ nav {
 }
 .task .info_group {
   display: none;
+}
+.task.progress .info_group {
+  display: block;
+}
+.task.progress .info_group > * {
+  display: none;
+}
+.task.progress .info_group > *.show {
+  display: inline-block;
 }
 .task.progress.editing .info_group {
   display: none;

@@ -191,10 +191,22 @@
     display: none;
   }
   &.progress {
+    .info_group {
+      display: block;
+
+      & > * {
+        display: none;
+        &.show {
+          display: inline-block;
+        }
+      }
+    }
+
     &.editing {
       .info_group {
         display: none;
       }
+
       .task_header {
         padding-bottom: 24px;
       }
