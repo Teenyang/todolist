@@ -40,7 +40,7 @@ function completedLink() {
 
 // Listener function
 function chooseTaskCategory(event) {
-  navLinks.forEach(navLink => navLink.dataset.link === event.target.dataset.link ? navLink.classList.add('select') : navLink.classList.remove('select'));
+  navLinks.forEach(navLink => navLink.classList.toggle('select', navLink.dataset.link === event.target.dataset.link));
   if (event.target.dataset.link === 'completed') {
     completedStatus(completedTasksCount);
     completedLink();
