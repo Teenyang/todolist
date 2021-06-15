@@ -1,4 +1,4 @@
-import { taskList, tasksArray, updateLocalStorage } from './modules.js';
+import { taskList, tasksArray, setLocalStorage } from './modules.js';
 
 // General function
 // 排序置於前項最末index之後、本項第一個
@@ -7,6 +7,11 @@ function sortTask(arr, moveTaskIndex, destinationIndex) {
   arr.splice(destinationIndex, 0, moveTask);
   return arr;
 }
+
+const allTasks = taskList.querySelectorAll('.task');
+const allTasksCount = allTasks.length;
+const generalTaskEndIndex = (allTasks.length - document.querySelectorAll('.task.completed').length) - 1;
+const majorTaskEndIndex = document.querySelectorAll('.task.major').length - 1;
 
 // Listener function
 function checkCompletion(event) {
@@ -17,10 +22,8 @@ function checkCompletion(event) {
   const checkboxStatus = event.target.checked;
   const taskIndex = event.target.dataset['done'];
 
-  const allTasks = this.querySelectorAll('.task');
   const eachTaskSpacing = allTasks[1].offsetTop - allTasks[0].offsetTop; // height + gap
   const currentTask = allTasks[taskIndex];
-  const generalTaskEndIndex = (allTasks.length - document.querySelectorAll('.task.completed').length) - 1;
 
   if (checkboxStatus) {
     // 已完成任務：無法設為重要
@@ -59,7 +62,7 @@ function checkCompletion(event) {
     sortTask(tasksArray, taskIndex, generalTaskEndIndex + 1);
   }
 
-  updateLocalStorage(tasksArray);
+  setLocalStorage(tasksArray);
 
   // 設定固定時間後重新刷新頁面，讓DOM重新渲染
   setTimeout(() => {
@@ -75,10 +78,8 @@ function markupTask(event) {
   const checkboxStatus = event.target.checked;
   const taskIndex = event.target.dataset['major'];
 
-  const allTasks = this.querySelectorAll('.task');
   const eachTaskSpacing = allTasks[1].offsetTop - allTasks[0].offsetTop; // height + gap
   const currentTask = allTasks[taskIndex];
-  const majorTaskEndIndex = document.querySelectorAll('.task.major').length - 1;
 
   if (checkboxStatus) {
     // 重要任務
@@ -115,7 +116,7 @@ function markupTask(event) {
     sortTask(tasksArray, taskIndex, majorTaskEndIndex);
   }
 
-  updateLocalStorage(tasksArray);
+  setLocalStorage(tasksArray);
 
   // 設定固定時間後重新刷新頁面，讓DOM重新渲染
   setTimeout(() => {
@@ -141,7 +142,7 @@ function toggleEditArea(event) {
     currentTask.classList.add('editing');
   }
 
-  updateLocalStorage(tasksArray);
+  setLocalStorage(tasksArray);
 
 
   // 若所在表失去focus，則alert提醒要cancel or save

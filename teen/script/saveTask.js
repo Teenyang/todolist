@@ -1,4 +1,4 @@
-import { taskList, tasksArray, recordTaskData, updateTaskData, updateLocalStorage } from './modules.js';
+import { taskList, tasksArray, recordTaskData, updateTaskData, setLocalStorage } from './modules.js';
 
 function saveTask(event) {
   const taskIndex = event.target.dataset['form'];
@@ -7,7 +7,7 @@ function saveTask(event) {
 
   // 先將原先的task data刪除，再插入updateTask
   tasksArray.splice(taskIndex, 1, updateTask);
-  updateLocalStorage(tasksArray);
+  setLocalStorage(tasksArray);
 
   currentTask.classList.remove('editing');
   // 不使用event.preventDefault()，讓提交表單時刷新畫面並更新資料
@@ -22,7 +22,7 @@ function modifyTaskTitle(event) {
 
   // 觸發click事件時，將done狀態進行取反後，更新存至Storage
   tasksArray[taskIndex].title = modifyTitle;
-  updateLocalStorage(tasksArray);
+  setLocalStorage(tasksArray);
 }
 
 

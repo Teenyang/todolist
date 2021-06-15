@@ -14,6 +14,30 @@ function fillZero(number) {
   return (number < 10) ? `0${number} ` : `${number}`;
 }
 
+function compareDate(todayMs, uploadMs) {
+  const today = new Date();
+  const oneDayMs = 60 * 60 * 24 * 1000;
+
+  const uploadHour = today.getHours();
+  const uploadMin = today.getMinutes();
+  const uploadSec = today.getSeconds();
+  const countdownMs = ((24 - uploadHour) * 3600 + (60 - uploadMin) * 60 + (60 - uploadSec)) * 1000;
+
+  // getMonth()介於0~11
+  // const fileUploadTime = `${today.getFullYear()}/${fillZero(today.getMonth() + 1)}/${fillZero(today.getDate())}`;
+
+  if ((todayMs - uploadMs) < countdownMs) {
+    return 'today';
+  }
+  else if (countdownMs <= (todayMs - uploadMs) && (todayMs - uploadMs) < (countdownMs + oneDayMs)) {
+    return 'yesterday';
+  }
+  else if ((todayMs - uploadMs) >= (countdownMs + oneDayMs)) {
+    const days = Math.ceil((todayMs - countdownMs) / oneDayMs);
+    return `${days} days ago`;
+  }
+}
+
 function dateFormat(deadline) {
   // 取開頭四個數字
   const year = Number(deadline.match(/^\d{4}/g));
@@ -85,7 +109,7 @@ function updateTaskData(tasksArray, taskList) {
                 <div class="edit_content">
                   <div class="file_data ${(task.file.length > 0) ? 'show' : ''}">
                     <p>${task.file}</p>
-                    <span>uploaded ${task.fileUpload}</span>
+                    <span>${(task.file.length > 0) ? 'uploaded' + task.fileUpload : ''}</span>
                   </div>
                   <input id="upload${index}" type="file" class="upload_file" name="file-upload" value="${task.file}">
                   <label for="upload${index}"><i class="fal fa-plus fa-fw"></i></label>
@@ -111,9 +135,13 @@ function updateTaskData(tasksArray, taskList) {
 }
 
 
-function updateLocalStorage(storageArray) {
+function setLocalStorage(storageArray) {
   localStorage.setItem('lists', JSON.stringify(tasksArray));
 }
 
 
-export { main, taskList, tasksArray, recordTaskData, updateTaskData, updateLocalStorage };
+export { main, taskList, tasksArray, recordTaskData, updateTaskData, setLocalStorage };
+
+// function daysCountdown(uploadMs) {
+// }
+// setInterval(daysCountdown, 86400);

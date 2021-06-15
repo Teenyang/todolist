@@ -1,8 +1,9 @@
+import { taskList } from './modules.js';
+
 // navbar
 const nav = document.querySelector('nav');
 const navLinks = nav.querySelectorAll('.nav_link');
 // taskList
-const taskList = document.querySelector('.task_list');
 const allTasks = taskList.querySelectorAll('.task');
 const allTasksCount = allTasks.length;
 const completedTasks = taskList.querySelectorAll('.task.completed');
