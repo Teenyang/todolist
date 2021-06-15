@@ -1,6 +1,5 @@
 import { taskList, tasksArray, updateLocalStorage } from './modules.js';
 
-
 // General function
 // 排序置於前項最末index之後、本項第一個
 function sortTask(arr, moveTaskIndex, destinationIndex) {
@@ -9,12 +8,7 @@ function sortTask(arr, moveTaskIndex, destinationIndex) {
   return arr;
 }
 
-// function updateLocalStorage(storageArray) {
-//   localStorage.setItem('lists', JSON.stringify(tasksArray));
-// }
-
 // Listener function
-
 function checkCompletion(event) {
   if (event.target.className !== 'done_task') {
     return;
