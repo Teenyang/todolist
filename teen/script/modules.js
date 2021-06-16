@@ -58,7 +58,8 @@ function recordTaskData(taskArticle) {
     // edit: false,
     deadlineDate: taskArticle.querySelector('.task_body #date').value,
     deadlineTime: taskArticle.querySelector('.task_body #time').value,
-    file: taskArticle.querySelector('.task_body .upload_file').files[0].name,
+    file: taskArticle.querySelector('.task_body .upload_file').value.replace(/.*[\/\\]/, ''),
+    // file: taskArticle.querySelector('.task_body .upload_file').files[0].name,
     fileUpload: `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}`,
     comment: taskArticle.querySelector('.task_body textarea').value,
   }

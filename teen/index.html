@@ -16,15 +16,12 @@
 
   <link rel="stylesheet" href="css/main.css">
 
-  <!-- <script type="module" src="./script/submitTask.js"></script>
-  <script type="module" src="./script/editTask.js"></script>
-  <script type="module" src="./script/sortTask.js"></script>
-  <script type="module" src="./script/taskStatus.js"></script> -->
   <script type="module">
+    import { default as reloadData } from './script/main.js';
     import { addTask, toggleNewTaskCheckbox, cancelAddTask, submitAddTask } from './script/addTask.js';
-    import { saveTask, modifyTaskTitle } from './script/saveTask.js';
-    import { changeDateInputType, uploadFile, editComment } from './script/editTask.js';
-    import { checkCompletion, markupTask, toggleEditArea } from './script/sortTask.js';
+    import { changeDateInputType, uploadFile, editComment, toggleEditArea } from './script/editTask.js';
+    import { modifyTaskTitle, saveTask, cancelReloadTask } from './script/saveTask.js';
+    import { checkCompletion, markupTask } from './script/sortTask.js';
     import { chooseTaskCategory } from './script/taskStatus.js';
   </script>
 </head>
@@ -76,7 +73,10 @@
               <div class="edit_item file">
                 <label><i class="far fa-file fa-fw"></i>File</label>
                 <div class="edit_content">
-                  <div class="file_data"></div>
+                  <div class="file_data">
+                    <p></p>
+                    <span></span>
+                  </div>
                   <input id="upload" type="file" class="upload_file" name="file-upload">
                   <label for="upload"><i class="fal fa-plus fa-fw"></i></label>
                 </div>

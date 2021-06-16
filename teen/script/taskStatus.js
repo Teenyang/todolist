@@ -55,6 +55,6 @@ function chooseTaskCategory(event) {
   }
 }
 
-generalStatus(allTasksCount, completedTasksCount);
+countGeneralTasks(allTasksCount, completedTasksCount);
 nav.addEventListener('click', chooseTaskCategory);
 export { chooseTaskCategory };
