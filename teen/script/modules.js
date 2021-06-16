@@ -51,6 +51,9 @@ function dateFormat(deadline) {
 
 function recordTaskData(taskArticle) {
   const today = new Date();
+  const fileName = taskArticle.querySelector('.task_body .upload_file').value.replace(/.*[\/\\]/, '');
+  const uploadDate = fileName ? `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}` : '';
+
   return {
     title: taskArticle.querySelector('.task_header textarea').value,
     done: taskArticle.querySelector('.done_task').checked,
@@ -58,9 +61,8 @@ function recordTaskData(taskArticle) {
     // edit: false,
     deadlineDate: taskArticle.querySelector('.task_body #date').value,
     deadlineTime: taskArticle.querySelector('.task_body #time').value,
-    file: taskArticle.querySelector('.task_body .upload_file').value.replace(/.*[\/\\]/, ''),
-    // file: taskArticle.querySelector('.task_body .upload_file').files[0].name,
-    fileUpload: `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}`,
+    file: fileName,
+    fileUpload: uploadDate,
     comment: taskArticle.querySelector('.task_body textarea').value,
   }
 }
@@ -70,7 +72,7 @@ function updateTaskData(tasksArray, taskList) {
   // join()將所有模板字串接在一起，全部賦值給itemsLists.innerHTML
   taskList.innerHTML = tasksArray.map((task, index) => {
     return `
-      <article data-task="${index}" class="task ${task.done ? 'completed' : 'progress'} ${task.major ? 'major' : ''}" >
+      <article data-task="${index}" class="task ${task.done ? 'completed' : ''} ${task.major ? 'major' : ''} ${(task.deadlineDate !== '') || (task.file !== '') || (task.comment !== '') ? 'progress' : ''}">
         <form data-form="${index}" id="task-edit" autocomplete="off">
           <section class="task_header">
             <div class="title_group">
@@ -135,11 +137,9 @@ function updateTaskData(tasksArray, taskList) {
   // 儲存後的submit button文字變成“Save”
 }
 
-
 function setLocalStorage(storageArray) {
   localStorage.setItem('lists', JSON.stringify(tasksArray));
 }
-
 
 export { main, taskList, tasksArray, recordTaskData, updateTaskData, setLocalStorage };
 

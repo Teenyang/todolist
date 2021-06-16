@@ -15,7 +15,6 @@ function returnBeforeAddTask() {
   // newTaskForm.reset();
 }
 
-
 // Listener function
 function addTask() {
   // 隱藏addTask button
@@ -48,11 +47,16 @@ function toggleNewTaskCheckbox(event) {
 function submitAddTask() {
   // 先以物件形式紀錄task data，再推進tasksArray中進行更新
   const eachTask = recordTaskData(newTask);
+  if (Object.values(eachTask).filter(data => data === "").length === 6) {
+    alert('內容不得為空');
+    return;
+  }
 
   const allTasksCount = taskList.querySelectorAll('.task').length;
   const majorTaskCount = taskList.querySelectorAll('.task.major').length;
   const completedTaskCount = taskList.querySelectorAll('.task.completed').length;
   const generalTaskCount = allTasksCount - completedTaskCount;
+
   if (newTask.querySelector('.marker_star').checked) {
     // major task永遠在最上方：從（第1個參數）index 0位置開始，刪除（第2個參數）0個元素，並插入eachTask
     tasksArray.splice(0, 0, eachTask);

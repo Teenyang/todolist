@@ -374,7 +374,7 @@ nav {
     margin-left: 40px;
   }
 }
-.task_header .info_group span.show + i.show,
+.task_header .info_group span.show ~ i.show,
 .task_header .info_group i.show + i.show {
   margin-left: 16px;
 }

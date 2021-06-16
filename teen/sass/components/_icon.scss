@@ -9,7 +9,7 @@
     margin-left: 40px;
   }
 
-  span.show + i.show,
+  span.show ~ i.show,
   i.show + i.show {
     margin-left: 16px;
   }

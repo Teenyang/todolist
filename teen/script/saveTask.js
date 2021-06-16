@@ -7,8 +7,13 @@ function modifyTaskTitle(event) {
   }
 
   const modifyTitle = event.target.value;
-  const taskIndex = event.target.dataset.title;
+  if (modifyTitle === '') {
+    alert('內容不得為空');
+    window.location.reload();
+    return;
+  }
 
+  const taskIndex = event.target.dataset.title;
   tasksArray[taskIndex].title = modifyTitle;
   setLocalStorage(tasksArray);
 }
@@ -24,6 +29,10 @@ function saveTask(event) {
   const currentTask = taskList.querySelectorAll('.task')[taskIndex];
 
   const updateTask = recordTaskData(currentTask);
+  if (Object.values(updateTask).filter(data => data === "").length === 6) {
+    alert('內容不得為空');
+    return;
+  }
   // 原本Add Task從input file紀錄資料，但input本身在既有task為空白，故既有資料的更新需取自file_data textContent
   updateTask.file = currentTask.querySelector('.file_data p').textContent;
   updateTask.fileUpload = currentTask.querySelector('.file_data span').textContent;
@@ -36,7 +45,7 @@ function saveTask(event) {
   // 不使用event.preventDefault()，讓提交表單時刷新畫面並更新資料
 }
 
-taskList.addEventListener('input', modifyTaskTitle);
+taskList.addEventListener('change', modifyTaskTitle);
 // cancel既有的task：代表不儲存本次修改的結果
 taskList.addEventListener('click', cancelReloadTask);
 taskList.addEventListener('submit', saveTask);
