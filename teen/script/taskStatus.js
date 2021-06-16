@@ -13,13 +13,13 @@ const footerStatus = document.querySelector('.task_status');
 
 
 // General function
-function generalStatus(allCount, completedCount) {
+function countGeneralTasks(allCount, completedCount) {
   const leftTaskCount = allCount - completedCount;
   return footerStatus.innerHTML = `
     <em>${leftTaskCount} ${checkPluralTasks(leftTaskCount)} left</em>
   `
 }
-function completedStatus(completedCount) {
+function countCompletedTasks(completedCount) {
   return footerStatus.innerHTML = `
     <em>${completedCount} ${checkPluralTasks(completedCount)} completed</em>
   `
@@ -28,13 +28,13 @@ function checkPluralTasks(number) {
   return (number > 1) ? 'tasks' : 'task';
 }
 
-function allLink() {
+function showAllTasks() {
   allTasks.forEach(allTask => allTask.style.display = 'block');
 }
-function progressLink() {
+function showInProgressTasks() {
   allTasks.forEach(allTask => allTask.classList.contains('progress') ? allTask.style.display = 'block' : allTask.style.display = 'none');
 }
-function completedLink() {
+function showCompletedTasks() {
   allTasks.forEach(allTask => allTask.classList.contains('completed') ? allTask.style.display = 'block' : allTask.style.display = 'none');
 }
 
@@ -43,15 +43,15 @@ function completedLink() {
 function chooseTaskCategory(event) {
   navLinks.forEach(navLink => navLink.classList.toggle('select', navLink.dataset.link === event.target.dataset.link));
   if (event.target.dataset.link === 'completed') {
-    completedStatus(completedTasksCount);
-    completedLink();
+    countCompletedTasks(completedTasksCount);
+    showCompletedTasks();
   }
   else if (event.target.dataset.link === 'progress') {
-    generalStatus(allTasksCount, completedTasksCount);
-    progressLink();
+    countGeneralTasks(allTasksCount, completedTasksCount);
+    showInProgressTasks();
   }
   else {
-    allLink();
+    showAllTasks();
   }
 }
 
