@@ -1,9 +1,32 @@
-import { taskList, tasksArray, recordTaskData, updateTaskData, setLocalStorage } from './modules.js';
+import { taskList, tasksArray, recordTaskData, setLocalStorage } from './modules.js';
+
+// Listener function
+function modifyTaskTitle(event) {
+  if (event.target.className !== 'task_title') {
+    return;
+  }
+
+  const modifyTitle = event.target.value;
+  const taskIndex = event.target.dataset.title;
+
+  tasksArray[taskIndex].title = modifyTitle;
+  setLocalStorage(tasksArray);
+}
+
+function cancelReloadTask(event) {
+  if (event.target.className === 'task_cancel') {
+    window.location.reload();
+  }
+}
 
 function saveTask(event) {
   const taskIndex = event.target.dataset['form'];
-  const currentTask = this.querySelectorAll('.task')[taskIndex];
+  const currentTask = taskList.querySelectorAll('.task')[taskIndex];
+
   const updateTask = recordTaskData(currentTask);
+  // 原本Add Task從input file紀錄資料，但input本身在既有task為空白，故既有資料的更新需取自file_data textContent
+  updateTask.file = currentTask.querySelector('.file_data p').textContent;
+  updateTask.fileUpload = currentTask.querySelector('.file_data span').textContent;
 
   // 先將原先的task data刪除，再插入updateTask
   tasksArray.splice(taskIndex, 1, updateTask);
@@ -13,21 +36,9 @@ function saveTask(event) {
   // 不使用event.preventDefault()，讓提交表單時刷新畫面並更新資料
 }
 
-function modifyTaskTitle(event) {
-  if (event.target.className !== 'task_title') {
-    return;
-  }
-  const modifyTitle = event.target.value;
-  const taskIndex = event.target.dataset.title;
-
-  // 觸發click事件時，將done狀態進行取反後，更新存至Storage
-  tasksArray[taskIndex].title = modifyTitle;
-  setLocalStorage(tasksArray);
-}
-
-
 taskList.addEventListener('input', modifyTaskTitle);
-taskList.addEventListener('submit', saveTask);
 // cancel既有的task：代表不儲存本次修改的結果
+taskList.addEventListener('click', cancelReloadTask);
+taskList.addEventListener('submit', saveTask);
 
-export { saveTask, modifyTaskTitle };
+export { modifyTaskTitle, saveTask, cancelReloadTask };

@@ -58,7 +58,7 @@ function recordTaskData(taskArticle) {
     // edit: false,
     deadlineDate: taskArticle.querySelector('.task_body #date').value,
     deadlineTime: taskArticle.querySelector('.task_body #time').value,
-    file: (taskArticle.querySelector('.task_body .upload_file').value).replace(/.*[\/\\]/, ''),
+    file: taskArticle.querySelector('.task_body .upload_file').files[0].name,
     fileUpload: `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}`,
     comment: taskArticle.querySelector('.task_body textarea').value,
   }
@@ -91,7 +91,7 @@ function updateTaskData(tasksArray, taskList) {
             </div>
             <div class="info_group">
               <span class="${(task.deadlineDate !== '') ? 'show' : ''}"><i class="far fa-calendar-alt"></i>${(task.deadlineDate !== '') ? dateFormat(task.deadlineDate) : ''}</span>
-              <i class="${(task.fileUpload !== '') ? 'show' : ''} far fa-file"></i>
+              <i class="${(task.file !== '') ? 'show' : ''} far fa-file"></i>
               <i class="${(task.comment !== '') ? 'show' : ''} far fa-comment-dots"></i>
             </div>
           </section>
@@ -107,9 +107,9 @@ function updateTaskData(tasksArray, taskList) {
               <div class="edit_item file">
                 <label><i class="far fa-file fa-fw"></i>File</label>
                 <div class="edit_content">
-                  <div class="file_data ${(task.file.length > 0) ? 'show' : ''}">
-                    <p>${task.file}</p>
-                    <span>${(task.file.length > 0) ? 'uploaded' + task.fileUpload : ''}</span>
+                  <div class="file_data">
+                    <p>${(task.file !== '') ? task.file : ''}</p>
+                    <span>${(task.file !== '') ? task.fileUpload : ''}</span>
                   </div>
                   <input id="upload${index}" type="file" class="upload_file" name="file-upload" value="${task.file}">
                   <label for="upload${index}"><i class="fal fa-plus fa-fw"></i></label>

@@ -124,33 +124,7 @@ function markupTask(event) {
   }, 750);
 }
 
-// pen只負責展開編輯區塊，若要結束編輯狀態則透過form的cancel或add/save的結果而定
-// 若所在表失去focus，則alert提醒要cancel or save
-function toggleEditArea(event) {
-  if (event.target.className !== 'marker_pen') {
-    return;
-  }
-
-  event.target.checked = true;
-  const checkboxStatus = event.target.checked;
-  const taskIndex = event.target.dataset.edit;
-
-  const allTasks = this.querySelectorAll('.task');
-  const currentTask = allTasks[taskIndex];
-
-  if (checkboxStatus) {
-    currentTask.classList.add('editing');
-  }
-
-  setLocalStorage(tasksArray);
-
-
-  // 若所在表失去focus，則alert提醒要cancel or save
-  currentTask.focus();
-}
-
 taskList.addEventListener('click', checkCompletion);
 taskList.addEventListener('click', markupTask);
-taskList.addEventListener('click', toggleEditArea);
 
-export { checkCompletion, markupTask, toggleEditArea };
+export { checkCompletion, markupTask };
