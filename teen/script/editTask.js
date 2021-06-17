@@ -10,7 +10,7 @@ function newUpload(date, uploadInput, taskItem) {
   fileData.classList.toggle('show', fileName !== '');
   return fileData.innerHTML = `
       <span class="upload_fileName">${fileName}</span>
-      <p class="upload_daysAge">${(fileName !== '') ? 'uploaded ' + uploadDaysAgo : ''}
+      <p class="upload_daysAgo">${(fileName !== '') ? 'uploaded ' + uploadDaysAgo : ''}
         (<span class="upload_dateSlash">${(fileName !== '') ? uploadDate : ''}</span>)
       </p>
       <span class="upload_dateMillisecond">${date}</span>

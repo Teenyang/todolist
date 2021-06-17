@@ -10,34 +10,6 @@ const taskList = document.querySelector('.task_list');
 const tasksArray = JSON.parse(localStorage.getItem('lists')) || [];
 
 
-function fillZero(number) {
-  return (number < 10) ? `0${number} ` : `${number}`;
-}
-
-function compareDate(todayMs, uploadMs) {
-  const today = new Date();
-  const oneDayMs = 60 * 60 * 24 * 1000;
-
-  const uploadHour = today.getHours();
-  const uploadMin = today.getMinutes();
-  const uploadSec = today.getSeconds();
-  const countdownMs = ((24 - uploadHour) * 3600 + (60 - uploadMin) * 60 + (60 - uploadSec)) * 1000;
-
-  // getMonth()介於0~11
-  // const fileUploadTime = `${today.getFullYear()}/${fillZero(today.getMonth() + 1)}/${fillZero(today.getDate())}`;
-
-  if ((todayMs - uploadMs) < countdownMs) {
-    return 'today';
-  }
-  else if (countdownMs <= (todayMs - uploadMs) && (todayMs - uploadMs) < (countdownMs + oneDayMs)) {
-    return 'yesterday';
-  }
-  else if ((todayMs - uploadMs) >= (countdownMs + oneDayMs)) {
-    const days = Math.ceil((todayMs - countdownMs) / oneDayMs);
-    return `${days} days ago`;
-  }
-}
-
 function compareDaysAgo(date) {
   const today = new Date();
   const compareDate = new Date(Number(date));
@@ -75,12 +47,6 @@ function calendarSlashFormat(deadline) {
 
 function recordTaskData(taskArticle) {
   const today = Date.now();
-  // const fileName = taskArticle.querySelector('.task_body .upload_file').value.replace(/.*[\/\\]/, '');
-  // const uploadDate = fileName ? `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}` : '';
-
-  // console.log(taskArticle.querySelector('.file_data .upload_fileName').textContent);
-  // console.log(taskArticle.querySelector('.file_data .upload_date').textContent);
-
   const fileName = taskArticle.querySelector('.file_data .upload_fileName').textContent;
   const uploadDateMillisecond = fileName ? `${today}` : '';
 
@@ -88,19 +54,15 @@ function recordTaskData(taskArticle) {
     title: taskArticle.querySelector('.task_header textarea').value,
     done: taskArticle.querySelector('.done_task').checked,
     major: taskArticle.querySelector('.marker_star').checked,
-    // edit: false,
     deadlineDate: taskArticle.querySelector('.task_body #date').value,
     deadlineTime: taskArticle.querySelector('.task_body #time').value,
     file: fileName,
     fileUpload: uploadDateMillisecond,
-    // file: fileName,
-    // fileUpload: uploadDate,
     comment: taskArticle.querySelector('.task_body textarea').value,
   }
 }
 
 function updateTaskData(tasksArray, taskList) {
-  // ${task.done ? 'checked' : ''} -> 若task.done為true，則加上checked屬性
   // join()將所有模板字串接在一起，全部賦值給itemsLists.innerHTML
   taskList.innerHTML = tasksArray.map((task, index) => {
     return `
@@ -144,7 +106,7 @@ function updateTaskData(tasksArray, taskList) {
                 <div class="edit_content">
                   <div class="file_data">
                     <span class="upload_fileName">${(task.file !== '') ? task.file : ''}</span>
-                    <p class="upload_daysAge">${(task.file !== '') ? 'uploaded ' + compareDaysAgo(task.fileUpload) : ''}
+                    <p class="upload_daysAgo">${(task.file !== '') ? 'uploaded ' + compareDaysAgo(task.fileUpload) : ''}
                       (<span class="upload_dateSlash">${(task.file !== '') ? dateSlashFormat(task.fileUpload) : ''}</span>)
                     </p>
                     <span class="upload_dateMillisecond">${(task.file !== '') ? task.fileUpload : ''}</span>
@@ -173,11 +135,7 @@ function updateTaskData(tasksArray, taskList) {
 }
 
 function setLocalStorage(storageArray) {
-  localStorage.setItem('lists', JSON.stringify(tasksArray));
+  localStorage.setItem('lists', JSON.stringify(storageArray));
 }
 
 export { main, taskList, tasksArray, compareDaysAgo, dateSlashFormat, recordTaskData, updateTaskData, setLocalStorage };
-
-// function daysCountdown(uploadMs) {
-// }
-// setInterval(daysCountdown, 86400);
