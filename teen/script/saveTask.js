@@ -1,4 +1,4 @@
-import { taskList, tasksArray, recordTaskData, setLocalStorage } from './modules.js';
+import { taskList, tasksArray, compareDaysAgo, recordTaskData, setLocalStorage } from './modules.js';
 
 // Listener function
 function modifyTaskTitle(event) {
@@ -34,8 +34,9 @@ function saveTask(event) {
     return;
   }
   // 原本Add Task從input file紀錄資料，但input本身在既有task為空白，故既有資料的更新需取自file_data textContent
-  updateTask.file = currentTask.querySelector('.file_data p').textContent;
-  updateTask.fileUpload = currentTask.querySelector('.file_data span').textContent;
+  updateTask.file = currentTask.querySelector('.file_data .upload_fileName').textContent;
+  updateTask.fileUpload = currentTask.querySelector('.file_data .upload_dateMillisecond').textContent;
+  console.log(updateTask.fileUpload);
 
   // 先將原先的task data刪除，再插入updateTask
   tasksArray.splice(taskIndex, 1, updateTask);

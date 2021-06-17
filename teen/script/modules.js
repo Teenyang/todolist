@@ -38,7 +38,30 @@ function compareDate(todayMs, uploadMs) {
   }
 }
 
-function dateFormat(deadline) {
+function compareDaysAgo(date) {
+  const today = new Date();
+  const compareDate = new Date(Number(date));
+  const dateYear = compareDate.getFullYear();
+  const dateMonth = compareDate.getMonth() + 1;  // getMonth()介於0~11，月份值由0起算
+  const dateDate = compareDate.getDate();
+
+  const dayMilliseconds = 24 * 60 * 60 * 1000;
+  const passDays = Math.floor((today - date) / dayMilliseconds);
+
+  if (dateYear === today.getFullYear() || dateMonth === today.getMonth() + 1 || dateDate === today.getDate()) {
+    return `today`;
+  }
+  else {
+    return `${(1 <= passDays && passDays < 2) ? 'yesterday' : (passDays + 'days ago')} `
+  }
+}
+
+function dateSlashFormat(date) {
+  const dateSlash = new Date(Number(date));
+  return `${dateSlash.getFullYear()}/${dateSlash.getMonth() + 1}/${dateSlash.getDate()}`;
+}
+
+function calendarSlashFormat(deadline) {
   // 取開頭四個數字
   const year = Number(deadline.match(/^\d{4}/g));
   // 取開頭為中線（但不包含）之後的兩個數字，且數字後為中線
@@ -46,13 +69,20 @@ function dateFormat(deadline) {
   // 取倒數兩個數字
   const date = Number(deadline.match(/\d{2}$/g));
 
-  return `${(year === new Date().getFullYear()) ? '' : year + '/'}${month}/${date}`
+  // 同年不須顯示年份，去年之前則顯示完整年月日
+  return `${(year === new Date().getFullYear()) ? '' : year + '/'} ${month} /${date}`
 }
 
 function recordTaskData(taskArticle) {
-  const today = new Date();
-  const fileName = taskArticle.querySelector('.task_body .upload_file').value.replace(/.*[\/\\]/, '');
-  const uploadDate = fileName ? `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}` : '';
+  const today = Date.now();
+  // const fileName = taskArticle.querySelector('.task_body .upload_file').value.replace(/.*[\/\\]/, '');
+  // const uploadDate = fileName ? `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}` : '';
+
+  // console.log(taskArticle.querySelector('.file_data .upload_fileName').textContent);
+  // console.log(taskArticle.querySelector('.file_data .upload_date').textContent);
+
+  const fileName = taskArticle.querySelector('.file_data .upload_fileName').textContent;
+  const uploadDateMillisecond = fileName ? `${today}` : '';
 
   return {
     title: taskArticle.querySelector('.task_header textarea').value,
@@ -62,7 +92,9 @@ function recordTaskData(taskArticle) {
     deadlineDate: taskArticle.querySelector('.task_body #date').value,
     deadlineTime: taskArticle.querySelector('.task_body #time').value,
     file: fileName,
-    fileUpload: uploadDate,
+    fileUpload: uploadDateMillisecond,
+    // file: fileName,
+    // fileUpload: uploadDate,
     comment: taskArticle.querySelector('.task_body textarea').value,
   }
 }
@@ -93,7 +125,7 @@ function updateTaskData(tasksArray, taskList) {
               </div>
             </div>
             <div class="info_group">
-              <span class="${(task.deadlineDate !== '') ? 'show' : ''}"><i class="far fa-calendar-alt"></i>${(task.deadlineDate !== '') ? dateFormat(task.deadlineDate) : ''}</span>
+              <span class="${(task.deadlineDate !== '') ? 'show' : ''}"><i class="far fa-calendar-alt"></i>${(task.deadlineDate !== '') ? calendarSlashFormat(task.deadlineDate) : ''}</span>
               <i class="${(task.file !== '') ? 'show' : ''} far fa-file"></i>
               <i class="${(task.comment !== '') ? 'show' : ''} far fa-comment-dots"></i>
             </div>
@@ -111,8 +143,11 @@ function updateTaskData(tasksArray, taskList) {
                 <label><i class="far fa-file fa-fw"></i>File</label>
                 <div class="edit_content">
                   <div class="file_data">
-                    <p>${(task.file !== '') ? task.file : ''}</p>
-                    <span>${(task.file !== '') ? task.fileUpload : ''}</span>
+                    <span class="upload_fileName">${(task.file !== '') ? task.file : ''}</span>
+                    <p class="upload_daysAge">${(task.file !== '') ? 'uploaded ' + compareDaysAgo(task.fileUpload) : ''}
+                      (<span class="upload_dateSlash">${(task.file !== '') ? dateSlashFormat(task.fileUpload) : ''}</span>)
+                    </p>
+                    <span class="upload_dateMillisecond">${(task.file !== '') ? task.fileUpload : ''}</span>
                   </div>
                   <input id="upload${index}" type="file" class="upload_file" name="file-upload" value="${task.file}">
                   <label for="upload${index}"><i class="fal fa-plus fa-fw"></i></label>
@@ -141,7 +176,7 @@ function setLocalStorage(storageArray) {
   localStorage.setItem('lists', JSON.stringify(tasksArray));
 }
 
-export { main, taskList, tasksArray, recordTaskData, updateTaskData, setLocalStorage };
+export { main, taskList, tasksArray, compareDaysAgo, dateSlashFormat, recordTaskData, updateTaskData, setLocalStorage };
 
 // function daysCountdown(uploadMs) {
 // }

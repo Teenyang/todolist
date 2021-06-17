@@ -407,13 +407,14 @@ nav {
   font-weight: 500;
 }
 
-.task_body .file .file_data.show p {
+.task_body .file .file_data.show span {
   font-family: "Roboto", sans-serif;
   font-size: 1rem;
   font-weight: 400;
   color: #000000;
 }
-.task_body .file .file_data.show span {
+.task_body .file .file_data.show p,
+.task_body .file .file_data.show p span {
   font-family: "Roboto", sans-serif;
   font-size: 1rem;
   font-weight: 400;
@@ -494,6 +495,9 @@ nav {
 }
 .task_body .file .file_data.show {
   margin-right: 24px;
+}
+.task_body .file .upload_dateMillisecond {
+  display: none;
 }
 .task_body .comment textarea {
   padding: 8px 16px;

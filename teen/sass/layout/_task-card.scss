@@ -87,7 +87,10 @@
     }
     .file_data.show {
       margin-right: 24px;
-      @extend %edit-content;
+      @extend %upload-content;
+    }
+    .upload_dateMillisecond {
+      display: none;
     }
     input {
       @extend %edit-upload-input;

@@ -11,17 +11,28 @@
   @include font.medium(20px);
 }
 
-%edit-content {
-  p {
+%upload-content {
+  span {
     @include font.regular(16px) {
       color: color.$black;
     }
   }
-  span {
+  p,
+  p span {
     @include font.regular(16px) {
       color: color.$heavy-gray;
     }
   }
+  // p {
+  //   @include font.regular(16px) {
+  //     color: color.$black;
+  //   }
+  // }
+  // span {
+  //   @include font.regular(16px) {
+  //     color: color.$heavy-gray;
+  //   }
+  // }
 }
 
 %task-status {
