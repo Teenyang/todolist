@@ -19,7 +19,7 @@ function compareDaysAgo(date) {
   const dateDate = compareDate.getDate();
 
   const dayMilliseconds = 24 * 60 * 60 * 1000;
-  //* 
+  //* 日期不同代表已跨隔日，不足一天則以一天記，使用Math.ceil()無條件進位取最大整數
   const passDays = Math.ceil((today - date) / dayMilliseconds);
 
   if (dateYear === today.getFullYear() && dateMonth === today.getMonth() + 1 && dateDate === today.getDate()) {
