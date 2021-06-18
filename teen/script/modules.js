@@ -19,14 +19,14 @@ function compareDaysAgo(date) {
   const dateDate = compareDate.getDate();
 
   const dayMilliseconds = 24 * 60 * 60 * 1000;
-  //* 日期不同代表已跨隔日，不足一天則以一天記，使用Math.ceil()無條件進位取最大整數
-  const passDays = Math.ceil((today - date) / dayMilliseconds);
+  //* 日期不同代表已跨隔日，使用Math.floor()無條件捨去取最小整數
+  const passDays = Math.floor((today - date) / dayMilliseconds);
 
   if (dateYear === today.getFullYear() && dateMonth === today.getMonth() + 1 && dateDate === today.getDate()) {
     return `today`;
   }
   else {
-    return `${(1 <= passDays && passDays < 2) ? 'yesterday' : (passDays + 'days ago')} `
+    return `${(passDays <= 1) ? 'yesterday' : (passDays + 'days ago')} `
   }
 }
 
@@ -44,7 +44,7 @@ function calendarSlashFormat(deadline) {
   const date = Number(deadline.match(/\d{2}$/g));
 
   //* 同年不須顯示年份，去年之前則顯示完整年月日
-  return `${(year === new Date().getFullYear()) ? '' : year + '/'} ${month} /${date}`
+  return `${(year === new Date().getFullYear()) ? '' : year + '/'}${month}/${date}`;
 }
 
 function recordTaskData(taskArticle) {
@@ -97,14 +97,14 @@ function updateTaskData(tasksArray, taskList) {
           <div class="task_content">
             <section class="task_body">
               <div class="edit_item deadline">
-                <label><i class="far fa-calendar-alt fa-fw"></i>Deadline</label>
+                <label><i class="far fa-calendar-alt fa-fw edit_icon"></i>Deadline</label>
                 <div class="edit_content">
-                  <input data-date="${index}" id="date" type="text" class="deadline_date" placeholder="yyyy/mm/dd" name="deadline-date" value="${task.deadlineDate}">
+                  <input id="date" type="text" class="deadline_date" placeholder="yyyy/mm/dd" name="deadline-date" value="${task.deadlineDate}">
                   <input id="time" type="text" class="deadline_time" placeholder="hh:mm" name="deadline-time" value="${task.deadlineTime}">
                 </div>
               </div>
               <div class="edit_item file">
-                <label><i class="far fa-file fa-fw"></i>File</label>
+                <label><i class="far fa-file fa-fw edit_icon"></i>File</label>
                 <div class="edit_content">
                   <div class="file_data">
                     <span class="upload_fileName">${(task.file !== '') ? task.file : ''}</span>
@@ -118,7 +118,7 @@ function updateTaskData(tasksArray, taskList) {
                 </div>
               </div>
               <div class="edit_item comment">
-                <label><i class="far fa-comment-dots fa-fw"></i>Comment</label>
+                <label><i class="far fa-comment-dots fa-fw edit_icon"></i>Comment</label>
                 <div class="edit_content">
                   <textarea class="edit_comment" name="comment" placeholder="Type your memo here…" readonly>${task.comment}</textarea>
                 </div>

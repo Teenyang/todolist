@@ -1,7 +1,7 @@
-import { taskList, tasksArray, compareDaysAgo, updateTaskData, dateSlashFormat } from './modules.js';
+import { taskList, tasksArray, compareDaysAgo, dateSlashFormat, updateTaskData } from './modules.js';
 
 //* 上傳日期需根據檢視日期隨之遞減
-setInterval(function () {
+function reloadCountdown(event) {
   const daysAgo = taskList.querySelectorAll('.upload_daysAgo');
   daysAgo.forEach((daysAgo, index) => {
     daysAgo.outerHTML = `
@@ -10,7 +10,8 @@ setInterval(function () {
       </p>
     `
   })
-}, 1000);
+}
+window.addEventListener('load', reloadCountdown);
 
 //* 自動載入已保存在LocalStorage中的tasks
 export default updateTaskData(tasksArray, taskList);

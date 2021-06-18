@@ -122,7 +122,7 @@
     width: 6px;
     height: 6px;
     background-color: color.$black;
-    // clip-path: (center bottom),(left top),(right top)
+    //* clip-path: (center bottom),(left top),(right top)
     clip-path: polygon(50% 100%, 0 0, 100% 0);
   }
 }

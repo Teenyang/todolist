@@ -22,10 +22,13 @@ function newUpload(date, uploadInput, taskItem) {
 function changeDateInputType(event) {
   if (event.target.className === 'deadline_date') {
     event.target.type = 'date';
+    event.target.addEventListener('blur', () => event.target.type = 'text');
   }
   else if (event.target.className === 'deadline_time') {
     event.target.type = 'time';
+    event.target.addEventListener('blur', () => event.target.type = 'text');
   }
+
 }
 
 function editComment(event) {
