@@ -35,6 +35,8 @@ function cancelAddTask() {
   fileData.innerHTML = ''
 
   returnBeforeAddTask();
+  //* 提交表單後恢復顯示所有任務清單
+  taskList.style.display = 'block';
 }
 
 function toggleNewTaskCheckbox(event) {
