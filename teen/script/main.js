@@ -1,6 +1,6 @@
 import { taskList, tasksArray, compareDaysAgo, updateTaskData, dateSlashFormat } from './modules.js';
 
-//todo 上傳日期需根據檢視日期隨之遞減
+//* 上傳日期需根據檢視日期隨之遞減
 setInterval(function () {
   const daysAgo = taskList.querySelectorAll('.upload_daysAgo');
   daysAgo.forEach((daysAgo, index) => {

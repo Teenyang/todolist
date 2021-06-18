@@ -14,13 +14,15 @@ function compareDaysAgo(date) {
   const today = new Date();
   const compareDate = new Date(Number(date));
   const dateYear = compareDate.getFullYear();
-  const dateMonth = compareDate.getMonth() + 1;  //* getMonth()介於0~11，月份值由0起算
+  //* getMonth()介於0~11，月份值由0起算
+  const dateMonth = compareDate.getMonth() + 1;
   const dateDate = compareDate.getDate();
 
   const dayMilliseconds = 24 * 60 * 60 * 1000;
-  const passDays = Math.floor((today - date) / dayMilliseconds);
+  //* 
+  const passDays = Math.ceil((today - date) / dayMilliseconds);
 
-  if (dateYear === today.getFullYear() || dateMonth === today.getMonth() + 1 || dateDate === today.getDate()) {
+  if (dateYear === today.getFullYear() && dateMonth === today.getMonth() + 1 && dateDate === today.getDate()) {
     return `today`;
   }
   else {
