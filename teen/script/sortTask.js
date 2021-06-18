@@ -69,7 +69,20 @@ function markupTask(event) {
   window.location.reload();
 }
 
+function deleteTask(event) {
+  if (!event.target.classList.contains('delete_task')) {
+    return;
+  }
+
+  const taskIndex = event.target.dataset.delete;
+  tasksArray.splice(taskIndex, 1)
+  setLocalStorage(tasksArray);
+  window.location.reload();
+}
+
+
 taskList.addEventListener('click', checkCompletion);
 taskList.addEventListener('click', markupTask);
+taskList.addEventListener('dblclick', deleteTask);
 
-export { checkCompletion, markupTask };
+export { checkCompletion, markupTask, deleteTask };

@@ -385,6 +385,16 @@ nav {
   color: #000000;
 }
 
+.task_header .marker_group .delete_task {
+  width: 24px;
+  text-align: center;
+  font-size: 24px;
+  color: #000000;
+}
+.task_header .marker_group .delete_task:hover {
+  color: red;
+}
+
 @media (min-width: 576px) {
   .task_header .info_group {
     margin-left: 40px;
@@ -464,6 +474,10 @@ nav {
 }
 .task_header .marker_group {
   font-size: 0;
+}
+.task_header .marker_group .delete_task {
+  margin-left: 32px;
+  cursor: pointer;
 }
 .task_header .info_group {
   margin-top: 16px;

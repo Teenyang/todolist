@@ -86,6 +86,7 @@ function updateTaskData(tasksArray, taskList) {
                   <i class="far fa-pen general"></i>
                   <i class="fas fa-pen edit"></i>
                 </label>
+                <i data-delete="${index}" class="far fa-trash-alt general delete_task"></i>
               </div>
             </div>
             <div class="info_group">

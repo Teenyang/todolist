@@ -4,6 +4,19 @@
 @use '../utilities/position';
 
 // HEADER
+%delete-marker {
+  width: 24px;
+
+  text-align: center;
+
+  font-size: 24px;
+  color: color.$black;
+
+  &:hover {
+    color: red;
+  }
+}
+
 %record-icon {
   @include mediaquery.mediaquery-tablet {
     margin-left: 40px;

@@ -41,6 +41,13 @@
     input {
       @extend %marker-input;
     }
+
+    .delete_task {
+      margin-left: 32px;
+      @extend %delete-marker;
+
+      cursor: pointer;
+    }
   }
 
   .info_group {
