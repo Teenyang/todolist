@@ -1,4 +1,4 @@
-import { taskList, tasksArray, compareDaysAgo, recordTaskData, setLocalStorage } from './modules.js';
+import { taskList, tasksArray, doneEditing, compareDaysAgo, recordTaskData, setLocalStorage } from './modules.js';
 
 //~ Listener function
 function modifyTaskTitle(event) {
@@ -41,6 +41,10 @@ function saveTask(event) {
   //* 先將原先的task data刪除，再插入updateTask
   tasksArray.splice(taskIndex, 1, updateTask);
   setLocalStorage(tasksArray);
+
+  //* 提交表單後恢復顯示所有任務清單
+  const allTasks = taskList.querySelectorAll('.task');
+  doneEditing(allTasks);
 
   currentTask.classList.remove('editing');
   //* 不使用event.preventDefault()，讓提交表單時刷新畫面並更新資料

@@ -1,5 +1,6 @@
 //~ MAIN：Add Task
 const main = document.querySelector('main');
+const addTaskButton = main.querySelector('.add_button');
 
 //~ taskList：exist tasks
 const taskList = document.querySelector('.task_list');
@@ -9,6 +10,22 @@ const taskList = document.querySelector('.task_list');
 //* 初始值為空陣列，或者若Storage已有紀錄則呈現先前保留的資料
 const tasksArray = JSON.parse(localStorage.getItem('lists')) || [];
 
+function focusEditing(allTasks, taskIndex) {
+  //! 展開編輯區塊後，只能對該區塊進行編輯，其他任務將消失，待任務被cancel或save後才回復顯示所有任務清單
+  addTaskButton.classList.add('adding');
+
+  allTasks.forEach((task, index) => {
+    if (index !== taskIndex) {
+      task.style.display = 'none';
+    }
+  })
+  allTasks[taskIndex].style.display = 'block';
+}
+
+function doneEditing(allTasks) {
+  addTaskButton.classList.remove('adding');
+  allTasks.forEach(task => task.style.display = 'block');
+}
 
 function compareDaysAgo(date) {
   const today = new Date();
@@ -141,4 +158,4 @@ function setLocalStorage(storageArray) {
   localStorage.setItem('lists', JSON.stringify(storageArray));
 }
 
-export { main, taskList, tasksArray, compareDaysAgo, dateSlashFormat, recordTaskData, updateTaskData, setLocalStorage };
+export { main, addTaskButton, taskList, tasksArray, focusEditing, doneEditing, compareDaysAgo, dateSlashFormat, recordTaskData, updateTaskData, setLocalStorage };

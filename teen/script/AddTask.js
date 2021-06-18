@@ -1,4 +1,4 @@
-import { main, taskList, tasksArray, recordTaskData, updateTaskData, setLocalStorage } from './modules.js';
+import { main, taskList, tasksArray, focusEditing, doneEditing, recordTaskData, updateTaskData, setLocalStorage } from './modules.js';
 
 const addTaskButton = main.querySelector('.add_button');
 const newTask = main.querySelector('main > .task');
@@ -11,8 +11,8 @@ function returnBeforeAddTask() {
   addTaskButton.classList.remove('adding');
   //* 隱藏task
   newTask.classList.remove('new_task');
-  // 清除表單內容
-  // newTaskForm.reset();
+  //* 清除表單內容
+  newTaskForm.reset();
 }
 
 //~ Listener function
@@ -21,6 +21,8 @@ function addTask() {
   addTaskButton.classList.add('adding');
   //* 顯示task
   newTask.classList.add('new_task');
+  //! 展開編輯區塊後，只能對該區塊進行編輯，其他任務將消失，待任務被cancel或save後才回復顯示所有任務清單
+  taskList.style.display = 'none';
 }
 
 function cancelAddTask() {
@@ -76,8 +78,11 @@ function submitAddTask() {
   //* 將tasksArray更新儲存在Storage，並用JSON.stringify將陣列格式轉成字串以便讀取
   setLocalStorage(tasksArray);
 
-  returnBeforeAddTask();
+  //* 提交表單後恢復顯示所有任務清單
+  taskList.style.display = 'block';
+
   newTask.classList.remove('completed', 'major');
+  returnBeforeAddTask();
   //* 不使用event.preventDefault()，讓提交表單時刷新畫面並更新資料
 }
 

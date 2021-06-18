@@ -1,4 +1,4 @@
-import { main, taskList, tasksArray, compareDaysAgo, dateSlashFormat, setLocalStorage } from './modules.js';
+import { main, focusEditing, taskList, tasksArray, compareDaysAgo, dateSlashFormat, setLocalStorage } from './modules.js';
 
 //~ General function
 function newUpload(date, uploadInput, taskItem) {
@@ -62,6 +62,9 @@ function toggleEditArea(event) {
   const currentTask = allTasks[taskIndex];
   //* edit狀態時無法拖曳task區塊
   currentTask.classList.remove('drag');
+
+  //! 展開編輯區塊後，只能對該區塊進行編輯，其他任務將消失，待任務被cancel或save後才回復顯示所有任務清單
+  focusEditing(allTasks, taskIndex);
 
 
   if (checkboxStatus) {
