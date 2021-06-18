@@ -66,7 +66,7 @@ function updateTaskData(tasksArray, taskList) {
   //* join()將所有模板字串接在一起，全部賦值給itemsLists.innerHTML
   taskList.innerHTML = tasksArray.map((task, index) => {
     return `
-      <article data-task="${index}" class="task ${task.done ? 'completed' : ''} ${task.major ? 'major' : ''} ${(task.deadlineDate !== '') || (task.file !== '') || (task.comment !== '') ? 'progress' : ''}">
+      <article data-task="${index}" class="task drag ${task.done ? 'completed' : ''} ${task.major ? 'major' : ''} ${(task.deadlineDate !== '') || (task.file !== '') || (task.comment !== '') ? 'progress' : ''}">
         <form data-form="${index}" id="task-edit" autocomplete="off">
           <section class="task_header">
             <div class="title_group">

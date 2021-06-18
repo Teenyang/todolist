@@ -248,6 +248,22 @@ nav {
   display: block;
 }
 
+.task.drag:hover::before {
+  content: "";
+  width: 4px;
+  height: 4px;
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  right: auto;
+  bottom: auto;
+  left: 8px;
+  transform: translateY(-50%);
+  border-radius: 100px;
+  box-shadow: 0 8px #d8d8d8, 0 -8px #d8d8d8;
+  background-color: #d8d8d8;
+}
+
 .task_header .title_group > input {
   display: none;
 }
@@ -435,6 +451,9 @@ nav {
   }
 }
 
+.task {
+  position: relative;
+}
 .task_header {
   padding: 24px 32px;
 }

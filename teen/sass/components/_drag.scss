@@ -1,0 +1,16 @@
+@use '../utilities/color';
+@use '../utilities/position';
+
+%hover-to-drag {
+  &::before {
+    content: "";
+    width: 4px;
+    height: 4px;
+    @include position.position-absolute(50%, auto, auto, 8px);
+    transform: translateY(-50%);
+
+    border-radius: 100px;
+    box-shadow: 0 8px color.$hover-gray, 0 -8px color.$hover-gray;
+    background-color: color.$hover-gray;
+  }
+}

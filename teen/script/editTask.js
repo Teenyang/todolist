@@ -57,6 +57,8 @@ function toggleEditArea(event) {
   const taskIndex = event.target.dataset.edit;
   const allTasks = taskList.querySelectorAll('.task');
   const currentTask = allTasks[taskIndex];
+  //* edit狀態時無法拖曳task區塊
+  currentTask.classList.remove('drag');
 
 
   if (checkboxStatus) {

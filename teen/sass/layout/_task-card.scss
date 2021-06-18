@@ -1,3 +1,4 @@
+@use '../components/drag';
 @use '../components/background-theme';
 @use '../components/spacing';
 @use '../components/input-style';
@@ -6,6 +7,15 @@
 @use '../components/button';
 @use '../components/content';
 
+// TASK CARDS
+.task {
+  position: relative;
+  &.drag {
+    &:hover {
+      @extend %hover-to-drag;
+    }
+  }
+}
 // TASK HEADER
 .task_header {
   padding: 24px 32px;
