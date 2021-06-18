@@ -32,7 +32,7 @@ function showAllTasks() {
   allTasks.forEach(allTask => allTask.style.display = 'block');
 }
 function showInProgressTasks() {
-  allTasks.forEach(allTask => allTask.classList.contains('progress') ? allTask.style.display = 'block' : allTask.style.display = 'none');
+  allTasks.forEach(allTask => !allTask.classList.contains('completed') ? allTask.style.display = 'block' : allTask.style.display = 'none');
 }
 function showCompletedTasks() {
   allTasks.forEach(allTask => allTask.classList.contains('completed') ? allTask.style.display = 'block' : allTask.style.display = 'none');
