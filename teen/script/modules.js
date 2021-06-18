@@ -1,12 +1,12 @@
-// MAIN：Add Task
+//~ MAIN：Add Task
 const main = document.querySelector('main');
 
-// taskList：exist tasks
+//~ taskList：exist tasks
 const taskList = document.querySelector('.task_list');
 
-// JSON.parse：將字串轉回原本陣列格式
-// 初始值為空陣列，或者若Storage已有紀錄則呈現先前保留的資料
-// If the key of getItem() doesn't exist, null is returned. => null為falsy值
+//* JSON.parse()：將字串轉回原本陣列格式
+//* If the key of getItem() doesn't exist, null is returned. => null為falsy值
+//* 初始值為空陣列，或者若Storage已有紀錄則呈現先前保留的資料
 const tasksArray = JSON.parse(localStorage.getItem('lists')) || [];
 
 
@@ -14,7 +14,7 @@ function compareDaysAgo(date) {
   const today = new Date();
   const compareDate = new Date(Number(date));
   const dateYear = compareDate.getFullYear();
-  const dateMonth = compareDate.getMonth() + 1;  // getMonth()介於0~11，月份值由0起算
+  const dateMonth = compareDate.getMonth() + 1;  //* getMonth()介於0~11，月份值由0起算
   const dateDate = compareDate.getDate();
 
   const dayMilliseconds = 24 * 60 * 60 * 1000;
@@ -34,14 +34,14 @@ function dateSlashFormat(date) {
 }
 
 function calendarSlashFormat(deadline) {
-  // 取開頭四個數字
+  //* 取開頭四個數字
   const year = Number(deadline.match(/^\d{4}/g));
-  // 取開頭為中線（但不包含）之後的兩個數字，且數字後為中線
+  //* 取開頭為中線（但不包含）之後的兩個數字，且數字後為中線
   const month = Number(deadline.match(/(?<=([-]))\d{2}(?=[-])/g));
-  // 取倒數兩個數字
+  //* 取倒數兩個數字
   const date = Number(deadline.match(/\d{2}$/g));
 
-  // 同年不須顯示年份，去年之前則顯示完整年月日
+  //* 同年不須顯示年份，去年之前則顯示完整年月日
   return `${(year === new Date().getFullYear()) ? '' : year + '/'} ${month} /${date}`
 }
 
@@ -63,7 +63,7 @@ function recordTaskData(taskArticle) {
 }
 
 function updateTaskData(tasksArray, taskList) {
-  // join()將所有模板字串接在一起，全部賦值給itemsLists.innerHTML
+  //* join()將所有模板字串接在一起，全部賦值給itemsLists.innerHTML
   taskList.innerHTML = tasksArray.map((task, index) => {
     return `
       <article data-task="${index}" class="task ${task.done ? 'completed' : ''} ${task.major ? 'major' : ''} ${(task.deadlineDate !== '') || (task.file !== '') || (task.comment !== '') ? 'progress' : ''}">
@@ -131,7 +131,7 @@ function updateTaskData(tasksArray, taskList) {
       </article>
     `
   }).join('');
-  // 儲存後的submit button文字變成“Save”
+  //* 儲存後的submit button文字變成“Save”
 }
 
 function setLocalStorage(storageArray) {

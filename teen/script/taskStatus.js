@@ -12,7 +12,7 @@ const completedTasksCount = completedTasks.length;
 const footerStatus = document.querySelector('.task_status');
 
 
-// General function
+//~ General function
 function countGeneralTasks(allCount, completedCount) {
   const leftTaskCount = allCount - completedCount;
   return footerStatus.innerHTML = `
@@ -39,7 +39,7 @@ function showCompletedTasks() {
 }
 
 
-// Listener function
+//~ Listener function
 function chooseTaskCategory(event) {
   navLinks.forEach(navLink => navLink.classList.toggle('select', navLink.dataset.link === event.target.dataset.link));
   if (event.target.dataset.link === 'completed') {

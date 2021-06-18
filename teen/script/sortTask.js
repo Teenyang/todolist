@@ -3,18 +3,18 @@ import { taskList, tasksArray, setLocalStorage } from './modules.js';
 const allTasks = taskList.querySelectorAll('.task');
 
 
-// General function
-// 排序置於前項最末index之後、本項第一個
+//~ General function
+//* 排序置於前項最末index之後、本項第一個
 function sortTask(arr, moveTaskIndex, destinationIndex) {
   // moveTask取得刪除的元素
   const moveTask = arr.splice(moveTaskIndex, 1)[0];
-  // 重新將刪除的元素插入目標位置
+  //* 重新將刪除的元素插入目標位置
   arr.splice(destinationIndex, 0, moveTask);
   return arr;
 }
 
 
-// Listener function
+//~ Listener function
 function checkCompletion(event) {
   if (event.target.className !== 'done_task') {
     return;
@@ -27,20 +27,20 @@ function checkCompletion(event) {
   const completedTaskStartIndex = allTasks.length - document.querySelectorAll('.task.completed').length;
 
   if (checkboxStatus) {
-    // 已完成任務：無法設為重要
+    //! 已完成任務：無法設為重要
     currentTask.classList.add('completed');
     tasksArray[taskIndex]['done'] = !tasksArray[taskIndex]['done'];
     currentTask.classList.remove('major');
     tasksArray[taskIndex]['major'] = false;
 
-    // 置於general最末、completed最前
+    //* 置於general最末、completed最前
     sortTask(tasksArray, taskIndex, generalTaskEndIndex);
   }
   else {
     currentTask.classList.remove('completed');
     tasksArray[taskIndex]['done'] = !tasksArray[taskIndex]['done'];
 
-    // 置於general最末、completed最前
+    //* 置於general最末、completed最前
     sortTask(tasksArray, taskIndex, completedTaskStartIndex);
   }
 
@@ -61,7 +61,8 @@ function markupTask(event) {
 
   currentTask.classList.toggle('major', checkboxStatus);
   tasksArray[taskIndex]['major'] = !tasksArray[taskIndex]['major'];
-  // true：置於major最前、false：置於major最末、general最前
+  //* true：置於major最前
+  //* false：置於major最末、general最前
   checkboxStatus ? sortTask(tasksArray, taskIndex, majorTaskStartIndex) : sortTask(tasksArray, taskIndex, majorTaskEndIndex);
 
   setLocalStorage(tasksArray);

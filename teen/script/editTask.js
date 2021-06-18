@@ -1,6 +1,6 @@
 import { main, taskList, tasksArray, compareDaysAgo, dateSlashFormat, setLocalStorage } from './modules.js';
 
-// General function
+//~ General function
 function newUpload(date, uploadInput, taskItem) {
   const fileName = uploadInput.value.replace(/.*[\/\\]/, '');
   const uploadDate = dateSlashFormat(date);
@@ -18,7 +18,7 @@ function newUpload(date, uploadInput, taskItem) {
 }
 
 
-// Listener function
+//~ Listener function
 function changeDateInputType(event) {
   if (event.target.className === 'deadline_date') {
     event.target.type = 'date';
@@ -51,7 +51,7 @@ function toggleEditArea(event) {
     return;
   }
 
-  // pen只負責展開編輯區塊，一旦展開便將其checked狀態一律存為true
+  //! pen只負責展開編輯區塊，一旦展開便將其checked狀態一律存為true
   event.target.checked = true;
   const checkboxStatus = event.target.checked;
   const taskIndex = event.target.dataset.edit;
@@ -62,10 +62,10 @@ function toggleEditArea(event) {
   if (checkboxStatus) {
     currentTask.classList.add('editing');
 
-    // 從pen edit狀態控制upload顯示：若localStorage存有file資訊，則顯示upload紀錄
+    //* 從pen edit狀態控制upload顯示：若localStorage存有file資訊，則顯示upload紀錄
     const fileName = tasksArray[taskIndex].file;
     currentTask.querySelector('.file_data').classList.toggle('show', fileName !== '');
-    // 若uploadInput接收到change事件，則更新file資訊顯示在file_data上
+    //* 若uploadInput接收到change事件，則更新file資訊顯示在file_data上
     const uploadInput = currentTask.querySelector('.upload_file');
     uploadInput.addEventListener('change', () => {
       newUpload(Date.now(), uploadInput, currentTask);
