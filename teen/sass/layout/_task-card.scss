@@ -203,6 +203,7 @@
   .info_group {
     display: none;
   }
+
   &.progress {
     .info_group {
       display: block;
@@ -215,11 +216,14 @@
       }
     }
 
+    &.completed,
     &.editing {
       .info_group {
         display: none;
       }
+    }
 
+    &.editing {
       .task_header {
         padding-bottom: 24px;
       }

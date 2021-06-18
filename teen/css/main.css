@@ -611,7 +611,7 @@ nav {
 .task.progress .info_group > *.show {
   display: inline-block;
 }
-.task.progress.editing .info_group {
+.task.progress.completed .info_group, .task.progress.editing .info_group {
   display: none;
 }
 .task.progress.editing .task_header {

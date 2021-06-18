@@ -30,7 +30,7 @@ function checkCompletion(event) {
     //! 已完成任務：無法設為重要
     currentTask.classList.add('completed');
     tasksArray[taskIndex]['done'] = !tasksArray[taskIndex]['done'];
-    currentTask.classList.remove('major');
+    currentTask.classList.remove('major', 'progress');
     tasksArray[taskIndex]['major'] = false;
 
     //* 置於general最末、completed最前
