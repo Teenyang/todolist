@@ -1,16 +1,17 @@
 import { main, focusEditing, taskList, tasksArray, compareDaysAgo, dateSlashFormat, setLocalStorage } from './modules.js';
 
 //~ General function
-function newUpload(date, uploadInput, taskItem) {
+function recordUploadFileData(date, uploadInput, taskItem) {
+  //* 清除上傳檔案路徑C:\fakepath\
   const fileName = uploadInput.value.replace(/.*[\/\\]/, '');
   const uploadDate = dateSlashFormat(date);
   const uploadDaysAgo = compareDaysAgo(date);
-
   const fileData = taskItem.querySelector('.file_data');
+
   fileData.classList.toggle('show', fileName !== '');
   return fileData.innerHTML = `
       <span class="upload_fileName">${fileName}</span>
-      <p class="upload_days_ago">${(fileName !== '') ? 'uploaded ' + uploadDaysAgo : ''}
+      <p class="upload_days_ago">${(fileName !== '') ? ('uploaded ' + uploadDaysAgo) : ''}
         (<span class="upload_dateSlash">${(fileName !== '') ? uploadDate : ''}</span>)
       </p>
       <span class="upload_dateMillisecond">${date}</span>
@@ -19,7 +20,8 @@ function newUpload(date, uploadInput, taskItem) {
 
 
 //~ Listener function
-function changeDateInputType(event) {
+function changeDateTimeInputType(event) {
+  //* 因為<input type="text">才可設置placeholder，因此click事件觸發時才改變input type，失去focus時再換回text
   if (event.target.className === 'deadline_date') {
     event.target.type = 'date';
     event.target.addEventListener('blur', () => event.target.type = 'text');
@@ -28,17 +30,14 @@ function changeDateInputType(event) {
     event.target.type = 'time';
     event.target.addEventListener('blur', () => event.target.type = 'text');
   }
-
 }
 
 function editComment(event) {
+  //* 起初就設定<textarea>為readonly模式，當dblclick事件觸發時才可被編輯，失去focus時再回復readonly模式
   if (event.target.className === 'edit_comment') {
     event.target.removeAttribute('readonly');
+    event.target.addEventListener('blur', () => event.target.setAttribute('readonly', ''));
   }
-
-  event.target.addEventListener('blur', () => {
-    event.target.setAttribute('readonly', '');
-  })
 }
 
 function uploadFile(event) {
@@ -46,7 +45,8 @@ function uploadFile(event) {
     return;
   }
 
-  newUpload(Date.now(), event.target, this);
+  console.log(this);
+  recordUploadFileData(Date.now(), event.target, this);
 }
 
 function toggleEditArea(event) {
@@ -76,16 +76,16 @@ function toggleEditArea(event) {
     //* 若uploadInput接收到change事件，則更新file資訊顯示在file_data上
     const uploadInput = currentTask.querySelector('.upload_file');
     uploadInput.addEventListener('change', () => {
-      newUpload(Date.now(), uploadInput, currentTask);
+      recordUploadFileData(Date.now(), uploadInput, currentTask);
     });
   }
 
   setLocalStorage(tasksArray);
 }
 
-main.addEventListener('click', changeDateInputType);
+main.addEventListener('click', changeDateTimeInputType);
 main.addEventListener('change', uploadFile);
 main.addEventListener('dblclick', editComment);
 taskList.addEventListener('click', toggleEditArea);
 
-export { changeDateInputType, uploadFile, editComment, toggleEditArea };
+export { changeDateTimeInputType, uploadFile, editComment, toggleEditArea };

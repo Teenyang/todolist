@@ -53,11 +53,8 @@ function dateSlashFormat(date) {
 }
 
 function calendarSlashFormat(deadline) {
-  //* 取開頭四個數字
   const year = Number(deadline.match(/^\d{4}/g));
-  //* 取開頭為中線（但不包含）之後的兩個數字，且數字後為中線
   const month = Number(deadline.match(/(?<=([-]))\d{2}(?=[-])/g));
-  //* 取倒數兩個數字
   const date = Number(deadline.match(/\d{2}$/g));
 
   //* 同年不須顯示年份，去年之前則顯示完整年月日

@@ -4,20 +4,15 @@ const addTaskButton = main.querySelector('.add_button');
 const newTask = main.querySelector('main > .task');
 const newTaskForm = newTask.querySelector('#task-edit');
 const newTaskTitleCheckbox = newTask.querySelector('.title_group');
-const fileData = newTask.querySelector('.file_data');
 
 //~ General function
 function reappearAddTaskButton() {
   addTaskButton.classList.remove('hide_button');
   newTask.classList.remove('show_new_task');
   newTaskForm.reset();
-}
 
-function resetUploadFileData(fileData) {
-  //* 因為upload file資訊取自upload <input>再重新賦值給fileData節點，而無法透過form.reset()重置，
-  //* 所以若取消addTask需手動刪除fileData內容，並隱藏fileData區塊
-  fileData.classList.remove('show');
-  fileData.innerHTML = ''
+  //! 提交表單後恢復顯示所有任務清單
+  taskList.style.display = 'block';
 }
 
 //~ Listener function
@@ -25,7 +20,7 @@ function addTask() {
   addTaskButton.classList.add('hide_button');
   newTask.classList.add('show_new_task');
 
-  //! 展開編輯區塊後，只能對該區塊進行編輯，其他任務將消失，待任務被cancel或save後才回復顯示所有任務清單
+  //! 展開新增任務的編輯區塊時，將專注在編輯該任務，其他任務則先消失，待任務被cancel或save後才恢復顯示所有任務清單
   taskList.style.display = 'none';
 }
 
@@ -33,12 +28,10 @@ function cancelAddTask() {
   const deadlineInputs = newTask.querySelectorAll('.deadline input');
   deadlineInputs.forEach(deadlineInput => deadlineInput.type = 'text');
 
-  resetUploadFileData(fileData);
-
   reappearAddTaskButton();
-
-  //! 提交表單後恢復顯示所有任務清單
-  taskList.style.display = 'block';
+  //* 因為upload file資訊取自upload <input>再重新賦值給fileData節點，而無法透過form.reset()重置，
+  //* 所以若取消addTask需重整頁面以清空fileData
+  window.location.reload();
 }
 
 function toggleNewTaskCheckbox(event) {
@@ -73,9 +66,6 @@ function submitAddTask() {
 
   exportTaskDataFromLocalStorage(tasksArray, taskList);
   setLocalStorage(tasksArray);
-
-  //! 提交表單後恢復顯示所有任務清單
-  taskList.style.display = 'block';
 
   newTask.classList.remove('completed', 'major');
   reappearAddTaskButton();
