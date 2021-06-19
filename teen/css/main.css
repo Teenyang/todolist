@@ -237,14 +237,14 @@ nav {
   margin-bottom: 24px;
   position: relative;
 }
-.add_button.adding {
+.add_button.hide_button {
   margin-bottom: 0;
   display: none;
 }
 .add_button ~ .task {
   display: none;
 }
-.add_button ~ .task.new_task {
+.add_button ~ .task.show_new_task {
   display: block;
 }
 
@@ -589,28 +589,28 @@ nav {
 .task .task_content {
   display: none;
 }
-.task .marker_star ~ label .general {
+.task .major_task ~ label .general {
   display: inline-block;
 }
-.task .marker_star ~ label .major {
+.task .major_task ~ label .major {
   display: none;
 }
-.task.major .marker_star + label .general {
+.task.major .major_task + label .general {
   display: none;
 }
-.task.major .marker_star ~ label .major {
+.task.major .major_task ~ label .major {
   display: inline-block;
 }
-.task .marker_pen + label > .general {
+.task .edit_task + label > .general {
   display: inline-block;
 }
-.task .marker_pen ~ label .edit {
+.task .edit_task ~ label .edit {
   display: none;
 }
-.task.editing .marker_pen ~ label .general {
+.task.editing .edit_task ~ label .general {
   display: none;
 }
-.task.editing .marker_pen ~ label .edit {
+.task.editing .edit_task ~ label .edit {
   display: inline-block;
 }
 .task .info_group {

@@ -8,7 +8,7 @@ function modifyTaskTitle(event) {
 
   const modifyTitle = event.target.value;
   if (modifyTitle === '') {
-    alert('內容不得為空');
+    alert('標題不能空白');
     window.location.reload();
     return;
   }

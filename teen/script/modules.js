@@ -7,7 +7,7 @@ const taskList = document.querySelector('.task_list');
 
 //* JSON.parse()：將字串轉回原本陣列格式
 //* If the key of getItem() doesn't exist, null is returned. => null為falsy值
-//* 初始值為空陣列，或者若Storage已有紀錄則呈現先前保留的資料
+//* 初始值為空陣列，若Storage已有紀錄則從先前保留資料getItem()
 const tasksArray = JSON.parse(localStorage.getItem('lists')) || [];
 
 function focusEditing(allTasks, taskIndex) {
@@ -64,6 +64,7 @@ function calendarSlashFormat(deadline) {
   return `${(year === new Date().getFullYear()) ? '' : year + '/'}${month}/${date}`;
 }
 
+//* 先以物件形式紀錄task data，再推進tasksArray存進localStorage
 function recordTaskData(taskArticle) {
   const today = Date.now();
   const fileName = taskArticle.querySelector('.file_data .upload_fileName').textContent;
@@ -72,7 +73,7 @@ function recordTaskData(taskArticle) {
   return {
     title: taskArticle.querySelector('.task_header textarea').value,
     done: taskArticle.querySelector('.done_task').checked,
-    major: taskArticle.querySelector('.marker_star').checked,
+    major: taskArticle.querySelector('.major_task').checked,
     deadlineDate: taskArticle.querySelector('.task_body #date').value,
     deadlineTime: taskArticle.querySelector('.task_body #time').value,
     file: fileName,
@@ -81,8 +82,8 @@ function recordTaskData(taskArticle) {
   }
 }
 
-function updateTaskData(tasksArray, taskList) {
-  //* join()將所有模板字串接在一起，全部賦值給itemsLists.innerHTML
+//* 將存進localStorage的task data透過array.map()更新至taskList區域，逐一匯出task內容
+function exportTaskDataFromLocalStorage(tasksArray, taskList) {
   taskList.innerHTML = tasksArray.map((task, index) => {
     return `
       <article data-task="${index}" class="task drag ${task.done ? 'completed' : ''} ${task.major ? 'major' : ''} ${(task.deadlineDate !== '') || (task.file !== '') || (task.comment !== '') ? 'progress' : ''}">
@@ -93,12 +94,12 @@ function updateTaskData(tasksArray, taskList) {
               <label for="doneTask${index}"><i class="far fa-check"></i></label>
               <textarea data-title="${index}" class="task_title" name="task title" rows="1" placeholder="Type Something Here...">${task.title}</textarea>
               <div class="marker_group">
-                <input type="checkbox" data-major="${index}" class="marker_star" id="markerStar${index}" ${task.major ? 'checked' : ''} ${task.done ? 'disabled' : ''}>
+                <input type="checkbox" data-major="${index}" class="major_task" id="markerStar${index}" ${task.major ? 'checked' : ''} ${task.done ? 'disabled' : ''}>
                 <label for="markerStar${index}">
                   <i class="far fa-star general"></i>
                   <i class="fas fa-star major"></i>
                 </label>
-                <input type="checkbox" data-edit="${index}" class="marker_pen" id="markerPen${index}" ${task.done ? 'disabled' : ''}>
+                <input type="checkbox" data-edit="${index}" class="edit_task" id="markerPen${index}" ${task.done ? 'disabled' : ''}>
                 <label for="markerPen${index}">
                   <i class="far fa-pen general"></i>
                   <i class="fas fa-pen edit"></i>
@@ -126,7 +127,7 @@ function updateTaskData(tasksArray, taskList) {
                 <div class="edit_content">
                   <div class="file_data">
                     <span class="upload_fileName">${(task.file !== '') ? task.file : ''}</span>
-                    <p class="upload_daysAgo">${(task.file !== '') ? 'uploaded ' + compareDaysAgo(task.fileUpload) : ''}
+                    <p class="upload_days_ago">${(task.file !== '') ? 'uploaded ' + compareDaysAgo(task.fileUpload) : ''}
                       (<span class="upload_dateSlash">${(task.file !== '') ? dateSlashFormat(task.fileUpload) : ''}</span>)
                     </p>
                     <span class="upload_dateMillisecond">${(task.file !== '') ? task.fileUpload : ''}</span>
@@ -151,11 +152,13 @@ function updateTaskData(tasksArray, taskList) {
       </article>
     `
   }).join('');
-  //* 儲存後的submit button文字變成“Save”
+  //* 儲存後的submit button文字直接改成“Save”
 }
 
+//* JSON.stringify：將陣列格式轉成字串以便讀取
+//* 透過setItem()將tasksArray儲存在localStorage
 function setLocalStorage(storageArray) {
   localStorage.setItem('lists', JSON.stringify(storageArray));
 }
 
-export { main, addTaskButton, taskList, tasksArray, focusEditing, doneEditing, compareDaysAgo, dateSlashFormat, recordTaskData, updateTaskData, setLocalStorage };
+export { main, addTaskButton, taskList, tasksArray, focusEditing, doneEditing, compareDaysAgo, dateSlashFormat, recordTaskData, exportTaskDataFromLocalStorage, setLocalStorage };

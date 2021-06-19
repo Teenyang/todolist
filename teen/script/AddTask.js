@@ -1,26 +1,30 @@
-import { main, taskList, tasksArray, focusEditing, doneEditing, recordTaskData, updateTaskData, setLocalStorage } from './modules.js';
+import { main, taskList, tasksArray, focusEditing, doneEditing, recordTaskData, exportTaskDataFromLocalStorage, setLocalStorage } from './modules.js';
 
 const addTaskButton = main.querySelector('.add_button');
 const newTask = main.querySelector('main > .task');
 const newTaskForm = newTask.querySelector('#task-edit');
 const newTaskTitleCheckbox = newTask.querySelector('.title_group');
+const fileData = newTask.querySelector('.file_data');
 
 //~ General function
-function returnBeforeAddTask() {
-  //* 顯示addTask button
-  addTaskButton.classList.remove('adding');
-  //* 隱藏task
-  newTask.classList.remove('new_task');
-  //* 清除表單內容
+function reappearAddTaskButton() {
+  addTaskButton.classList.remove('hide_button');
+  newTask.classList.remove('show_new_task');
   newTaskForm.reset();
+}
+
+function resetUploadFileData(fileData) {
+  //* 因為upload file資訊取自upload <input>再重新賦值給fileData節點，而無法透過form.reset()重置，
+  //* 所以若取消addTask需手動刪除fileData內容，並隱藏fileData區塊
+  fileData.classList.remove('show');
+  fileData.innerHTML = ''
 }
 
 //~ Listener function
 function addTask() {
-  //* 隱藏addTask button
-  addTaskButton.classList.add('adding');
-  //* 顯示task
-  newTask.classList.add('new_task');
+  addTaskButton.classList.add('hide_button');
+  newTask.classList.add('show_new_task');
+
   //! 展開編輯區塊後，只能對該區塊進行編輯，其他任務將消失，待任務被cancel或save後才回復顯示所有任務清單
   taskList.style.display = 'none';
 }
@@ -29,13 +33,11 @@ function cancelAddTask() {
   const deadlineInputs = newTask.querySelectorAll('.deadline input');
   deadlineInputs.forEach(deadlineInput => deadlineInput.type = 'text');
 
-  //* 隱藏upload的file信息
-  const fileData = newTask.querySelector('.file_data');
-  fileData.classList.remove('show');
-  fileData.innerHTML = ''
+  resetUploadFileData(fileData);
 
-  returnBeforeAddTask();
-  //* 提交表單後恢復顯示所有任務清單
+  reappearAddTaskButton();
+
+  //! 提交表單後恢復顯示所有任務清單
   taskList.style.display = 'block';
 }
 
@@ -43,25 +45,20 @@ function toggleNewTaskCheckbox(event) {
   if (event.target.className === 'done_task') {
     newTask.classList.toggle('completed', event.target.checked);
   }
-  else if (event.target.className === 'marker_star') {
+  else if (event.target.className === 'major_task') {
     newTask.classList.toggle('major', event.target.checked);
   }
 }
 
 function submitAddTask() {
-  //* 先以物件形式紀錄task data，再推進tasksArray中進行更新
   const eachTask = recordTaskData(newTask);
-  if (Object.values(eachTask).filter(data => data === "").length === 6) {
-    alert('內容不得為空');
-    return;
-  }
 
   const allTasksCount = taskList.querySelectorAll('.task').length;
   const majorTaskCount = taskList.querySelectorAll('.task.major').length;
   const completedTaskCount = taskList.querySelectorAll('.task.completed').length;
   const generalTaskCount = allTasksCount - completedTaskCount;
 
-  if (newTask.querySelector('.marker_star').checked) {
+  if (newTask.querySelector('.major_task').checked) {
     //* major task永遠在最上方：從（第1個參數）index 0位置開始，刪除（第2個參數）0個元素，並插入eachTask
     tasksArray.splice(0, 0, eachTask);
   }
@@ -74,24 +71,21 @@ function submitAddTask() {
     tasksArray.splice(majorTaskCount, 0, eachTask);
   }
 
-  //* 將tasksArray更新至taskList區域中
-  updateTaskData(tasksArray, taskList);
-
-  //* 將tasksArray更新儲存在Storage，並用JSON.stringify將陣列格式轉成字串以便讀取
+  exportTaskDataFromLocalStorage(tasksArray, taskList);
   setLocalStorage(tasksArray);
 
-  //* 提交表單後恢復顯示所有任務清單
+  //! 提交表單後恢復顯示所有任務清單
   taskList.style.display = 'block';
 
   newTask.classList.remove('completed', 'major');
-  returnBeforeAddTask();
+  reappearAddTaskButton();
   //* 不使用event.preventDefault()，讓提交表單時刷新畫面並更新資料
 }
 
 addTaskButton.addEventListener('focus', addTask);
 newTaskTitleCheckbox.addEventListener('click', toggleNewTaskCheckbox);
 //! cancel未新增的task：代表reset表單
-newTask.addEventListener('reset', cancelAddTask);
 newTask.addEventListener('submit', submitAddTask);
+newTask.addEventListener('reset', cancelAddTask);
 
 export { addTask, toggleNewTaskCheckbox, cancelAddTask, submitAddTask };

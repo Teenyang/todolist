@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="css/main.css">
 
   <script type="module">
-    import { default as reloadData } from './script/main.js';
+    import reloadData from './script/main.js';
     import { addTask, toggleNewTaskCheckbox, cancelAddTask, submitAddTask } from './script/addTask.js';
     import { changeDateInputType, uploadFile, editComment, toggleEditArea } from './script/editTask.js';
     import { modifyTaskTitle, saveTask, cancelReloadTask } from './script/saveTask.js';
@@ -49,12 +49,12 @@
               <textarea class="task_title" name="task title" rows="1" placeholder="Type Something Here..."
                 required></textarea>
               <div class="marker_group">
-                <input type="checkbox" class="marker_star" id="markerStar">
+                <input type="checkbox" class="major_task" id="markerStar">
                 <label for="markerStar">
                   <i class="far fa-star general"></i>
                   <i class="fas fa-star major"></i>
                 </label>
-                <input type="checkbox" class="marker_pen" id="markerPen">
+                <input type="checkbox" class="edit_task" id="markerPen">
                 <label for="markerPen">
                   <i class="far fa-pen general"></i>
                   <i class="fas fa-pen edit"></i>
@@ -76,7 +76,7 @@
                 <div class="edit_content">
                   <div class="file_data">
                     <span class="upload_fileName"></span>
-                    <p class="upload_daysAgo">
+                    <p class="upload_days_ago">
                       <span class="upload_dateSlash"></span>
                     </p>
                     <span class="upload_dateMillisecond"></span>

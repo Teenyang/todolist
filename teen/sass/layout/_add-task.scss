@@ -5,7 +5,7 @@
   position: relative;
   @extend %add-button;
 
-  &.adding {
+  &.hide_button {
     margin-bottom: 0;
     display: none;
   }
@@ -13,7 +13,7 @@
   & ~ .task {
     display: none;
 
-    &.new_task {
+    &.show_new_task {
       display: block;
     }
   }

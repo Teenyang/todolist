@@ -10,7 +10,7 @@ function newUpload(date, uploadInput, taskItem) {
   fileData.classList.toggle('show', fileName !== '');
   return fileData.innerHTML = `
       <span class="upload_fileName">${fileName}</span>
-      <p class="upload_daysAgo">${(fileName !== '') ? 'uploaded ' + uploadDaysAgo : ''}
+      <p class="upload_days_ago">${(fileName !== '') ? 'uploaded ' + uploadDaysAgo : ''}
         (<span class="upload_dateSlash">${(fileName !== '') ? uploadDate : ''}</span>)
       </p>
       <span class="upload_dateMillisecond">${date}</span>
@@ -50,7 +50,7 @@ function uploadFile(event) {
 }
 
 function toggleEditArea(event) {
-  if (event.target.className !== 'marker_pen') {
+  if (event.target.className !== 'edit_task') {
     return;
   }
 

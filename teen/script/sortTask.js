@@ -49,7 +49,7 @@ function checkCompletion(event) {
 }
 
 function markupTask(event) {
-  if (event.target.className !== 'marker_star') {
+  if (event.target.className !== 'major_task') {
     return;
   }
 

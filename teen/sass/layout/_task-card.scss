@@ -164,7 +164,7 @@
   }
 
   // marker of major
-  .marker_star {
+  .major_task {
     ~ label .general {
       display: inline-block;
     }
@@ -176,7 +176,7 @@
     .task_header {
       @extend %task-major-background;
     }
-    .marker_star {
+    .major_task {
       + label .general {
         display: none;
       }
@@ -187,7 +187,7 @@
   }
 
   // marker of editing
-  .marker_pen {
+  .edit_task {
     + label > .general {
       display: inline-block;
     }
@@ -196,7 +196,7 @@
     }
   }
   &.editing {
-    .marker_pen {
+    .edit_task {
       ~ label .general {
         display: none;
       }
