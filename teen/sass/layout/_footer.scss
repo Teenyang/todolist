@@ -1,4 +1,5 @@
 @use '../components/content';
+@use '../components/button';
 
 // bottom: task status
 footer {
@@ -11,4 +12,11 @@ footer {
   padding-left: 32px;
 
   @extend %task-status;
+}
+
+.clear_local_storage {
+  margin: 8px auto 0 auto;
+  display: block;
+
+  @extend %clear-storage-button;
 }

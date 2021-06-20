@@ -233,6 +233,19 @@ nav {
   }
 }
 
+.clear_local_storage {
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #9b9b9b;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: #ffffff;
+}
+.clear_local_storage:hover {
+  background-color: #3982d7;
+}
+
 .add_button {
   margin-bottom: 24px;
   position: relative;
@@ -642,6 +655,11 @@ footer {
 
 .task_status {
   padding-left: 32px;
+}
+
+.clear_local_storage {
+  margin: 8px auto 0 auto;
+  display: block;
 }
 
 /*# sourceMappingURL=main.css.map */

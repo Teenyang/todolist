@@ -1,5 +1,11 @@
 import { taskList, tasksArray, compareDaysAgo, convertDateStringToSlashFormat, exportTaskDataFromLocalStorage } from './modules.js';
 
+const clearStorageButton = document.querySelector('.clear_local_storage');
+
+function clearLocalStorage() {
+  localStorage.clear();
+}
+
 //* 上傳日期需根據檢視日期隨之遞減
 function countUploadDaysAgo() {
   const daysAgo = taskList.querySelectorAll('.upload_days_ago');
@@ -11,6 +17,8 @@ function countUploadDaysAgo() {
     `
   })
 }
+
+clearStorageButton.addEventListener('click', clearLocalStorage);
 window.addEventListener('load', countUploadDaysAgo);
 
 //* 自動載入已保存在LocalStorage中的tasks

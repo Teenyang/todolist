@@ -59,3 +59,17 @@
     @include font.regular(24px);
   }
 }
+
+%clear-storage-button {
+  padding: 10px;
+
+  border-radius: 5px;
+  background-color: color.$dark-gray;
+
+  @include font.regular(18px);
+  color: color.$white;
+
+  &:hover {
+    background-color: color.$hover-blue;
+  }
+}
