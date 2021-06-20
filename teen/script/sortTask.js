@@ -1,6 +1,6 @@
 import { taskList, tasksArray, setLocalStorage } from './modules.js';
 
-const allTasks = taskList.querySelectorAll('.task');
+const allTasksInList = taskList.querySelectorAll('.task');
 
 
 //~ General function
@@ -22,9 +22,9 @@ function checkCompletion(event) {
 
   const checkboxStatus = event.target.checked;
   const taskIndex = event.target.dataset['done'];
-  const currentTask = allTasks[taskIndex];
-  const generalTaskEndIndex = (allTasks.length - document.querySelectorAll('.task.completed').length) - 1;
-  const completedTaskStartIndex = allTasks.length - document.querySelectorAll('.task.completed').length;
+  const currentTask = allTasksInList[taskIndex];
+  const generalTaskEndIndex = (allTasksInList.length - document.querySelectorAll('.task.completed').length) - 1;
+  const completedTaskStartIndex = allTasksInList.length - document.querySelectorAll('.task.completed').length;
 
   if (checkboxStatus) {
     //! 已完成任務：無法設為重要
@@ -55,7 +55,7 @@ function markupTask(event) {
 
   const checkboxStatus = event.target.checked;
   const taskIndex = event.target.dataset['major'];
-  const currentTask = allTasks[taskIndex];
+  const currentTask = allTasksInList[taskIndex];
   const majorTaskStartIndex = 0;
   const majorTaskEndIndex = document.querySelectorAll('.task.major').length - 1;
 

@@ -127,14 +127,14 @@ function exportTaskDataFromLocalStorage(tasksArray, taskList) {
               <div class="edit_item file">
                 <label><i class="far fa-file fa-fw edit_icon"></i>File</label>
                 <div class="edit_content">
-                  <div class="file_data">
+                  <div class="file_data ${(task.file !== '') ? 'show' : ''}">
                     <span class="upload_fileName">${(task.file !== '') ? task.file : ''}</span>
                     <p class="upload_days_ago">${(task.file !== '') ? 'uploaded ' + compareDaysAgo(task.fileUpload) : ''}
                       (<span class="upload_dateSlash">${(task.file !== '') ? convertDateStringToSlashFormat(task.fileUpload) : ''}</span>)
                     </p>
                     <span class="upload_dateMillisecond">${(task.file !== '') ? task.fileUpload : ''}</span>
                   </div>
-                  <input id="upload${index}" type="file" class="upload_file" name="file-upload" value="${task.file}">
+                  <input data-upload="${index}" id="upload${index}" type="file" class="upload_file" name="file-upload" value="${task.file}">
                   <label for="upload${index}"><i class="fal fa-plus fa-fw"></i></label>
                 </div>
               </div>

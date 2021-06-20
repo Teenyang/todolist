@@ -41,10 +41,10 @@ function toggleNewTaskCheckbox(event) {
 function submitAddTask() {
   const eachTask = recordTaskData(newTask);
 
-  const allTasksCount = taskList.querySelectorAll('.task').length;
+  const allTasksInListCount = taskList.querySelectorAll('.task').length;
   const majorTaskCount = taskList.querySelectorAll('.task.major').length;
   const completedTaskCount = taskList.querySelectorAll('.task.completed').length;
-  const generalTaskCount = allTasksCount - completedTaskCount;
+  const generalTaskCount = allTasksInListCount - completedTaskCount;
 
   if (newTask.querySelector('.major_task').checked) {
     //* major task永遠在最上方：從（第1個參數）index 0位置開始，刪除（第2個參數）0個元素，並插入eachTask

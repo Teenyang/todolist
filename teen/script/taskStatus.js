@@ -4,8 +4,8 @@ import { taskList } from './modules.js';
 const nav = document.querySelector('nav');
 const navLinks = nav.querySelectorAll('.nav_link');
 // taskList
-const allTasks = taskList.querySelectorAll('.task');
-const allTasksCount = allTasks.length;
+const allTasksInList = taskList.querySelectorAll('.task');
+const allTasksInListCount = allTasksInList.length;
 const completedTasks = taskList.querySelectorAll('.task.completed');
 const completedTasksCount = completedTasks.length;
 // footer
@@ -28,14 +28,14 @@ function checkPluralTasks(number) {
   return (number > 1) ? 'tasks' : 'task';
 }
 
-function showAllTasks() {
-  allTasks.forEach(allTask => allTask.style.display = 'block');
+function showAllTasksInList() {
+  allTasksInList.forEach(allTask => allTask.style.display = 'block');
 }
 function showInProgressTasks() {
-  allTasks.forEach(allTask => !allTask.classList.contains('completed') ? allTask.style.display = 'block' : allTask.style.display = 'none');
+  allTasksInList.forEach(allTask => !allTask.classList.contains('completed') ? allTask.style.display = 'block' : allTask.style.display = 'none');
 }
 function showCompletedTasks() {
-  allTasks.forEach(allTask => allTask.classList.contains('completed') ? allTask.style.display = 'block' : allTask.style.display = 'none');
+  allTasksInList.forEach(allTask => allTask.classList.contains('completed') ? allTask.style.display = 'block' : allTask.style.display = 'none');
 }
 
 
@@ -47,14 +47,14 @@ function chooseTaskCategory(event) {
     showCompletedTasks();
   }
   else if (event.target.dataset.link === 'progress') {
-    countGeneralTasks(allTasksCount, completedTasksCount);
+    countGeneralTasks(allTasksInListCount, completedTasksCount);
     showInProgressTasks();
   }
   else {
-    showAllTasks();
+    showAllTasksInList();
   }
 }
 
-countGeneralTasks(allTasksCount, completedTasksCount);
+countGeneralTasks(allTasksInListCount, completedTasksCount);
 nav.addEventListener('click', chooseTaskCategory);
 export { chooseTaskCategory };

@@ -43,8 +43,8 @@ function saveTask(event) {
   setLocalStorage(tasksArray);
 
   //* 提交表單後恢復顯示所有任務清單
-  const allTasks = taskList.querySelectorAll('.task');
-  doneEditCurrentTask(allTasks);
+  const allTasksInList = taskList.querySelectorAll('.task');
+  doneEditCurrentTask(allTasksInList);
 
   currentTask.classList.remove('editing');
   //* 不使用event.preventDefault()，讓提交表單時刷新畫面並更新資料

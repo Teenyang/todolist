@@ -45,7 +45,18 @@ function uploadFile(event) {
     return;
   }
 
-  recordUploadFileData(Date.now(), event.target, this);
+  const tasks = main.querySelectorAll('.task');
+  const taskIndex = event.target.dataset.upload;
+
+  if (taskIndex) {
+    //* 因聚焦任務的index計算另包含AddTask，故在taskList中的index需加1
+    const currentTask = tasks[Number(taskIndex) + 1];
+    recordUploadFileData(Date.now(), event.target, currentTask);
+  }
+  else {
+    //* 因AddTask未設置data-upload，故taskIndex＝undefined為falsy值
+    recordUploadFileData(Date.now(), event.target, this);
+  }
 }
 
 function toggleEditArea(event) {
@@ -57,8 +68,7 @@ function toggleEditArea(event) {
   event.target.checked = true;
   const checkboxStatus = event.target.checked;
   const taskIndex = event.target.dataset.edit;
-  const allTasks = taskList.querySelectorAll('.task');
-  const currentTask = allTasks[taskIndex];
+  const currentTask = taskList.querySelectorAll('.task')[taskIndex];
 
   //* edit狀態時無法拖曳task
   currentTask.classList.remove('drag');
@@ -68,15 +78,6 @@ function toggleEditArea(event) {
 
   if (checkboxStatus) {
     currentTask.classList.add('editing');
-
-    //* 從pen edit狀態控制upload顯示：若localStorage存有file資訊，則顯示upload紀錄
-    const fileName = tasksArray[taskIndex].file;
-    currentTask.querySelector('.file_data').classList.toggle('show', fileName !== '');
-    //* 若uploadInput接收到change事件，則更新file資訊顯示在file_data上
-    const uploadInput = currentTask.querySelector('.upload_file');
-    uploadInput.addEventListener('change', () => {
-      recordUploadFileData(Date.now(), uploadInput, currentTask);
-    });
   }
 
   setLocalStorage(tasksArray);
