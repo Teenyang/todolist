@@ -1,4 +1,4 @@
-import { main, focusEditCurrentTask, taskList, tasksArray, compareDaysAgo, convertDateStringToSlashFormat, setLocalStorage } from './modules.js';
+import { main, compareDaysAgo, convertDateStringToSlashFormat } from './modules.js';
 
 //~ General function
 function recordUploadFileData(date, uploadInput, taskItem) {

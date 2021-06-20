@@ -1,4 +1,4 @@
-import { taskList, tasksArray, doneEditCurrentTask, recordTaskData, setLocalStorage } from './modules.js';
+import { taskList, tasksArray, focusEditCurrentTask, doneEditCurrentTask, recordTaskData, setLocalStorage } from './modules.js';
 
 //~ Listener function
 function toggleEditArea(event) {
