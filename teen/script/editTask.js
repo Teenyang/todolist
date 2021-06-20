@@ -59,33 +59,9 @@ function uploadFile(event) {
   }
 }
 
-function toggleEditArea(event) {
-  if (event.target.className !== 'edit_task') {
-    return;
-  }
-
-  //! pen只負責展開編輯區塊，一旦展開便將其checked狀態存為true，如需關閉得選擇cancel或save
-  event.target.checked = true;
-  const checkboxStatus = event.target.checked;
-  const taskIndex = event.target.dataset.edit;
-  const currentTask = taskList.querySelectorAll('.task')[taskIndex];
-
-  //* edit狀態時無法拖曳task
-  currentTask.classList.remove('drag');
-
-  //* 因聚焦任務的index計算另包含AddTask，故在taskList中的index需加1
-  focusEditCurrentTask(Number(taskIndex) + 1);
-
-  if (checkboxStatus) {
-    currentTask.classList.add('editing');
-  }
-
-  setLocalStorage(tasksArray);
-}
 
 main.addEventListener('click', changeDateTimeInputType);
 main.addEventListener('change', uploadFile);
 main.addEventListener('dblclick', editComment);
-taskList.addEventListener('click', toggleEditArea);
 
-export { changeDateTimeInputType, uploadFile, editComment, toggleEditArea };
+export { changeDateTimeInputType, uploadFile, editComment };

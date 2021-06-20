@@ -1,6 +1,31 @@
-import { taskList, tasksArray, doneEditCurrentTask, compareDaysAgo, recordTaskData, setLocalStorage } from './modules.js';
+import { taskList, tasksArray, doneEditCurrentTask, recordTaskData, setLocalStorage } from './modules.js';
 
 //~ Listener function
+function toggleEditArea(event) {
+  if (event.target.className !== 'edit_task') {
+    return;
+  }
+
+  //! pen只負責展開編輯區塊，一旦展開便將其checked狀態存為true，如需關閉得選擇cancel或save
+  event.target.checked = true;
+  const checkboxStatus = event.target.checked;
+  const taskIndex = event.target.dataset.edit;
+  const currentTask = taskList.querySelectorAll('.task')[taskIndex];
+
+  //* edit狀態時無法拖曳task
+  currentTask.classList.remove('drag');
+
+  //* 因聚焦任務的index計算另包含AddTask，故在taskList中的index需加1
+  focusEditCurrentTask(Number(taskIndex) + 1);
+
+  if (checkboxStatus) {
+    currentTask.classList.add('editing');
+  }
+
+  setLocalStorage(tasksArray);
+}
+
+
 function modifyTaskTitle(event) {
   if (event.target.className !== 'task_title') {
     return;
@@ -51,8 +76,9 @@ function saveTask(event) {
 }
 
 taskList.addEventListener('change', modifyTaskTitle);
+taskList.addEventListener('click', toggleEditArea);
 //! cancel既有的task：代表不儲存本次修改的結果
 taskList.addEventListener('click', cancelReloadTask);
 taskList.addEventListener('submit', saveTask);
 
-export { modifyTaskTitle, saveTask, cancelReloadTask };
+export { modifyTaskTitle, toggleEditArea, saveTask, cancelReloadTask };
