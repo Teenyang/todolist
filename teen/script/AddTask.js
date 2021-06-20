@@ -39,7 +39,7 @@ function toggleNewTaskCheckbox(event) {
 }
 
 function submitAddTask() {
-  const eachTask = recordTaskData(newTask);
+  const eachTaskData = recordTaskData(newTask);
 
   const allTasksInListCount = taskList.querySelectorAll('.task').length;
   const majorTaskCount = taskList.querySelectorAll('.task.major').length;
@@ -48,15 +48,15 @@ function submitAddTask() {
 
   if (newTask.querySelector('.major_task').checked) {
     //* major task永遠在最上方：從（第1個參數）index 0位置開始，刪除（第2個參數）0個元素，並插入eachTask
-    tasksArray.splice(0, 0, eachTask);
+    tasksArray.splice(0, 0, eachTaskData);
   }
   else if (newTask.querySelector('.done_task').checked) {
     //* 新增的已完成task：位在既有task最末、既有completed task最前
-    tasksArray.splice(generalTaskCount, 0, eachTask);
+    tasksArray.splice(generalTaskCount, 0, eachTaskData);
   }
   else {
     //* 新增的一般task：位在major task最末、既有task最前
-    tasksArray.splice(majorTaskCount, 0, eachTask);
+    tasksArray.splice(majorTaskCount, 0, eachTaskData);
   }
 
   exportTaskDataFromLocalStorage(tasksArray, taskList);

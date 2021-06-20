@@ -50,25 +50,20 @@ function cancelReloadTask(event) {
 }
 
 function saveTask(event) {
-  const taskIndex = event.target.dataset['form'];
-  const currentTask = taskList.querySelectorAll('.task')[taskIndex];
+  const taskIndex = event.target.dataset.form;
+  const allTasksInList = taskList.querySelectorAll('.task');
+  const currentTask = allTasksInList[taskIndex];
 
-  const updateTask = recordTaskData(currentTask);
-  if (Object.values(updateTask).filter(data => data === "").length === 6) {
-    alert('內容不得為空');
-    return;
-  }
-  //* 原本Add Task從input file紀錄資料，但input本身在既有task為空白，故既有資料的更新需取自file_data textContent
-  updateTask.file = currentTask.querySelector('.file_data .upload_fileName').textContent;
-  updateTask.fileUpload = currentTask.querySelector('.file_data .upload_dateMillisecond').textContent;
-  console.log(updateTask.fileUpload);
+  const updateTaskData = recordTaskData(currentTask);
+  //* 因uploadData取自addTask<input>再賦值給fileData，故既有task<input>並無內容，而資料更新則需取自fileData textContent
+  updateTaskData.file = currentTask.querySelector('.file_data .upload_fileName').textContent;
+  updateTaskData.fileUpload = currentTask.querySelector('.file_data .upload_dateMillisecond').textContent;
 
-  //* 先將原先的task data刪除，再插入updateTask
-  tasksArray.splice(taskIndex, 1, updateTask);
+  //* 將原task data刪除，再插入更新後的updateTask
+  tasksArray.splice(taskIndex, 1, updateTaskData);
   setLocalStorage(tasksArray);
 
   //* 提交表單後恢復顯示所有任務清單
-  const allTasksInList = taskList.querySelectorAll('.task');
   doneEditCurrentTask(allTasksInList);
 
   currentTask.classList.remove('editing');
