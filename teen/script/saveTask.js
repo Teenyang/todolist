@@ -1,4 +1,4 @@
-import { taskList, tasksArray, doneEditing, compareDaysAgo, recordTaskData, setLocalStorage } from './modules.js';
+import { taskList, tasksArray, doneEditCurrentTask, compareDaysAgo, recordTaskData, setLocalStorage } from './modules.js';
 
 //~ Listener function
 function modifyTaskTitle(event) {
@@ -44,7 +44,7 @@ function saveTask(event) {
 
   //* 提交表單後恢復顯示所有任務清單
   const allTasks = taskList.querySelectorAll('.task');
-  doneEditing(allTasks);
+  doneEditCurrentTask(allTasks);
 
   currentTask.classList.remove('editing');
   //* 不使用event.preventDefault()，讓提交表單時刷新畫面並更新資料

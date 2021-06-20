@@ -1,27 +1,23 @@
-import { main, taskList, tasksArray, focusEditing, doneEditing, recordTaskData, exportTaskDataFromLocalStorage, setLocalStorage } from './modules.js';
+import { main, addTaskButton, taskList, tasksArray, focusEditCurrentTask, doneEditCurrentTask, recordTaskData, exportTaskDataFromLocalStorage, setLocalStorage } from './modules.js';
 
-const addTaskButton = main.querySelector('.add_button');
 const newTask = main.querySelector('main > .task');
 const newTaskForm = newTask.querySelector('#task-edit');
 const newTaskTitleCheckbox = newTask.querySelector('.title_group');
 
 //~ General function
 function reappearAddTaskButton() {
-  addTaskButton.classList.remove('hide_button');
   newTask.classList.remove('show_new_task');
   newTaskForm.reset();
 
-  //! 提交表單後恢復顯示所有任務清單
-  taskList.style.display = 'block';
+  doneEditCurrentTask();
 }
 
 //~ Listener function
 function addTask() {
-  addTaskButton.classList.add('hide_button');
   newTask.classList.add('show_new_task');
 
-  //! 展開新增任務的編輯區塊時，將專注在編輯該任務，其他任務則先消失，待任務被cancel或save後才恢復顯示所有任務清單
-  taskList.style.display = 'none';
+  //* 因add task為第一個task，故taskIndex為0，其他既有任務則列入taskLists中
+  focusEditCurrentTask(0);
 }
 
 function cancelAddTask() {
@@ -29,8 +25,7 @@ function cancelAddTask() {
   deadlineInputs.forEach(deadlineInput => deadlineInput.type = 'text');
 
   reappearAddTaskButton();
-  //* 因為upload file資訊取自upload <input>再重新賦值給fileData節點，而無法透過form.reset()重置，
-  //* 所以若取消addTask需重整頁面以清空fileData
+  //* 因upload file資訊取自<input>再賦值給fileData節點，而無法透過form.reset()重置，所以取消addTask需重整頁面清空fileData
   window.location.reload();
 }
 

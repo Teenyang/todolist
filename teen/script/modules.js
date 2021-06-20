@@ -10,21 +10,26 @@ const taskList = document.querySelector('.task_list');
 //* 初始值為空陣列，若Storage已有紀錄則從先前保留資料getItem()
 const tasksArray = JSON.parse(localStorage.getItem('lists')) || [];
 
-function focusEditing(allTasks, taskIndex) {
-  //! 展開編輯區塊後，只能對該區塊進行編輯，其他任務將消失，待任務被cancel或save後才回復顯示所有任務清單
-  addTaskButton.classList.add('adding');
 
-  allTasks.forEach((task, index) => {
+//! 展開編輯區塊時，將專注在編輯該任務，其他任務則先消失，待任務被cancel或save後才恢復顯示所有任務清單
+function focusEditCurrentTask(taskIndex) {
+  const tasks = main.querySelectorAll('.task');
+  tasks.forEach((task, index) => {
     if (index !== taskIndex) {
       task.style.display = 'none';
     }
   })
-  allTasks[taskIndex].style.display = 'block';
+  tasks[taskIndex].style.display = 'block';
+
+  addTaskButton.classList.add('hide_button');
 }
 
-function doneEditing(allTasks) {
-  addTaskButton.classList.remove('adding');
-  allTasks.forEach(task => task.style.display = 'block');
+//! 提交表單後恢復顯示所有任務清單
+function doneEditCurrentTask() {
+  const tasks = main.querySelectorAll('.task');
+  tasks.forEach(task => task.style.display = 'block');
+
+  addTaskButton.classList.remove('hide_button');
 }
 
 function compareDaysAgo(date) {
@@ -36,8 +41,8 @@ function compareDaysAgo(date) {
   const dateDate = compareDate.getDate();
 
   const dayMilliseconds = 24 * 60 * 60 * 1000;
-  //* 日期不同代表已跨隔日，使用Math.floor()無條件捨去取最小整數
-  const passDays = Math.floor((today - date) / dayMilliseconds);
+  //* 日期不同代表已跨隔日，使用Math.ceil()無條件進位取最大整數
+  const passDays = Math.ceil((today - date) / dayMilliseconds);
 
   if (dateYear === today.getFullYear() && dateMonth === today.getMonth() + 1 && dateDate === today.getDate()) {
     return `today`;
@@ -47,12 +52,12 @@ function compareDaysAgo(date) {
   }
 }
 
-function dateSlashFormat(date) {
+function convertDateStringToSlashFormat(date) {
   const dateSlash = new Date(Number(date));
   return `${dateSlash.getFullYear()}/${dateSlash.getMonth() + 1}/${dateSlash.getDate()}`;
 }
 
-function calendarSlashFormat(deadline) {
+function captureDeadlineSlashFormat(deadline) {
   const year = Number(deadline.match(/^\d{4}/g));
   const month = Number(deadline.match(/(?<=([-]))\d{2}(?=[-])/g));
   const date = Number(deadline.match(/\d{2}$/g));
@@ -83,7 +88,7 @@ function recordTaskData(taskArticle) {
 function exportTaskDataFromLocalStorage(tasksArray, taskList) {
   taskList.innerHTML = tasksArray.map((task, index) => {
     return `
-      <article data-task="${index}" class="task drag ${task.done ? 'completed' : ''} ${task.major ? 'major' : ''} ${(task.deadlineDate !== '') || (task.file !== '') || (task.comment !== '') ? 'progress' : ''}">
+      <article data-task="${index}" class="task ${task.done ? 'completed' : ''} ${task.major ? 'major' : ''} ${(task.deadlineDate !== '') || (task.file !== '') || (task.comment !== '') ? 'progress' : ''} drag">
         <form data-form="${index}" id="task-edit" autocomplete="off">
           <section class="task_header">
             <div class="title_group">
@@ -105,7 +110,7 @@ function exportTaskDataFromLocalStorage(tasksArray, taskList) {
               </div>
             </div>
             <div class="info_group">
-              <span class="${(task.deadlineDate !== '') ? 'show' : ''}"><i class="far fa-calendar-alt"></i>${(task.deadlineDate !== '') ? calendarSlashFormat(task.deadlineDate) : ''}</span>
+              <span class="${(task.deadlineDate !== '') ? 'show' : ''}"><i class="far fa-calendar-alt"></i>${(task.deadlineDate !== '') ? captureDeadlineSlashFormat(task.deadlineDate) : ''}</span>
               <i class="${(task.file !== '') ? 'show' : ''} far fa-file"></i>
               <i class="${(task.comment !== '') ? 'show' : ''} far fa-comment-dots"></i>
             </div>
@@ -125,7 +130,7 @@ function exportTaskDataFromLocalStorage(tasksArray, taskList) {
                   <div class="file_data">
                     <span class="upload_fileName">${(task.file !== '') ? task.file : ''}</span>
                     <p class="upload_days_ago">${(task.file !== '') ? 'uploaded ' + compareDaysAgo(task.fileUpload) : ''}
-                      (<span class="upload_dateSlash">${(task.file !== '') ? dateSlashFormat(task.fileUpload) : ''}</span>)
+                      (<span class="upload_dateSlash">${(task.file !== '') ? convertDateStringToSlashFormat(task.fileUpload) : ''}</span>)
                     </p>
                     <span class="upload_dateMillisecond">${(task.file !== '') ? task.fileUpload : ''}</span>
                   </div>
@@ -158,4 +163,4 @@ function setLocalStorage(storageArray) {
   localStorage.setItem('lists', JSON.stringify(storageArray));
 }
 
-export { main, addTaskButton, taskList, tasksArray, focusEditing, doneEditing, compareDaysAgo, dateSlashFormat, recordTaskData, exportTaskDataFromLocalStorage, setLocalStorage };
+export { main, addTaskButton, taskList, tasksArray, focusEditCurrentTask, doneEditCurrentTask, compareDaysAgo, convertDateStringToSlashFormat, recordTaskData, exportTaskDataFromLocalStorage, setLocalStorage };

@@ -1,10 +1,10 @@
-import { main, focusEditing, taskList, tasksArray, compareDaysAgo, dateSlashFormat, setLocalStorage } from './modules.js';
+import { main, focusEditCurrentTask, taskList, tasksArray, compareDaysAgo, convertDateStringToSlashFormat, setLocalStorage } from './modules.js';
 
 //~ General function
 function recordUploadFileData(date, uploadInput, taskItem) {
   //* 清除上傳檔案路徑C:\fakepath\
   const fileName = uploadInput.value.replace(/.*[\/\\]/, '');
-  const uploadDate = dateSlashFormat(date);
+  const uploadDate = convertDateStringToSlashFormat(date);
   const uploadDaysAgo = compareDaysAgo(date);
   const fileData = taskItem.querySelector('.file_data');
 
@@ -33,7 +33,7 @@ function changeDateTimeInputType(event) {
 }
 
 function editComment(event) {
-  //* 起初就設定<textarea>為readonly模式，當dblclick事件觸發時才可被編輯，失去focus時再回復readonly模式
+  //* 初始設定<textarea>為readonly模式，當dblclick事件觸發時才可編輯，失去focus時再換回readonly模式
   if (event.target.className === 'edit_comment') {
     event.target.removeAttribute('readonly');
     event.target.addEventListener('blur', () => event.target.setAttribute('readonly', ''));
@@ -45,7 +45,6 @@ function uploadFile(event) {
     return;
   }
 
-  console.log(this);
   recordUploadFileData(Date.now(), event.target, this);
 }
 
@@ -54,18 +53,18 @@ function toggleEditArea(event) {
     return;
   }
 
-  //! pen只負責展開編輯區塊，一旦展開便將其checked狀態一律存為true
+  //! pen只負責展開編輯區塊，一旦展開便將其checked狀態存為true，如需關閉得選擇cancel或save
   event.target.checked = true;
   const checkboxStatus = event.target.checked;
   const taskIndex = event.target.dataset.edit;
   const allTasks = taskList.querySelectorAll('.task');
   const currentTask = allTasks[taskIndex];
-  //* edit狀態時無法拖曳task區塊
+
+  //* edit狀態時無法拖曳task
   currentTask.classList.remove('drag');
 
-  //! 展開編輯區塊後，只能對該區塊進行編輯，其他任務將消失，待任務被cancel或save後才回復顯示所有任務清單
-  focusEditing(allTasks, taskIndex);
-
+  //* 因聚焦任務的index計算另包含AddTask，故在taskList中的index需加1
+  focusEditCurrentTask(Number(taskIndex) + 1);
 
   if (checkboxStatus) {
     currentTask.classList.add('editing');

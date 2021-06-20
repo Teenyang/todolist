@@ -1,4 +1,4 @@
-import { taskList, tasksArray, compareDaysAgo, dateSlashFormat, exportTaskDataFromLocalStorage } from './modules.js';
+import { taskList, tasksArray, compareDaysAgo, convertDateStringToSlashFormat, exportTaskDataFromLocalStorage } from './modules.js';
 
 //* 上傳日期需根據檢視日期隨之遞減
 function countUploadDaysAgo() {
@@ -6,7 +6,7 @@ function countUploadDaysAgo() {
   daysAgo.forEach((daysAgo, index) => {
     daysAgo.outerHTML = `
       <p class="upload_days_ago">${(tasksArray[index].file !== '') ? 'uploaded ' + compareDaysAgo(tasksArray[index].fileUpload) : ''}
-        (<span class="upload_dateSlash">${(tasksArray[index].file !== '') ? dateSlashFormat(tasksArray[index].fileUpload) : ''}</span>)
+        (<span class="upload_dateSlash">${(tasksArray[index].file !== '') ? convertDateStringToSlashFormat(tasksArray[index].fileUpload) : ''}</span>)
       </p>
     `
   })
