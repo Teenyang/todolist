@@ -119,7 +119,7 @@ function exportTaskDataFromLocalStorage(tasksArray, taskList) {
   taskList.innerHTML = tasksArray.map((task, index) => {
     return `
       <article data-task="${index}" class="task ${task.done ? 'completed' : ''} ${task.major ? 'major' : ''} ${(task.deadlineDate !== '') || (task.file !== '') || (task.comment !== '') ? 'progress' : ''} drag">
-        <form data-form="${index}" id="task-edit" autocomplete="off" name="task-list">
+        <form data-form="${index}" id="task-edit" autocomplete="off" name="task-list" method="post">
           <section class="task_header">
             <div class="title_group">
               <input type="checkbox" data-done="${index}" data-index="${index}" class="done_task" id="doneTask${index}" ${task.done ? 'checked' : ''}>
