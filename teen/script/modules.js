@@ -5,6 +5,7 @@ const addTaskButton = main.querySelector('.add_button');
 //~ taskList：exist tasks
 const taskList = document.querySelector('.task_list');
 
+//~ taskArray
 //* JSON.parse()：將字串轉回原本陣列格式
 //* If the key of getItem() doesn't exist, null is returned. => null為falsy值
 //* 初始值為空陣列，若Storage已有紀錄則從先前保留資料getItem()
@@ -30,6 +31,39 @@ function doneEditCurrentTask() {
   tasks.forEach(task => task.style.display = 'block');
 
   addTaskButton.classList.remove('hide_button');
+}
+
+function sortTaskOrder(currentTask, currentTaskData) {
+  //* all task
+  const allTasksInList = taskList.querySelectorAll('.task');
+  const allTasksInListCount = allTasksInList.length;
+  //* completed task
+  const allCompletedTasksCount = taskList.querySelectorAll('.task.completed').length;
+  const majorCompletedTaskStartIndex = allTasksInListCount - allCompletedTasksCount;
+  const majorCompletedTasksCount = taskList.querySelectorAll('.task.completed.major').length;
+  const otherCompletedTaskStartIndex = majorCompletedTaskStartIndex + majorCompletedTasksCount;
+  //* major task
+  const majorTaskStartIndex = 0;
+  const majorTasksCount = taskList.querySelectorAll('.task.major').length - majorCompletedTasksCount;
+  //* general task
+  const generalTasksStartIndex = majorTasksCount;
+
+  if (currentTask.classList.contains('major') && currentTask.classList.contains('completed')) {
+    //* done V , star V：下移(已是major，後再done)、上移(已是done，後再major)
+    tasksArray.splice(majorCompletedTaskStartIndex, 0, currentTaskData);
+  }
+  else if (currentTask.classList.contains('major')) {
+    //* done X , star V：上移(最後major)
+    tasksArray.splice(majorTaskStartIndex, 0, currentTaskData);
+  }
+  else if (currentTask.classList.contains('completed')) {
+    //* done V , star X：下移(最後done)
+    tasksArray.splice(otherCompletedTaskStartIndex, 0, currentTaskData);
+  }
+  else {
+    //* done X , star X：下移(不是done，後再移除major)、上移(不是major，後再移除done)
+    tasksArray.splice(generalTasksStartIndex, 0, currentTaskData);
+  }
 }
 
 function compareDaysAgo(date) {
@@ -92,16 +126,16 @@ function exportTaskDataFromLocalStorage(tasksArray, taskList) {
         <form data-form="${index}" id="task-edit" autocomplete="off" name="task-list">
           <section class="task_header">
             <div class="title_group">
-              <input type="checkbox" data-done="${index}" class="done_task" id="doneTask${index}" ${task.done ? 'checked' : ''}>
+              <input type="checkbox" data-done="${index}" data-index="${index}" class="done_task" id="doneTask${index}" ${task.done ? 'checked' : ''}>
               <label for="doneTask${index}"><i class="far fa-check"></i></label>
               <input data-title="${index}" type="text" class="task_title" name="task-title" placeholder="Type Something Here..." required value="${task.title}">
               <div class="marker_group">
-                <input type="checkbox" data-major="${index}" class="major_task" id="markerStar${index}" ${task.major ? 'checked' : ''} ${task.done ? 'disabled' : ''}>
+                <input type="checkbox" data-major="${index}" data-index="${index}" class="major_task" id="markerStar${index}" ${task.major ? 'checked' : ''}>
                 <label for="markerStar${index}">
                   <i class="far fa-star general"></i>
                   <i class="fas fa-star major"></i>
                 </label>
-                <input type="checkbox" data-edit="${index}" class="edit_task" id="markerPen${index}" ${task.done ? 'disabled' : ''}>
+                <input type="checkbox" data-edit="${index}" class="edit_task" id="markerPen${index}">
                 <label for="markerPen${index}">
                   <i class="far fa-pen general"></i>
                   <i class="fas fa-pen edit"></i>
@@ -163,4 +197,4 @@ function setLocalStorage(storageArray) {
   localStorage.setItem('lists', JSON.stringify(storageArray));
 }
 
-export { main, addTaskButton, taskList, tasksArray, focusEditCurrentTask, doneEditCurrentTask, compareDaysAgo, convertDateStringToSlashFormat, recordTaskData, exportTaskDataFromLocalStorage, setLocalStorage };
+export { main, addTaskButton, taskList, tasksArray, focusEditCurrentTask, doneEditCurrentTask, sortTaskOrder, compareDaysAgo, convertDateStringToSlashFormat, recordTaskData, exportTaskDataFromLocalStorage, setLocalStorage };
