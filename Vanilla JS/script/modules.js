@@ -99,8 +99,8 @@ function captureDeadlineSlashFormat(deadline) {
 //* 先以物件形式紀錄task data，再推進tasksArray存進localStorage
 function recordTaskData(taskArticle) {
   const today = Date.now();
-  const filesObject = taskArticle.querySelector('.upload_file').files[0];
-  const objectURL = URL.createObjectURL(filesObject);
+  // const filesObject = taskArticle.querySelector('.upload_file').files[0];
+  // const objectURL = URL.createObjectURL(filesObject);
   const fileName = taskArticle.querySelector('.file_data .upload_fileName').textContent;
   const uploadDateMillisecond = fileName ? `${today}` : '';
 
@@ -110,7 +110,7 @@ function recordTaskData(taskArticle) {
     major: taskArticle.querySelector('.major_task').checked,
     deadlineDate: taskArticle.querySelector('.task_body #date').value,
     deadlineTime: taskArticle.querySelector('.task_body #time').value,
-    fileObjectURL: objectURL,
+    // fileObjectURL: objectURL,
     file: fileName,
     fileUpload: uploadDateMillisecond,
     comment: taskArticle.querySelector('.task_body .edit_comment').value,
@@ -161,9 +161,7 @@ function exportTaskDataFromLocalStorage(tasksArray, taskList) {
                 <label><i class="far fa-file fa-fw edit_icon"></i>File</label>
                 <div class="edit_content">
                   <div class="file_data ${(task.file !== '') ? 'show' : ''}">
-                    <a href="${(task.file !== '') ? task.fileObjectURL : ''}" class="download_file" download="new_${(task.file !== '') ? task.file : ''}">
-                      <span class="upload_fileName">${(task.file !== '') ? task.file : ''}</span>
-                    </a>
+                    <span class="upload_fileName">${(task.file !== '') ? task.file : ''}</span>
                     <p class="upload_days_ago">${(task.file !== '') ? 'uploaded ' + compareDaysAgo(task.fileUpload) : ''}
                       (<span class="upload_dateSlash">${(task.file !== '') ? convertDateStringToSlashFormat(task.fileUpload) : ''}</span>)
                     </p>

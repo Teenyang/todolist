@@ -8,14 +8,12 @@ function recordUploadFileData(date, uploadInput, taskItem) {
   const uploadDaysAgo = compareDaysAgo(date);
   const fileData = taskItem.querySelector('.file_data');
 
-  const filesObject = uploadInput.files[0];
-  const objectURL = URL.createObjectURL(filesObject);
+  // const filesObject = uploadInput.files[0];
+  // const objectURL = URL.createObjectURL(filesObject);
 
   fileData.classList.toggle('show', fileName !== '');
   return fileData.innerHTML = `
-      <a href="${objectURL}" class="download_file" download="new_${fileName}">
-        <span class="upload_fileName">${fileName}</span>
-      </a>
+      <span class="upload_fileName">${fileName}</span>
       <p class="upload_days_ago">${(fileName !== '') ? ('uploaded ' + uploadDaysAgo) : ''}
         (<span class="upload_dateSlash">${(fileName !== '') ? uploadDate : ''}</span>)
       </p>
