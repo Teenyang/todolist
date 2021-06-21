@@ -1,96 +1,31 @@
-import { taskList, tasksArray, setLocalStorage } from './modules.js';
-
-const allTasksInList = taskList.querySelectorAll('.task');
-const allTasksInListCount = allTasksInList.length;
-
-const majorCompletedTasksCount = taskList.querySelectorAll('.task.completed.major').length;
-const generalTasksCount = (allTasksInListCount - document.querySelectorAll('.task.completed').length);
-
-const majorTaskStartIndex = 0;
-const majorTasksCount = taskList.querySelectorAll('.task.major').length - majorCompletedTasksCount;
-
-//~ General function
-function sortTask(moveTaskIndex, destinationIndex) {
-  //* moveTask取得刪除的元素
-  const moveTask = tasksArray.splice(moveTaskIndex, 1)[0];
-  //* 重新將刪除的元素插入目標位置
-  tasksArray.splice(destinationIndex, 0, moveTask);
-  return tasksArray;
-}
-
+import { taskList, tasksArray, sortTaskOrder, setLocalStorage } from './modules.js';
 
 //~ Listener function
-function checkCompletion(event) {
-  if (event.target.className !== 'done_task') {
-    return;
-  }
-  const checkboxStatus = event.target.checked;
-  const taskIndex = event.target.dataset['done'];
-  const currentTask = allTasksInList[taskIndex];
-
-  currentTask.classList.toggle('completed', checkboxStatus);
-  tasksArray[taskIndex]['done'] = !tasksArray[taskIndex]['done'];
-
-  if (checkboxStatus) {
-    if (currentTask.classList.contains('major')) {
-      console.log('done O , star O');
-      sortTask(taskIndex, generalTasksCount - 1);
-    }
-    else {
-      console.log('done O , star X');
-      sortTask(taskIndex, generalTasksCount - 1 + majorCompletedTasksCount);
-    }
-  }
-  else {
-    if (currentTask.classList.contains('major')) {
-      console.log('done X , star O');
-      sortTask(taskIndex, majorTaskStartIndex);
-    }
-    else {
-      console.log('done X , star X');
-      sortTask(taskIndex, majorTasksCount);
-    }
-  }
-
-  setLocalStorage(tasksArray);
-  // window.location.reload();
-}
-
-function markupTask(event) {
-  if (event.target.className !== 'major_task') {
+function toggleCheckboxToSortTask(event) {
+  if (event.target.className !== 'done_task' && event.target.className !== 'major_task') {
     return;
   }
 
   const checkboxStatus = event.target.checked;
-  const taskIndex = event.target.dataset['major'];
+  const taskIndex = event.target.dataset['index'];
+  const allTasksInList = taskList.querySelectorAll('.task');
   const currentTask = allTasksInList[taskIndex];
+  const currentTaskData = tasksArray[taskIndex];
 
-  currentTask.classList.toggle('major', checkboxStatus);
-  tasksArray[taskIndex]['major'] = !tasksArray[taskIndex]['major'];
+  if (event.target.className === 'done_task') {
+    currentTask.classList.toggle('completed', checkboxStatus);
+    tasksArray[taskIndex]['done'] = !tasksArray[taskIndex]['done'];
+  }
+  else if (event.target.className === 'major_task') {
+    currentTask.classList.toggle('major', checkboxStatus);
+    tasksArray[taskIndex]['major'] = !tasksArray[taskIndex]['major'];
+  }
 
-  if (checkboxStatus) {
-    if (currentTask.classList.contains('completed')) {
-      console.log('star O , done O');
-      sortTask(taskIndex, generalTasksCount - 1);
-    }
-    else {
-      console.log('star O, done X');
-      sortTask(taskIndex, majorTaskStartIndex);
-    }
-  }
-  else {
-    if (currentTask.classList.contains('completed')) {
-      console.log('star X , done O');
-      sortTask(taskIndex, generalTasksCount - 1 + majorCompletedTasksCount);
-    }
-    else {
-      console.log('star X , done O');
-      sortTask(taskIndex, majorTasksCount - 1);
-    }
-  }
+  tasksArray.splice(taskIndex, 1);
+  sortTaskOrder(currentTask, currentTaskData);
 
   setLocalStorage(tasksArray);
-  // window.location.reload();
+  window.location.reload();
 }
 
 function deleteTask(event) {
@@ -104,9 +39,7 @@ function deleteTask(event) {
   window.location.reload();
 }
 
-
-taskList.addEventListener('click', checkCompletion);
-taskList.addEventListener('click', markupTask);
+taskList.addEventListener('click', toggleCheckboxToSortTask);
 taskList.addEventListener('dblclick', deleteTask);
 
-export { checkCompletion, markupTask, deleteTask };
+export { toggleCheckboxToSortTask, deleteTask };
