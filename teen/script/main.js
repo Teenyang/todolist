@@ -4,6 +4,7 @@ const clearStorageButton = document.querySelector('.clear_local_storage');
 
 function clearLocalStorage() {
   localStorage.clear();
+  window.location.reload();
 }
 
 //* 上傳日期需根據檢視日期隨之遞減
