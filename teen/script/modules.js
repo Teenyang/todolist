@@ -1,11 +1,6 @@
-//~ MAIN：Add Task
 const main = document.querySelector('main');
 const addTaskButton = main.querySelector('.add_button');
-
-//~ taskList：exist tasks
 const taskList = document.querySelector('.task_list');
-
-//~ taskArray
 //* JSON.parse()：將字串轉回原本陣列格式
 //* If the key of getItem() doesn't exist, null is returned. => null為falsy值
 //* 初始值為空陣列，若Storage已有紀錄則從先前保留資料getItem()

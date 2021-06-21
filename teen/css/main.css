@@ -295,11 +295,11 @@ nav {
 .task_header .title_group .done_task:checked ~ label {
   background-color: #4a90e2;
 }
-.task_header .title_group .done_task:checked ~ textarea {
+.task_header .title_group .done_task:checked ~ .task_title {
   text-decoration: line-through #9b9b9b;
   color: #9b9b9b;
 }
-.task_header .title_group .done_task:checked ~ textarea::placeholder {
+.task_header .title_group .done_task:checked ~ .task_title::placeholder {
   color: #9b9b9b;
 }
 
