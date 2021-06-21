@@ -27,7 +27,7 @@
     background-color: color.$blue;
   }
 
-  &:checked ~ textarea {
+  &:checked ~ .task_title {
     text-decoration: line-through color.$dark-gray;
     color: color.$dark-gray;
 
