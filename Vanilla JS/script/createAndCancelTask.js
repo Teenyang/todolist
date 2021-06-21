@@ -1,7 +1,5 @@
 import { addTaskButton, newTask, taskList, tasksArray, focusEditCurrentTask, doneEditCurrentTask, sortTaskOrder, recordTaskData, exportTaskDataFromLocalStorage, setLocalStorage } from './modules.js';
 
-// const newTask = main.querySelector('main > .task');
-
 //~ Listener function
 function addTask() {
   newTask.classList.add('show_new_task');

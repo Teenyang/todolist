@@ -41,7 +41,7 @@
       <button type="button" class="add_button"><i class="fal fa-plus"></i>Add Task</button>
       <!---------------- adding new task ---------------->
       <article class="task editing">
-        <form id="task-edit" autocomplete="off" name="task-list" method="post">
+        <form id="task-edit" autocomplete="off" name="task-list">
           <section class=" task_header">
             <div class="title_group">
               <input type="checkbox" class="done_task" id="doneTask">
@@ -74,7 +74,9 @@
                 <label><i class="far fa-file fa-fw edit_icon"></i>File</label>
                 <div class="edit_content">
                   <div class="file_data">
-                    <span class="upload_fileName"></span>
+                    <a class="download_file">
+                      <span class="upload_fileName"></span>
+                    </a>
                     <p class="upload_days_ago">
                       <span class="upload_dateSlash"></span>
                     </p>
