@@ -1,4 +1,6 @@
-import { taskList, tasksArray, focusEditCurrentTask, doneEditCurrentTask, recordTaskData, setLocalStorage } from './modules.js';
+import { newTask, taskList, tasksArray, focusEditCurrentTask, setLocalStorage } from './modules.js';
+
+const newTaskTitleCheckbox = newTask.querySelector('.title_group');
 
 //~ Listener function
 function toggleNewTaskCheckbox(event) {
@@ -51,7 +53,6 @@ function modifyTaskTitle(event) {
   tasksArray[taskIndex].title = modifyTitle;
   setLocalStorage(tasksArray);
 }
-
 
 newTaskTitleCheckbox.addEventListener('click', toggleNewTaskCheckbox);
 taskList.addEventListener('click', toggleEditArea);

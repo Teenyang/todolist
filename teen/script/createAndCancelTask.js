@@ -1,7 +1,6 @@
-import { main, addTaskButton, taskList, tasksArray, focusEditCurrentTask, doneEditCurrentTask, sortTaskOrder, recordTaskData, exportTaskDataFromLocalStorage, setLocalStorage } from './modules.js';
+import { addTaskButton, newTask, taskList, tasksArray, focusEditCurrentTask, doneEditCurrentTask, sortTaskOrder, recordTaskData, exportTaskDataFromLocalStorage, setLocalStorage } from './modules.js';
 
-const newTask = main.querySelector('main > .task');
-const newTaskTitleCheckbox = newTask.querySelector('.title_group');
+// const newTask = main.querySelector('main > .task');
 
 //~ Listener function
 function addTask() {
@@ -10,20 +9,18 @@ function addTask() {
   focusEditCurrentTask(0);
 }
 
-
-
-function submitAddNewTask() {
+function submitNewTask() {
   const eachTaskData = recordTaskData(newTask);
   sortTaskOrder(this, eachTaskData);
 
   exportTaskDataFromLocalStorage(tasksArray, taskList);
   setLocalStorage(tasksArray);
 
-  newTask.classList.remove('completed', 'major');
-  //* 不使用event.preventDefault()，讓提交表單時刷新畫面並更新資料
+  //* 不使用event.preventDefault()，讓提交表單時刷新畫面並更新資料，同時不保存newTask "completed, major" class
+  // newTask.classList.remove('completed', 'major');
 }
 
-function saveTask(event) {
+function saveExistTask(event) {
   const taskIndex = event.target.dataset.form;
   const allTasksInList = taskList.querySelectorAll('.task');
   const currentTask = allTasksInList[taskIndex];
@@ -33,15 +30,13 @@ function saveTask(event) {
   updateTaskData.file = currentTask.querySelector('.file_data .upload_fileName').textContent;
   updateTaskData.fileUpload = currentTask.querySelector('.file_data .upload_dateMillisecond').textContent;
 
-  //* 將原task data刪除，再插入更新後的updateTask
+  //* 先將原本的taskData刪除，再原地插入更新後的updateTask
   tasksArray.splice(taskIndex, 1, updateTaskData);
   setLocalStorage(tasksArray);
 
-  //* 提交表單後恢復顯示所有任務清單
-  doneEditCurrentTask(allTasksInList);
-
-  currentTask.classList.remove('editing');
-  //* 不使用event.preventDefault()，讓提交表單時刷新畫面並更新資料
+  //* 不使用event.preventDefault()，讓提交表單時刷新畫面並更新資料，同時不保存currentTask "editing" class，且恢復顯示所有任務清單
+  // currentTask.classList.remove('edit');
+  // doneEditCurrentTask(allTasksInList);
 }
 
 function cancelTask(event) {
@@ -51,9 +46,9 @@ function cancelTask(event) {
 }
 
 addTaskButton.addEventListener('focus', addTask);
-newTask.addEventListener('submit', submitAddNewTask);
+newTask.addEventListener('submit', submitNewTask);
 newTask.addEventListener('click', cancelTask);
 taskList.addEventListener('click', cancelTask);
-taskList.addEventListener('submit', saveTask);
+taskList.addEventListener('submit', saveExistTask);
 
-export { addTask, toggleNewTaskCheckbox, cancelAddTask, submitAddNewTask };
+export { addTask, submitNewTask, cancelTask, saveExistTask };

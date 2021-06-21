@@ -1,5 +1,6 @@
 const main = document.querySelector('main');
 const addTaskButton = main.querySelector('.add_button');
+const newTask = main.querySelector('main > .task');
 const taskList = document.querySelector('.task_list');
 //* JSON.parse()：將字串轉回原本陣列格式
 //* If the key of getItem() doesn't exist, null is returned. => null為falsy值
@@ -192,4 +193,4 @@ function setLocalStorage(storageArray) {
   localStorage.setItem('lists', JSON.stringify(storageArray));
 }
 
-export { main, addTaskButton, taskList, tasksArray, focusEditCurrentTask, doneEditCurrentTask, sortTaskOrder, compareDaysAgo, convertDateStringToSlashFormat, recordTaskData, exportTaskDataFromLocalStorage, setLocalStorage };
+export { main, addTaskButton, newTask, taskList, tasksArray, focusEditCurrentTask, doneEditCurrentTask, sortTaskOrder, compareDaysAgo, convertDateStringToSlashFormat, recordTaskData, exportTaskDataFromLocalStorage, setLocalStorage };
