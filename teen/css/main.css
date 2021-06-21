@@ -277,29 +277,29 @@ nav {
   background-color: #d8d8d8;
 }
 
-.task_header .title_group > input {
+.task_header .title_group .done_task {
   display: none;
 }
-.task_header .title_group > input ~ label {
+.task_header .title_group .done_task ~ label {
   margin-right: 16px;
   width: 24px;
   height: 24px;
   text-align: center;
   background-color: #ffffff;
 }
-.task_header .title_group > input ~ label i {
+.task_header .title_group .done_task ~ label i {
   font-size: 14px;
   line-height: 24px;
   color: #ffffff;
 }
-.task_header .title_group > input:checked ~ label {
+.task_header .title_group .done_task:checked ~ label {
   background-color: #4a90e2;
 }
-.task_header .title_group > input:checked ~ textarea {
+.task_header .title_group .done_task:checked ~ textarea {
   text-decoration: line-through #9b9b9b;
   color: #9b9b9b;
 }
-.task_header .title_group > input:checked ~ textarea::placeholder {
+.task_header .title_group .done_task:checked ~ textarea::placeholder {
   color: #9b9b9b;
 }
 

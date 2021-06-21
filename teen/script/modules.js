@@ -73,14 +73,14 @@ function recordTaskData(taskArticle) {
   const uploadDateMillisecond = fileName ? `${today}` : '';
 
   return {
-    title: taskArticle.querySelector('.task_header textarea').value,
+    title: taskArticle.querySelector('.task_header .task_title').value,
     done: taskArticle.querySelector('.done_task').checked,
     major: taskArticle.querySelector('.major_task').checked,
     deadlineDate: taskArticle.querySelector('.task_body #date').value,
     deadlineTime: taskArticle.querySelector('.task_body #time').value,
     file: fileName,
     fileUpload: uploadDateMillisecond,
-    comment: taskArticle.querySelector('.task_body textarea').value,
+    comment: taskArticle.querySelector('.task_body .edit_comment').value,
   }
 }
 
@@ -89,12 +89,12 @@ function exportTaskDataFromLocalStorage(tasksArray, taskList) {
   taskList.innerHTML = tasksArray.map((task, index) => {
     return `
       <article data-task="${index}" class="task ${task.done ? 'completed' : ''} ${task.major ? 'major' : ''} ${(task.deadlineDate !== '') || (task.file !== '') || (task.comment !== '') ? 'progress' : ''} drag">
-        <form data-form="${index}" id="task-edit" autocomplete="off">
+        <form data-form="${index}" id="task-edit" autocomplete="off" name="task-list">
           <section class="task_header">
             <div class="title_group">
               <input type="checkbox" data-done="${index}" class="done_task" id="doneTask${index}" ${task.done ? 'checked' : ''}>
               <label for="doneTask${index}"><i class="far fa-check"></i></label>
-              <textarea data-title="${index}" class="task_title" name="task title" rows="1" placeholder="Type Something Here...">${task.title}</textarea>
+              <input data-title="${index}" type="text" class="task_title" name="task-title" placeholder="Type Something Here..." required value="${task.title}">
               <div class="marker_group">
                 <input type="checkbox" data-major="${index}" class="major_task" id="markerStar${index}" ${task.major ? 'checked' : ''} ${task.done ? 'disabled' : ''}>
                 <label for="markerStar${index}">

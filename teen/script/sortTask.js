@@ -33,23 +33,27 @@ function checkCompletion(event) {
 
   if (checkboxStatus) {
     if (currentTask.classList.contains('major')) {
+      console.log('done O , star O');
       sortTask(taskIndex, generalTasksCount - 1);
     }
     else {
+      console.log('done O , star X');
       sortTask(taskIndex, generalTasksCount - 1 + majorCompletedTasksCount);
     }
   }
   else {
     if (currentTask.classList.contains('major')) {
+      console.log('done X , star O');
       sortTask(taskIndex, majorTaskStartIndex);
     }
     else {
+      console.log('done X , star X');
       sortTask(taskIndex, majorTasksCount);
     }
   }
 
   setLocalStorage(tasksArray);
-  window.location.reload();
+  // window.location.reload();
 }
 
 function markupTask(event) {
@@ -66,23 +70,27 @@ function markupTask(event) {
 
   if (checkboxStatus) {
     if (currentTask.classList.contains('completed')) {
+      console.log('star O , done O');
       sortTask(taskIndex, generalTasksCount - 1);
     }
     else {
+      console.log('star O, done X');
       sortTask(taskIndex, majorTaskStartIndex);
     }
   }
   else {
     if (currentTask.classList.contains('completed')) {
+      console.log('star X , done O');
       sortTask(taskIndex, generalTasksCount - 1 + majorCompletedTasksCount);
     }
     else {
+      console.log('star X , done O');
       sortTask(taskIndex, majorTasksCount - 1);
     }
   }
 
   setLocalStorage(tasksArray);
-  window.location.reload();
+  // window.location.reload();
 }
 
 function deleteTask(event) {

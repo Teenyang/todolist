@@ -41,13 +41,12 @@
       <button type="button" class="add_button"><i class="fal fa-plus"></i>Add Task</button>
       <!---------------- adding new task ---------------->
       <article class="task editing">
-        <form id="task-edit" autocomplete="off">
+        <form id="task-edit" autocomplete="off" name="task-list">
           <section class="task_header">
             <div class="title_group">
               <input type="checkbox" class="done_task" id="doneTask">
               <label for="doneTask"><i class="far fa-check"></i></label>
-              <textarea class="task_title" name="task title" rows="1" placeholder="Type Something Here..."
-                required></textarea>
+              <input type="text" class="task_title" name="task-title" placeholder="Type Something Here..." required>
               <div class="marker_group">
                 <input type="checkbox" class="major_task" id="markerStar">
                 <label for="markerStar">
