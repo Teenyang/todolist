@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>To-do List</title>
-
   <!-- Google Font -->
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link
@@ -13,25 +12,16 @@
     rel="stylesheet">
   <!-- Font awesome -->
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
-
+  <!-- CSS style -->
   <link rel="stylesheet" href="css/main.css">
-
-  <script type="module">
-    import reloadData from './script/main.js';
-    import { addTask, submitNewTask, cancelTask, saveExistTask } from './script/createAndCancelTask.js';
-    import { changeDateTimeInputType, uploadFile, editComment } from './script/editTaskBodyContent.js';
-    import { toggleNewTaskCheckbox, toggleEditArea, modifyTaskTitle } from './script/editTaskHeaderTitle.js';
-    import { toggleCheckboxToSortTask, deleteTask } from './script/sortTask.js';
-    import { chooseTaskCategory } from './script/showTaskStatus.js';
-  </script>
 </head>
 
 <body>
   <header>
     <nav>
-      <a href="##" data-link="all" class="nav_link select">My Tasks</a>
-      <a href="##" data-link="progress" class="nav_link">In Progress</a>
-      <a href="##" data-link="completed" class="nav_link">Completed</a>
+      <a href="##" class="nav_link all_task select">My Tasks</a>
+      <a href="##" class="nav_link in_progress_task">In Progress</a>
+      <a href="##" class="nav_link completed_task">Completed</a>
     </nav>
   </header>
 
@@ -40,66 +30,66 @@
       <!---------------- add task button ---------------->
       <button type="button" class="add_button"><i class="fal fa-plus"></i>Add Task</button>
       <!---------------- adding new task ---------------->
-      <article class="task editing">
-        <form id="task-edit" autocomplete="off" name="task-list">
-          <section class=" task_header">
-            <div class="title_group">
-              <input type="checkbox" class="done_task" id="doneTask">
-              <label for="doneTask"><i class="far fa-check"></i></label>
-              <input type="text" class="task_title" name="task-title" placeholder="Type Something Here..." required>
-              <div class="marker_group">
-                <input type="checkbox" class="major_task" id="markerStar">
-                <label for="markerStar">
-                  <i class="far fa-star general"></i>
-                  <i class="fas fa-star major"></i>
-                </label>
-                <input type="checkbox" class="edit_task" id="markerPen">
-                <label for="markerPen">
-                  <i class="far fa-pen general"></i>
-                  <i class="fas fa-pen edit"></i>
-                </label>
+      <!-- <article class="task editing"> -->
+      <form id="task-edit" class="task editing" autocomplete="off" name="task-list">
+        <section class="task_header">
+          <div class="title_group">
+            <input type="checkbox" class="done_task" id="doneTask">
+            <label for="doneTask"><i class="far fa-check"></i></label>
+            <input type="text" class="task_title" name="task-title" placeholder="Type Something Here..." required>
+            <div class="marker_group">
+              <input type="checkbox" class="major_task" id="markerStar">
+              <label for="markerStar">
+                <i class="far fa-star general"></i>
+                <i class="fas fa-star major"></i>
+              </label>
+              <input type="checkbox" class="edit_task" id="markerPen">
+              <label for="markerPen">
+                <i class="far fa-pen general"></i>
+                <i class="fas fa-pen edit"></i>
+              </label>
+            </div>
+          </div>
+        </section>
+        <div class="task_content">
+          <section class="task_body">
+            <div class="edit_item deadline">
+              <label><i class="far fa-calendar-alt fa-fw edit_icon"></i>Deadline</label>
+              <div class="edit_content">
+                <input id="date" type="text" class="deadline_date" placeholder="yyyy/mm/dd" name="deadline-date">
+                <input id="time" type="text" class="deadline_time" placeholder="hh:mm" name="deadline-time">
+              </div>
+            </div>
+            <div class="edit_item file">
+              <label><i class="far fa-file fa-fw edit_icon"></i>File</label>
+              <div class="edit_content">
+                <div class="file_data">
+                  <!-- <a class="download_file"> -->
+                  <span class="upload_fileName"></span>
+                  <!-- </a> -->
+                  <p class="upload_days_ago">
+                    <span class="upload_dateSlash"></span>
+                  </p>
+                  <span class="upload_dateMillisecond"></span>
+                </div>
+                <input id="upload" type="file" class="upload_file" name="file-upload">
+                <label for="upload"><i class="fal fa-plus fa-fw"></i></label>
+              </div>
+            </div>
+            <div class="edit_item comment">
+              <label><i class="far fa-comment-dots fa-fw edit_icon"></i>Comment</label>
+              <div class="edit_content">
+                <textarea class="edit_comment" name="comment" placeholder="Type your memo here…" readonly></textarea>
               </div>
             </div>
           </section>
-          <div class="task_content">
-            <section class="task_body">
-              <div class="edit_item deadline">
-                <label><i class="far fa-calendar-alt fa-fw edit_icon"></i>Deadline</label>
-                <div class="edit_content">
-                  <input id="date" type="text" class="deadline_date" placeholder="yyyy/mm/dd" name="deadline-date">
-                  <input id="time" type="text" class="deadline_time" placeholder="hh:mm" name="deadline-time">
-                </div>
-              </div>
-              <div class="edit_item file">
-                <label><i class="far fa-file fa-fw edit_icon"></i>File</label>
-                <div class="edit_content">
-                  <div class="file_data">
-                    <!-- <a class="download_file"> -->
-                    <span class="upload_fileName"></span>
-                    <!-- </a> -->
-                    <p class="upload_days_ago">
-                      <span class="upload_dateSlash"></span>
-                    </p>
-                    <span class="upload_dateMillisecond"></span>
-                  </div>
-                  <input id="upload" type="file" class="upload_file" name="file-upload">
-                  <label for="upload"><i class="fal fa-plus fa-fw"></i></label>
-                </div>
-              </div>
-              <div class="edit_item comment">
-                <label><i class="far fa-comment-dots fa-fw edit_icon"></i>Comment</label>
-                <div class="edit_content">
-                  <textarea class="edit_comment" name="comment" placeholder="Type your memo here…" readonly></textarea>
-                </div>
-              </div>
-            </section>
-            <section class="task_footer">
-              <button type="reset" class="task_cancel"><i class="fal fa-times"></i>Cancel</button>
-              <button type="submit" class="task_editing"><i class="fal fa-plus"></i>Add Task</button>
-            </section>
-          </div>
-        </form>
-      </article>
+          <section class="task_footer">
+            <button type="reset" class="task_cancel"><i class="fal fa-times"></i>Cancel</button>
+            <button type="submit" class="task_editing"><i class="fal fa-plus"></i>Add Task</button>
+          </section>
+        </div>
+      </form>
+      <!-- </article> -->
       <!---------------- task list ---------------->
       <div class="task_list">
       </div>
@@ -108,10 +98,11 @@
 
     <footer>
       <span class="task_status"><em>0 task left</em></span>
-      <button class="clear_local_storage">Clear LocalStorage</button>
+      <button class="clear_local_storage">Clear All Tasks</button>
     </footer>
   </div>
 
+  <script type="module" src="script/main.js"></script>
 </body>
 
 </html>

@@ -1,12 +1,14 @@
-import { main, compareDaysAgo, convertDateStringToSlashFormat } from './modules.js';
+import { compareDaysAgo, separateDateFormatWithSlash } from '../modules/convertDateFormat.js';
+
+const main = document.querySelector('main');
 
 //~ General function
-function recordUploadFileData(date, uploadInput, taskItem) {
+function recordUploadFileData(date, uploadInput, currentTask) {
   //* 清除上傳檔案路徑C:\fakepath\
   const fileName = uploadInput.value.replace(/.*[\/\\]/, '');
-  const uploadDate = convertDateStringToSlashFormat(date);
+  const uploadDate = separateDateFormatWithSlash(date);
   const uploadDaysAgo = compareDaysAgo(date);
-  const fileData = taskItem.querySelector('.file_data');
+  const fileData = currentTask.querySelector('.file_data');
 
   // const filesObject = uploadInput.files[0];
   // const objectURL = URL.createObjectURL(filesObject);
@@ -48,23 +50,41 @@ function uploadFile(event) {
     return;
   }
 
-  const tasks = main.querySelectorAll('.task');
-  const taskIndex = event.target.dataset.upload;
+  const uploadInput = event.target;
+  const currentTask = event.target.closest('.task');
+  const taskIndex = Number(currentTask.dataset.index);  // string
 
   if (taskIndex) {
     //* 因聚焦任務的index計算另包含AddTask，故在taskList中的index需加1
-    const currentTask = tasks[Number(taskIndex) + 1];
-    recordUploadFileData(Date.now(), event.target, currentTask);
+    recordUploadFileData(Date.now(), uploadInput, currentTask);
   }
   else {
-    //* 因AddTask未設置data-upload，故taskIndex＝undefined為falsy值
-    recordUploadFileData(Date.now(), event.target, this);
+    //* 因AddTask未設置data-index，故taskIndex＝undefined為falsy值
+    recordUploadFileData(Date.now(), uploadInput, this);
   }
 }
 
+//* 上傳日期需根據檢視日期隨之遞減
+function countUploadDaysAgo() {
+  const taskList = document.querySelector('.task_list');
+  const tasksDataArray = JSON.parse(localStorage.getItem('lists')) || [];
 
-main.addEventListener('click', changeDateTimeInputType);
-main.addEventListener('change', uploadFile);
-main.addEventListener('dblclick', editComment);
+  const daysAgo = taskList.querySelectorAll('.upload_days_ago');
+  daysAgo.forEach((daysAgo, index) => {
+    daysAgo.outerHTML = `
+      <p class="upload_days_ago">${(tasksDataArray[index].file !== '') ? 'uploaded ' + compareDaysAgo(tasksDataArray[index].fileUpload) : ''}
+        (<span class="upload_dateSlash">${(tasksDataArray[index].file !== '') ? separateDateFormatWithSlash(tasksDataArray[index].fileUpload) : ''}</span>)
+      </p>
+    `
+  })
+}
+window.addEventListener('load', countUploadDaysAgo);
 
-export { changeDateTimeInputType, uploadFile, editComment };
+
+function editTaskBodyContent() {
+  main.addEventListener('click', changeDateTimeInputType);
+  main.addEventListener('change', uploadFile);
+  main.addEventListener('dblclick', editComment);
+}
+
+export default editTaskBodyContent;
