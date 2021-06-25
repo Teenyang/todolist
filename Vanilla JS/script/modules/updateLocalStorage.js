@@ -8,17 +8,17 @@ function renderTaskList() {
 
   taskList.innerHTML = tasksDataArray.map((task, index) => {
     return `
-      <form data-index="${index}" id="task-edit" autocomplete="off" name="task-list" class="task ${task.done ? 'completed' : ''} ${task.major ? 'major' : ''} ${(task.deadlineDate !== '') || (task.file !== '') || (task.comment !== '') ? 'progress' : ''} drag">
+      <form data-index="${index}" id="task-edit" autocomplete="off" name="task-list" class="task ${task.done ? 'completed' : ''} ${task.star ? 'star' : ''} ${(task.deadlineDate !== '') || (task.file !== '') || (task.comment !== '') ? 'progress' : ''} drag">
         <section class="task_header">
           <div class="title_group">
             <input type="checkbox" data-done="${index}" data-index="${index}" class="done_task" id="doneTask${index}" ${task.done ? 'checked' : ''}>
             <label for="doneTask${index}"><i class="far fa-check"></i></label>
             <input data-title="${index}" type="text" class="task_title" name="task-title" placeholder="Type Something Here..." required value="${task.title}">
             <div class="marker_group">
-              <input type="checkbox" data-major="${index}" data-index="${index}" class="major_task" id="markerStar${index}" ${task.major ? 'checked' : ''}>
+              <input type="checkbox" data-star="${index}" data-index="${index}" class="star_task" id="markerStar${index}" ${task.star ? 'checked' : ''}>
               <label for="markerStar${index}">
                 <i class="far fa-star general"></i>
-                <i class="fas fa-star major"></i>
+                <i class="fas fa-star star"></i>
               </label>
               <input type="checkbox" data-edit="${index}" class="edit_task" id="markerPen${index}">
               <label for="markerPen${index}">

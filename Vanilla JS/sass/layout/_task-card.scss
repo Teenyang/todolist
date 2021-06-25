@@ -163,24 +163,24 @@
     display: none;
   }
 
-  // marker of major
-  .major_task {
+  // marker of star
+  .star_task {
     ~ label .general {
       display: inline-block;
     }
-    ~ label .major {
+    ~ label .star {
       display: none;
     }
   }
-  &.major {
+  &.star {
     .task_header {
-      @extend %task-major-background;
+      @extend %task-star-background;
     }
-    .major_task {
+    .star_task {
       + label .general {
         display: none;
       }
-      ~ label .major {
+      ~ label .star {
         display: inline-block;
       }
     }

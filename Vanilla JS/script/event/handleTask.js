@@ -11,7 +11,7 @@ const taskList = document.querySelector('.task_list');
 
 //~ General function
 function quitNewTask() {
-  newTask.classList.remove('show_new_task', 'completed', 'major');
+  newTask.classList.remove('show_new_task', 'completed', 'star');
   addTaskButton.classList.remove('hide_button');
 }
 

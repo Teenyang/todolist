@@ -45,11 +45,12 @@ body {
   background-color: #e1e1e1;
 }
 
-.task_header, .task_body {
+.task_header,
+.task_body {
   background-color: #f2f2f2;
 }
 
-.task.major .task_header {
+.task.star .task_header {
   background-color: #fff2dc;
 }
 
@@ -324,7 +325,7 @@ nav {
 .task_header .marker_group input ~ label i.general {
   color: #000000;
 }
-.task_header .marker_group input ~ label i.major {
+.task_header .marker_group input ~ label i.star {
   color: #f5a623;
 }
 .task_header .marker_group input ~ label i.edit {
@@ -334,7 +335,9 @@ nav {
 .task_body .deadline input:-webkit-autofill {
   background-color: #ffffff;
 }
-.task_body .deadline input::-webkit-datetime-edit-day-field:focus, .task_body .deadline input::-webkit-datetime-edit-month-field:focus, .task_body .deadline input::-webkit-datetime-edit-year-field:focus {
+.task_body .deadline input::-webkit-datetime-edit-day-field:focus,
+.task_body .deadline input::-webkit-datetime-edit-month-field:focus,
+.task_body .deadline input::-webkit-datetime-edit-year-field:focus {
   background-color: #4a90e2;
 }
 .task_body .deadline input::-webkit-calendar-picker-indicator {
@@ -391,7 +394,8 @@ nav {
     order: 2;
   }
 }
-.task_header .title_group .task_title, .task_header .title_group .task_title::placeholder {
+.task_header .title_group .task_title,
+.task_header .title_group .task_title::placeholder {
   font-family: "Roboto", sans-serif;
   font-size: 1.5rem;
   font-weight: 500;
@@ -602,16 +606,16 @@ nav {
 .task .task_content {
   display: none;
 }
-.task .major_task ~ label .general {
+.task .star_task ~ label .general {
   display: inline-block;
 }
-.task .major_task ~ label .major {
+.task .star_task ~ label .star {
   display: none;
 }
-.task.major .major_task + label .general {
+.task.star .star_task + label .general {
   display: none;
 }
-.task.major .major_task ~ label .major {
+.task.star .star_task ~ label .star {
   display: inline-block;
 }
 .task .edit_task + label > .general {
@@ -638,7 +642,8 @@ nav {
 .task.progress .info_group > *.show {
   display: inline-block;
 }
-.task.progress.completed .info_group, .task.progress.editing .info_group {
+.task.progress.completed .info_group,
+.task.progress.editing .info_group {
   display: none;
 }
 .task.progress.editing .task_header {

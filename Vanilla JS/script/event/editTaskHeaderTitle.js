@@ -12,8 +12,8 @@ function toggleNewTaskCheckbox(event) {
   if (event.target.className === 'done_task') {
     newTask.classList.toggle('completed', event.target.checked);
   }
-  else if (event.target.className === 'major_task') {
-    newTask.classList.toggle('major', event.target.checked);
+  else if (event.target.className === 'star_task') {
+    newTask.classList.toggle('star', event.target.checked);
   }
 }
 

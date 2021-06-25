@@ -7,23 +7,23 @@ function sortTaskOrder(currentTask, currentTaskData, currentTaskIndex, removeIte
   const tasksCount = tasks.length;
   //* completed task
   const allCompletedTasksCount = taskList.querySelectorAll('.task.completed').length;
-  const majorCompletedTaskStartIndex = tasksCount - allCompletedTasksCount;
-  const majorCompletedTasksCount = taskList.querySelectorAll('.task.completed.major').length;
-  const otherCompletedTaskStartIndex = majorCompletedTaskStartIndex + majorCompletedTasksCount;
-  //* major task
-  const majorTaskStartIndex = 0;
-  const majorTasksCount = taskList.querySelectorAll('.task.major').length - majorCompletedTasksCount;
+  const starCompletedTaskStartIndex = tasksCount - allCompletedTasksCount;
+  const starCompletedTasksCount = taskList.querySelectorAll('.task.completed.star').length;
+  const otherCompletedTaskStartIndex = starCompletedTaskStartIndex + starCompletedTasksCount;
+  //* star task
+  const starTaskStartIndex = 0;
+  const starTasksCount = taskList.querySelectorAll('.task.star').length - starCompletedTasksCount;
   //* general task
-  const generalTasksStartIndex = majorTasksCount;
+  const generalTasksStartIndex = starTasksCount;
 
   //* 移動existTask位置：先把自己所處位置的舊資料刪除，再將更新後的currentTaskData插入新位置
   tasksDataArray.splice(currentTaskIndex, removeItem);
 
-  if (currentTask.classList.contains('major') && currentTask.classList.contains('completed')) {
-    tasksDataArray.splice(majorCompletedTaskStartIndex, 0, currentTaskData);
+  if (currentTask.classList.contains('star') && currentTask.classList.contains('completed')) {
+    tasksDataArray.splice(starCompletedTaskStartIndex, 0, currentTaskData);
   }
-  else if (currentTask.classList.contains('major')) {
-    tasksDataArray.splice(majorTaskStartIndex, 0, currentTaskData);
+  else if (currentTask.classList.contains('star')) {
+    tasksDataArray.splice(starTaskStartIndex, 0, currentTaskData);
   }
   else if (currentTask.classList.contains('completed')) {
     tasksDataArray.splice(otherCompletedTaskStartIndex, 0, currentTaskData);

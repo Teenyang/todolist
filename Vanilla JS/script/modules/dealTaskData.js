@@ -9,7 +9,7 @@ function recordTaskData(taskFrom) {
   return {
     title: taskFrom.querySelector('.task_header .task_title').value,
     done: taskFrom.querySelector('.done_task').checked,
-    major: taskFrom.querySelector('.major_task').checked,
+    star: taskFrom.querySelector('.star_task').checked,
     deadlineDate: taskFrom.querySelector('.task_body #date').value,
     deadlineTime: taskFrom.querySelector('.task_body #time').value,
     // fileObjectURL: objectURL,

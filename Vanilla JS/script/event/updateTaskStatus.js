@@ -6,7 +6,7 @@ const taskList = document.querySelector('.task_list');
 
 //~ Listener function
 function toggleCheckboxToSortTask(event) {
-  if (event.target.className !== 'done_task' && event.target.className !== 'major_task') {
+  if (event.target.className !== 'done_task' && event.target.className !== 'star_task') {
     return;
   }
 
@@ -20,9 +20,9 @@ function toggleCheckboxToSortTask(event) {
     currentTask.classList.toggle('completed', checkboxStatus);
     currentTaskData['done'] = !currentTaskData['done'];
   }
-  if (event.target.className === 'major_task') {
-    currentTask.classList.toggle('major', checkboxStatus);
-    currentTaskData['major'] = !currentTaskData['major'];
+  if (event.target.className === 'star_task') {
+    currentTask.classList.toggle('star', checkboxStatus);
+    currentTaskData['star'] = !currentTaskData['star'];
   }
 
   const sortTasksDataArray = sortTaskOrder(currentTask, currentTaskData, taskIndex, 1);
