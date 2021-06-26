@@ -1,7 +1,7 @@
 import { compareDaysAgo, separateDateFormatWithSlash, captureDeadlineCalendarFormat } from '../modules/convertDateFormat.js'
 
 const main = document.querySelector('main');
-const taskList = main.querySelector('.task_list');
+const taskList = document.querySelector('.task_list');
 
 function renderNewTask() {
   const newTask = document.createElement('form');

@@ -1,5 +1,5 @@
 function sortTaskOrder(currentTask, currentTaskData, currentTaskIndex, removeItem) {
-  const taskList = main.querySelector('.task_list');
+  const taskList = document.querySelector('.task_list');
   const tasksDataArray = JSON.parse(localStorage.getItem('lists')) || [];
 
   //* all task

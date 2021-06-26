@@ -1,5 +1,6 @@
 import { switchNavTab } from './event/switchNavTab.js';
-import { handleNewTask, handleExistTask } from './event/handleTask.js';
+import createTask from './event/createTask.js';
+import handleExistTask from './event/handleTask.js';
 import editTaskHeaderTitle from './event/editTaskHeaderTitle.js';
 import editTaskBodyContent from './event/editTaskBodyContent.js';
 import updateTaskStatus from './event/updateTaskStatus.js';
@@ -10,7 +11,7 @@ import { countGeneralTasks } from './modules/calculateTasksCount.js';
 
 //~ 註冊事件
 switchNavTab();
-handleNewTask();
+createTask();
 handleExistTask();
 editTaskHeaderTitle();
 editTaskBodyContent();

@@ -1,4 +1,4 @@
-const taskList = main.querySelector('.task_list');
+const taskList = document.querySelector('.task_list');
 const taskStatus = document.querySelector('.task_status');
 const completedTasksCount = taskList.querySelectorAll('.task.completed').length;
 
