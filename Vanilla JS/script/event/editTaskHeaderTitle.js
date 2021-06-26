@@ -3,43 +3,57 @@ import { renderTaskList, saveToLocalStorage } from '../modules/updateLocalStorag
 
 const main = document.querySelector('main');
 const newTask = main.querySelector('main > .task');
-const newTaskTitleCheckbox = newTask.querySelector('.title_group');
+// const newTaskTitleCheckbox = newTask.querySelector('.title_group');
 
 const taskList = document.querySelector('.task_list');
 
 //~ Listener function
 function toggleNewTaskCheckbox(event) {
-  if (event.target.className === 'done_task') {
+  if (event.target.classList.contains('done_task')) {
     newTask.classList.toggle('completed', event.target.checked);
   }
-  else if (event.target.className === 'star_task') {
+  else if (event.target.classList.contains('star_task')) {
+    console.log(event.target);
     newTask.classList.toggle('star', event.target.checked);
   }
 }
 
-function toggleEditArea(event) {
-  if (event.target.className !== 'edit_task') {
+function toggleTaskStatus(event) {
+  if (!event.target.classList.contains('done_task') && !event.target.classList.contains('star_task')) {
     return;
   }
 
-  //todo 展開編輯區塊後，即無法再點擊
-  event.target.style.cursor = 'not-allowed';
-
-  event.target.checked = true;
-  const checkboxStatus = event.target.checked;
+  const tasksDataArray = JSON.parse(localStorage.getItem('lists')) || [];
   const currentTask = event.target.closest('.task');
   const taskIndex = Number(currentTask.dataset.index);  // string
+  const currentTaskData = tasksDataArray[taskIndex];
 
-  //* edit狀態時無法拖曳task
+  if (event.target.classList.contains('done_task')) {
+    currentTask.classList.toggle('completed');
+    currentTaskData['done'] = !currentTaskData['done'];
+  }
+  if (event.target.classList.contains('star_task')) {
+    currentTask.classList.toggle('star');
+    currentTaskData['star'] = !currentTaskData['star'];
+  }
+
+  saveToLocalStorage(tasksDataArray);
+  renderTaskList();
+}
+
+
+function toggleEditArea(event) {
+  if (!event.target.classList.contains('edit_task')) {
+    return;
+  }
+
+  const currentTask = event.target.closest('.task');
+  currentTask.classList.add('editing');
   currentTask.classList.remove('drag');
 
   //todo 展開編輯區塊後，即focus在當前任務
   //* 因聚焦任務的index計算另包含AddTask，故在taskList中的index需加1
   // focusEditCurrentTask(Number(taskIndex) + 1);
-
-  if (checkboxStatus) {
-    currentTask.classList.add('editing');
-  }
 }
 
 
@@ -66,7 +80,9 @@ function modifyTaskTitle(event) {
 
 
 function editTaskHeaderTitle() {
-  newTaskTitleCheckbox.addEventListener('click', toggleNewTaskCheckbox);
+  // newTaskTitleCheckbox.addEventListener('click', toggleNewTaskCheckbox);
+  // newTask.addEventListener('click', toggleNewTaskCheckbox);
+  main.addEventListener('click', toggleTaskStatus);
 
   // renderTaskList();
   taskList.addEventListener('click', toggleEditArea);

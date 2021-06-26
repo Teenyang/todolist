@@ -26,11 +26,20 @@ textarea {
   border: none;
   border-radius: 2px;
 
-  cursor: pointer;
-
   &:focus {
     outline: none;
   }
+}
+
+input[type="checkbox"],
+label,
+button {
+  cursor: pointer;
+}
+
+input[type="text"],
+textarea {
+  cursor: text;
 }
 
 textarea {

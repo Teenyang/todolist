@@ -12,5 +12,7 @@
     border-radius: 100px;
     box-shadow: 0 8px color.$hover-gray, 0 -8px color.$hover-gray;
     background-color: color.$hover-gray;
+
+    cursor: grab;
   }
 }

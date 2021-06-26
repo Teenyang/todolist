@@ -24,13 +24,23 @@ textarea {
   padding: 0;
   border: none;
   border-radius: 2px;
-  cursor: pointer;
 }
 label:focus,
 input:focus,
 button:focus,
 textarea:focus {
   outline: none;
+}
+
+input[type=checkbox],
+label,
+button {
+  cursor: pointer;
+}
+
+input[type=text],
+textarea {
+  cursor: text;
 }
 
 textarea {
@@ -45,8 +55,7 @@ body {
   background-color: #e1e1e1;
 }
 
-.task_header,
-.task_body {
+.task_header, .task_body {
   background-color: #f2f2f2;
 }
 
@@ -255,12 +264,6 @@ nav {
   margin-bottom: 0;
   display: none;
 }
-.add_button ~ .task {
-  display: none;
-}
-.add_button ~ .task.show_new_task {
-  display: block;
-}
 
 .task.drag:hover::before {
   content: "";
@@ -276,6 +279,7 @@ nav {
   border-radius: 100px;
   box-shadow: 0 8px #d8d8d8, 0 -8px #d8d8d8;
   background-color: #d8d8d8;
+  cursor: grab;
 }
 
 .task_header .title_group .done_task {
@@ -304,40 +308,10 @@ nav {
   color: #9b9b9b;
 }
 
-.task_header .marker_group input {
-  display: none;
-}
-.task_header .marker_group input ~ label {
-  margin-left: 32px;
-  width: 24px;
-  height: 24px;
-  display: inline-block;
-  background-color: transparent;
-}
-.task_header .marker_group input ~ label:first-of-type {
-  margin-left: 8px;
-}
-.task_header .marker_group input ~ label i {
-  width: 24px;
-  font-size: 24px;
-  color: #ffffff;
-}
-.task_header .marker_group input ~ label i.general {
-  color: #000000;
-}
-.task_header .marker_group input ~ label i.star {
-  color: #f5a623;
-}
-.task_header .marker_group input ~ label i.edit {
-  color: #4a90e2;
-}
-
 .task_body .deadline input:-webkit-autofill {
   background-color: #ffffff;
 }
-.task_body .deadline input::-webkit-datetime-edit-day-field:focus,
-.task_body .deadline input::-webkit-datetime-edit-month-field:focus,
-.task_body .deadline input::-webkit-datetime-edit-year-field:focus {
+.task_body .deadline input::-webkit-datetime-edit-day-field:focus, .task_body .deadline input::-webkit-datetime-edit-month-field:focus, .task_body .deadline input::-webkit-datetime-edit-year-field:focus {
   background-color: #4a90e2;
 }
 .task_body .deadline input::-webkit-calendar-picker-indicator {
@@ -394,20 +368,36 @@ nav {
     order: 2;
   }
 }
-.task_header .title_group .task_title,
-.task_header .title_group .task_title::placeholder {
+.task_header .title_group .task_title, .task_header .title_group .task_title::placeholder {
   font-family: "Roboto", sans-serif;
   font-size: 1.5rem;
   font-weight: 500;
   color: #000000;
 }
 
-.task_header .marker_group .delete_task {
+.task_header .marker_group i {
+  margin-left: 32px;
   width: 24px;
-  text-align: center;
   font-size: 24px;
+  cursor: pointer;
+}
+.task_header .marker_group i:first-of-type {
+  margin-left: 8px;
+}
+.task_header .marker_group i.general_icon {
   color: #000000;
 }
+.task_header .marker_group i.star_icon {
+  color: #f5a623;
+}
+.task_header .marker_group i.pen_icon {
+  color: #4a90e2;
+}
+
+.task_header .marker_group .pen_icon {
+  cursor: not-allowed;
+}
+
 .task_header .marker_group .delete_task:hover {
   color: red;
 }
@@ -491,10 +481,6 @@ nav {
 }
 .task_header .marker_group {
   font-size: 0;
-}
-.task_header .marker_group .delete_task {
-  margin-left: 32px;
-  cursor: pointer;
 }
 .task_header .info_group {
   margin-top: 16px;
@@ -606,28 +592,23 @@ nav {
 .task .task_content {
   display: none;
 }
-.task .star_task ~ label .general {
+.task .general_icon {
   display: inline-block;
 }
-.task .star_task ~ label .star {
+.task .star_icon,
+.task .pen_icon {
   display: none;
 }
-.task.star .star_task + label .general {
+.task.star .star_task.general_icon {
   display: none;
 }
-.task.star .star_task ~ label .star {
+.task.star .star_task.star_icon {
   display: inline-block;
 }
-.task .edit_task + label > .general {
-  display: inline-block;
-}
-.task .edit_task ~ label .edit {
+.task.editing .edit_task.general_icon {
   display: none;
 }
-.task.editing .edit_task ~ label .general {
-  display: none;
-}
-.task.editing .edit_task ~ label .edit {
+.task.editing .edit_task.pen_icon {
   display: inline-block;
 }
 .task .info_group {
@@ -642,8 +623,7 @@ nav {
 .task.progress .info_group > *.show {
   display: inline-block;
 }
-.task.progress.completed .info_group,
-.task.progress.editing .info_group {
+.task.progress.completed .info_group, .task.progress.editing .info_group {
   display: none;
 }
 .task.progress.editing .task_header {

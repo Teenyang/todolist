@@ -1,21 +1,22 @@
 //* 先以物件形式紀錄task data，再推進tasksDataArray存進localStorage
-function recordTaskData(taskFrom) {
+function recordTaskData(currentTask) {
   const today = Date.now();
   // const filesObject = taskFrom.querySelector('.upload_file').files[0];
   // const objectURL = URL.createObjectURL(filesObject);
-  const fileName = taskFrom.querySelector('.file_data .upload_fileName').textContent;
-  const uploadDateMillisecond = fileName ? `${today}` : '';
+  const fileName = currentTask.querySelector('.file_data .upload_fileName').textContent;
+
+  console.log(currentTask);
 
   return {
-    title: taskFrom.querySelector('.task_header .task_title').value,
-    done: taskFrom.querySelector('.done_task').checked,
-    star: taskFrom.querySelector('.star_task').checked,
-    deadlineDate: taskFrom.querySelector('.task_body #date').value,
-    deadlineTime: taskFrom.querySelector('.task_body #time').value,
+    title: currentTask.querySelector('.task_header .task_title').value,
+    done: currentTask.querySelector('.done_task').checked,
+    star: currentTask.classList.contains('star'),
+    deadlineDate: currentTask.querySelector('.task_body #date').value,
+    deadlineTime: currentTask.querySelector('.task_body #time').value,
     // fileObjectURL: objectURL,
     file: fileName,
-    fileUpload: uploadDateMillisecond,
-    comment: taskFrom.querySelector('.task_body .edit_comment').value,
+    fileUpload: fileName ? `${today}` : '',
+    comment: currentTask.querySelector('.task_body .edit_comment').value,
   }
 }
 

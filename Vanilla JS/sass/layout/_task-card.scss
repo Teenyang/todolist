@@ -10,12 +10,14 @@
 // TASK CARDS
 .task {
   position: relative;
+
   &.drag {
     &:hover {
       @extend %hover-to-drag;
     }
   }
 }
+
 // TASK HEADER
 .task_header {
   padding: 24px 32px;
@@ -38,15 +40,24 @@
     font-size: 0; // 消除<i>inline-block間距
     @extend %marker-group-spacing;
 
-    input {
-      @extend %marker-input;
+    // input {
+    //   @extend %marker-input;
+    // }
+
+    i {
+      @extend %marker-icon;
+    }
+
+    // .star_task {
+    //   @extend %star-icon;
+    // }
+
+    .pen_icon {
+      @extend %editing-icon;
     }
 
     .delete_task {
-      margin-left: 32px;
-      @extend %delete-marker;
-
-      cursor: pointer;
+      @extend %delete-icon;
     }
   }
 
@@ -164,43 +175,52 @@
   }
 
   // marker of star
-  .star_task {
-    ~ label .general {
-      display: inline-block;
-    }
-    ~ label .star {
-      display: none;
-    }
+  // .star_task {
+  //   ~ label .general_icon {
+  //     display: inline-block;
+  //   }
+  //   ~ label .star_icon {
+  //     display: none;
+  //   }
+  // }
+
+  .general_icon {
+    display: inline-block;
   }
+  .star_icon,
+  .pen_icon {
+    display: none;
+  }
+
   &.star {
     .task_header {
       @extend %task-star-background;
     }
     .star_task {
-      + label .general {
+      &.general_icon {
         display: none;
       }
-      ~ label .star {
+      &.star_icon {
         display: inline-block;
       }
     }
   }
 
   // marker of editing
-  .edit_task {
-    + label > .general {
-      display: inline-block;
-    }
-    ~ label .edit {
-      display: none;
-    }
-  }
+  // .edit_task {
+  //   + label > .general_icon {
+  //     display: inline-block;
+  //   }
+  //   ~ label .edit_icon {
+  //     display: none;
+  //   }
+  // }
   &.editing {
     .edit_task {
-      ~ label .general {
+      &.general_icon {
         display: none;
       }
-      ~ label .edit {
+      &.pen_icon {
         display: inline-block;
       }
     }

@@ -1,17 +1,18 @@
 // import { focusEditCurrentTask, doneEditCurrentTask } from '../modules/focusTask.js';
 import sortTaskOrder from '../modules/sortTaskOrder.js';
 import recordTaskData from '../modules/dealTaskData.js';
-import { renderTaskList, saveToLocalStorage } from '../modules/updateLocalStorage.js';
+import { renderNewTask, renderTaskList, saveToLocalStorage } from '../modules/updateLocalStorage.js';
 
 const main = document.querySelector('main');
 const addTaskButton = main.querySelector('.add_button');
-const newTask = main.querySelector('main > .task');
+// const newTask = main.querySelector('main > .task');
 
 const taskList = document.querySelector('.task_list');
 
 //~ General function
-function quitNewTask() {
-  newTask.classList.remove('show_new_task', 'completed', 'star');
+function reappearAddTaskButton() {
+  const newTask = main.querySelector('.new_task');
+  main.removeChild(newTask);
   addTaskButton.classList.remove('hide_button');
 }
 
@@ -23,12 +24,16 @@ function quitExistTask(currentTask) {
 
 //! handleNewTask.js 
 function addTask() {
-  newTask.classList.add('show_new_task');
   addTaskButton.classList.add('hide_button');
+  renderNewTask();
 
   //todo 編輯時focus在單一任務
   //* add task為第一個task，其index=0，其他既有task則列入taskLists中 
   // focusEditCurrentTask(0);
+
+  const newTask = main.querySelector('.new_task');
+  newTask.addEventListener('submit', submitNewTask);
+  newTask.addEventListener('click', resetNewTask);
 }
 
 function submitNewTask(event) {
@@ -36,42 +41,22 @@ function submitNewTask(event) {
 
   const currentTask = this;
   const taskIndex = Number(currentTask.dataset.index);  // string
-  const eachTaskData = recordTaskData(newTask);
+  const eachTaskData = recordTaskData(currentTask);
   const sortTasksDataArray = sortTaskOrder(currentTask, eachTaskData, taskIndex, 0);
   saveToLocalStorage(sortTasksDataArray);
 
-  //* 清除格式
-  const taskForm = event.target;
-  taskForm.reset();
-  quitNewTask();
-
-  //* 渲染畫面
+  reappearAddTaskButton();
   renderTaskList();
 }
 
 function resetNewTask(event) {
   if (event.target.className === 'task_cancel') {
-    const taskForm = this;
-    taskForm.reset();
-    quitNewTask();
-
-    //* 因取自<input>再賦值給fileData，故放棄新增任務時無法用form.reset()，需另清空內容
-    const fileData = taskForm.querySelector('.file_data');
-    fileData.classList.remove('show');
-    fileData.innerHTML = `
-      <span class="upload_fileName"></span>
-      <p class="upload_days_ago">
-        (<span class="upload_dateSlash"></span>)
-      </p>
-      <span class="upload_dateMillisecond"></span>
-    `
+    reappearAddTaskButton();
   }
 }
 
 function handleNewTask() {
   addTaskButton.addEventListener('focus', addTask);
-  newTask.addEventListener('submit', submitNewTask);
-  newTask.addEventListener('click', resetNewTask);
 }
 
 //! handleExistTask.js 

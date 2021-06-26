@@ -2,11 +2,12 @@ import { renderTaskList } from '../modules/updateLocalStorage.js';
 import sortTaskOrder from '../modules/sortTaskOrder.js';
 import { saveToLocalStorage } from '../modules/updateLocalStorage.js';
 
+const main = document.querySelector('main');
 const taskList = document.querySelector('.task_list');
 
 //~ Listener function
 function toggleCheckboxToSortTask(event) {
-  if (event.target.className !== 'done_task' && event.target.className !== 'star_task') {
+  if (!event.target.classList.contains('done_task') && !event.target.classList.contains('star_task')) {
     return;
   }
 
@@ -20,8 +21,8 @@ function toggleCheckboxToSortTask(event) {
     currentTask.classList.toggle('completed', checkboxStatus);
     currentTaskData['done'] = !currentTaskData['done'];
   }
-  if (event.target.className === 'star_task') {
-    currentTask.classList.toggle('star', checkboxStatus);
+  if (event.target.classList.contains('star_task')) {
+    currentTask.classList.toggle('star');
     currentTaskData['star'] = !currentTaskData['star'];
   }
 
@@ -45,7 +46,7 @@ function deleteTask(event) {
 
 
 function updateTaskStatus() {
-  taskList.addEventListener('click', toggleCheckboxToSortTask);
+  // main.addEventListener('click', toggleCheckboxToSortTask);
   taskList.addEventListener('dblclick', deleteTask);
 }
 
