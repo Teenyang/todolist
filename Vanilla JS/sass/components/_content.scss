@@ -1,7 +1,7 @@
-@use '../utilities/color';
-@use '../utilities/font';
-@use '../utilities/mediaquery';
-@use '../utilities/position';
+@use '../base/color';
+@use '../base/font';
+@use '../base/mediaquery';
+@use '../base/position';
 
 %edit-title {
   margin-bottom: 8px;

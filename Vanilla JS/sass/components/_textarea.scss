@@ -1,6 +1,6 @@
-@use '../utilities/color';
-@use '../utilities/font';
-@use '../utilities/mediaquery';
+@use '../base/color';
+@use '../base/font';
+@use '../base/mediaquery';
 
 %header-text {
   margin-top: 8px;

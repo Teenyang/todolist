@@ -1,5 +1,5 @@
-@use '../utilities/color';
-@use '../utilities/position';
+@use '../base/color';
+@use '../base/position';
 
 %hover-to-drag {
   &::before {

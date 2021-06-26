@@ -1,7 +1,7 @@
-@use '../utilities/font';
-@use '../utilities/color';
-@use '../utilities/mediaquery';
-@use '../utilities/position';
+@use '../base/font';
+@use '../base/color';
+@use '../base/mediaquery';
+@use '../base/position';
 
 // HEADER
 %marker-icon {
