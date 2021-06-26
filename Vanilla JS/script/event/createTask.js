@@ -27,7 +27,10 @@ function submitNewTask(event) {
   const taskIndex = Number(newTask.dataset.index);
 
   const eachTaskData = recordTaskData(newTask);
-  const sortTasksDataArray = sortTaskOrder(newTask, eachTaskData, taskIndex, 0);
+
+  //* 因為新增任務不包含在taskList中，所以不會有移動項目
+  const moveItem = 0;
+  const sortTasksDataArray = sortTaskOrder(newTask, eachTaskData, taskIndex, moveItem);
   saveToLocalStorage(sortTasksDataArray);
 
   reappearAddTaskButton();
