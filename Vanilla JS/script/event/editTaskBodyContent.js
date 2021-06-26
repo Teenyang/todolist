@@ -66,7 +66,7 @@ function uploadFile(event) {
 
 //* 上傳日期需根據檢視日期隨之遞減
 function countUploadDaysAgo() {
-  const taskList = document.querySelector('.task_list');
+  const taskList = main.querySelector('.task_list');
   const tasksDataArray = JSON.parse(localStorage.getItem('lists')) || [];
 
   const daysAgo = taskList.querySelectorAll('.upload_days_ago');

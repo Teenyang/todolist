@@ -5,9 +5,7 @@ import { renderNewTask, renderTaskList, saveToLocalStorage } from '../modules/up
 
 const main = document.querySelector('main');
 const addTaskButton = main.querySelector('.add_button');
-// const newTask = main.querySelector('main > .task');
-
-const taskList = document.querySelector('.task_list');
+const taskList = main.querySelector('.task_list');
 
 //~ General function
 function reappearAddTaskButton() {

@@ -2,7 +2,7 @@ import { countGeneralTasks, countCompletedTasks } from '../modules/calculateTask
 
 const nav = document.querySelector('nav');
 const navLinks = nav.querySelectorAll('.nav_link');
-const taskList = document.querySelector('.task_list');
+const taskList = main.querySelector('.task_list');
 
 function showAllTasks() {
   const tasks = taskList.querySelectorAll('.task');

@@ -5,7 +5,7 @@ const main = document.querySelector('main');
 const newTask = main.querySelector('main > .task');
 // const newTaskTitleCheckbox = newTask.querySelector('.title_group');
 
-const taskList = document.querySelector('.task_list');
+const taskList = main.querySelector('.task_list');
 
 //~ Listener function
 function toggleNewTaskCheckbox(event) {

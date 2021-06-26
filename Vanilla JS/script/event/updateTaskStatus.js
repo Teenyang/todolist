@@ -3,7 +3,7 @@ import sortTaskOrder from '../modules/sortTaskOrder.js';
 import { saveToLocalStorage } from '../modules/updateLocalStorage.js';
 
 const main = document.querySelector('main');
-const taskList = document.querySelector('.task_list');
+const taskList = main.querySelector('.task_list');
 
 //~ Listener function
 function toggleCheckboxToSortTask(event) {
