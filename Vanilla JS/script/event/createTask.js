@@ -14,6 +14,26 @@ function reappearAddTaskButton() {
 }
 
 //~ Listener function
+function quitNewTask(event) {
+  if (event.target.className === 'task_cancel') {
+    reappearAddTaskButton();
+  }
+}
+
+function submitNewTask(event) {
+  event.preventDefault();
+
+  const newTask = this;
+  const taskIndex = Number(newTask.dataset.index);
+
+  const eachTaskData = recordTaskData(newTask);
+  const sortTasksDataArray = sortTaskOrder(newTask, eachTaskData, taskIndex, 0);
+  saveToLocalStorage(sortTasksDataArray);
+
+  reappearAddTaskButton();
+  renderTaskList();
+}
+
 function addTask() {
   addTaskButton.classList.add('hide_button');
   renderNewTask();
@@ -23,27 +43,8 @@ function addTask() {
   // focusEditCurrentTask(0);
 
   const newTask = main.querySelector('.new_task');
+  newTask.addEventListener('click', quitNewTask);
   newTask.addEventListener('submit', submitNewTask);
-  newTask.addEventListener('click', resetNewTask);
-}
-
-function submitNewTask(event) {
-  event.preventDefault();
-
-  const newTask = this;
-  const taskIndex = Number(newTask.dataset.index);  // string
-  const eachTaskData = recordTaskData(newTask);
-  const sortTasksDataArray = sortTaskOrder(newTask, eachTaskData, taskIndex, 0);
-  saveToLocalStorage(sortTasksDataArray);
-
-  reappearAddTaskButton();
-  renderTaskList();
-}
-
-function resetNewTask(event) {
-  if (event.target.className === 'task_cancel') {
-    reappearAddTaskButton();
-  }
 }
 
 function createTask() {
