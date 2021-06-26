@@ -40,17 +40,9 @@
     font-size: 0; // 消除<i>inline-block間距
     @extend %marker-group-spacing;
 
-    // input {
-    //   @extend %marker-input;
-    // }
-
     i {
       @extend %marker-icon;
     }
-
-    // .star_task {
-    //   @extend %star-icon;
-    // }
 
     .pen_icon {
       @extend %editing-icon;
@@ -174,16 +166,6 @@
     display: none;
   }
 
-  // marker of star
-  // .star_task {
-  //   ~ label .general_icon {
-  //     display: inline-block;
-  //   }
-  //   ~ label .star_icon {
-  //     display: none;
-  //   }
-  // }
-
   .general_icon {
     display: inline-block;
   }
@@ -206,15 +188,6 @@
     }
   }
 
-  // marker of editing
-  // .edit_task {
-  //   + label > .general_icon {
-  //     display: inline-block;
-  //   }
-  //   ~ label .edit_icon {
-  //     display: none;
-  //   }
-  // }
   &.editing {
     .edit_task {
       &.general_icon {
