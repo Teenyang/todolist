@@ -9,12 +9,4 @@
     margin-bottom: 0;
     display: none;
   }
-
-  & ~ .task {
-    display: none;
-
-    &.show_new_task {
-      display: block;
-    }
-  }
 }
