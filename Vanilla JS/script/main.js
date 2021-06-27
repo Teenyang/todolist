@@ -1,7 +1,7 @@
 import { switchNavTab } from './event/switchNavTab.js';
 import createTask from './event/createTask.js';
 import updateExistTask from './event/updateTask.js';
-import editTaskHeaderTitle from './event/editTaskHeaderTitle.js';
+import modifyTaskHeader from './event/modifyTaskHeader.js';
 import editTaskBodyContent from './event/editTaskBodyContent.js';
 import deleteTask from './event/deleteTask.js';
 
@@ -15,7 +15,7 @@ import { countGeneralTasks } from './modules/calculateTasksCount.js';
 switchNavTab();
 createTask();
 updateExistTask();
-editTaskHeaderTitle();
+modifyTaskHeader();
 editTaskBodyContent();
 deleteTask();
 

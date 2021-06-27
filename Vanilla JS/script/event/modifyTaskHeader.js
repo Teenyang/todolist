@@ -7,40 +7,38 @@ const taskList = document.querySelector('.task_list');
 //~ General function
 function sortTaskListByStatus(taskDataName, currentTask) {
   const tasksDataArray = JSON.parse(localStorage.getItem('lists')) || [];
+  const taskIndex = Number(currentTask.dataset.index);  // string
+  const currentTaskData = tasksDataArray[taskIndex];
 
-  if (!currentTask.classList.contains('editing')) {
-    const taskIndex = Number(currentTask.dataset.index);  // string
-    const currentTaskData = tasksDataArray[taskIndex];
-    currentTaskData[taskDataName] = !currentTaskData[taskDataName];
-
-    //* 先將原本的taskData刪除，排序時再將更新後的updateTask插入指定位置
-    tasksDataArray.splice(taskIndex, 1);
-    sortTaskRule(currentTask, currentTaskData, tasksDataArray);
-  }
+  //* 先將原本的taskData刪除，排序時再將更新後的Data插入指定位置
+  tasksDataArray.splice(taskIndex, 1);
+  currentTaskData[taskDataName] = !currentTaskData[taskDataName];
+  sortTaskRule(currentTask, currentTaskData, tasksDataArray);
 }
 
 //~ Listener function
 function toggleTaskStatus(event) {
   const currentTask = event.target.closest('.task');
+  const isDoneIcon = event.target.classList.contains('done_task');
+  const isStarIcon = event.target.classList.contains('star_task');
+  const isEditingTask = currentTask.classList.contains('editing');
 
-  if (event.target.classList.contains('done_task')) {
+  if (isDoneIcon) {
     currentTask.classList.toggle('completed');
-    if (!currentTask.classList.contains('editing')) {
-      sortTaskListByStatus('done', currentTask);
-    }
+    (!isEditingTask) ? sortTaskListByStatus('done', currentTask) : '';
   }
 
-  if (event.target.classList.contains('star_task')) {
+  if (isStarIcon) {
     currentTask.classList.toggle('star');
-    if (!currentTask.classList.contains('editing')) {
-      sortTaskListByStatus('star', currentTask);
-    }
+    (!isEditingTask) ? sortTaskListByStatus('star', currentTask) : '';
   }
 }
 
-function toggleEditArea(event) {
-  if (event.target.classList.contains('edit_task')) {
-    const currentTask = event.target.closest('.task');
+function openEditArea(event) {
+  const isEditIcon = event.target.classList.contains('edit_task');
+  const currentTask = event.target.closest('.task');
+
+  if (isEditIcon) {
     currentTask.classList.add('editing');
     currentTask.classList.remove('drag');
 
@@ -50,15 +48,14 @@ function toggleEditArea(event) {
   }
 }
 
-
-function modifyTaskTitle(event) {
-  if (event.target.className !== 'task_title') {
+function changeTaskTitle(event) {
+  const isTaskTitle = event.target.classList.contains('task_title');
+  if (isTaskTitle) {
     return;
   }
 
   const tasksDataArray = JSON.parse(localStorage.getItem('lists')) || [];
   const modifyTitle = event.target.value;
-
   if (modifyTitle === '') {
     alert('標題不能空白');
     //* 渲染畫面：恢復到編輯title之前的原始狀態與內容
@@ -73,12 +70,12 @@ function modifyTaskTitle(event) {
 }
 
 
-function editTaskHeaderTitle() {
+function modifyTaskHeader() {
   const main = document.querySelector('main');
   main.addEventListener('click', toggleTaskStatus);
 
-  taskList.addEventListener('click', toggleEditArea);
-  taskList.addEventListener('change', modifyTaskTitle);
+  taskList.addEventListener('click', openEditArea);
+  taskList.addEventListener('change', changeTaskTitle);
 }
 
-export default editTaskHeaderTitle;
+export default modifyTaskHeader;
