@@ -49,13 +49,13 @@ function openEditArea(event) {
 }
 
 function changeTaskTitle(event) {
-  const isTaskTitle = event.target.classList.contains('task_title');
-  if (isTaskTitle) {
+  if (event.target.className !== 'task_title') {
     return;
   }
 
   const tasksDataArray = JSON.parse(localStorage.getItem('lists')) || [];
   const modifyTitle = event.target.value;
+
   if (modifyTitle === '') {
     alert('標題不能空白');
     //* 渲染畫面：恢復到編輯title之前的原始狀態與內容
