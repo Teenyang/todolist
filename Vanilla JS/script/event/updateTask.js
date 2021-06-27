@@ -1,5 +1,5 @@
 // import { focusEditCurrentTask, doneEditCurrentTask } from '../modules/focusTask.js';
-import sortTaskOrder from '../modules/sortTaskOrder.js';
+import sortTaskRule from '../modules/sortTaskOrder.js';
 import recordTaskData from '../modules/dealTaskData.js';
 import { renderTaskList, saveToLocalStorage } from '../modules/updateLocalStorage.js';
 
@@ -22,14 +22,14 @@ function saveExistTask(event) {
   updateTaskData.file = currentTask.querySelector('.file_data .upload_fileName').textContent;
   updateTaskData.fileUpload = currentTask.querySelector('.file_data .upload_dateMillisecond').textContent;
 
-  //* 先將原本的taskData刪除，再原地插入更新後的updateTask
   const tasksDataArray = JSON.parse(localStorage.getItem('lists')) || [];
-  tasksDataArray.splice(taskIndex, 1, updateTaskData);
+  //* 先將原本的taskData刪除，排序時再將更新後的updateTask插入指定位置
+  tasksDataArray.splice(taskIndex, 1);
 
-  tasksDataArray[taskIndex] = updateTaskData;
-  saveToLocalStorage(tasksDataArray);
-
+  const sortTasksDataArray = sortTaskRule(currentTask, updateTaskData, tasksDataArray);
+  saveToLocalStorage(sortTasksDataArray);
   renderTaskList();
+
   quitExistTask(currentTask);
 
   //todo 編輯完成後恢復顯示所有任務

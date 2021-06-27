@@ -1,6 +1,5 @@
-function sortTaskOrder(currentTask, currentTaskData, currentTaskIndex, removeItem) {
+function sortTaskRule(currentTask, currentTaskData, tasksDataArray) {
   const taskList = document.querySelector('.task_list');
-  const tasksDataArray = JSON.parse(localStorage.getItem('lists')) || [];
 
   //* all task
   const tasks = taskList.querySelectorAll('.task');
@@ -15,9 +14,6 @@ function sortTaskOrder(currentTask, currentTaskData, currentTaskIndex, removeIte
   const starTasksCount = taskList.querySelectorAll('.task.star').length - starCompletedTasksCount;
   //* general task
   const generalTasksStartIndex = starTasksCount;
-
-  //* 移動existTask位置：先把自己所處位置的舊資料刪除，再將更新後的currentTaskData插入新位置
-  tasksDataArray.splice(currentTaskIndex, removeItem);
 
   if (currentTask.classList.contains('star') && currentTask.classList.contains('completed')) {
     tasksDataArray.splice(starCompletedTaskStartIndex, 0, currentTaskData);
@@ -35,4 +31,4 @@ function sortTaskOrder(currentTask, currentTaskData, currentTaskIndex, removeIte
   return tasksDataArray;
 }
 
-export default sortTaskOrder;
+export default sortTaskRule;

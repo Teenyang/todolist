@@ -2,7 +2,6 @@ import { countGeneralTasks, countCompletedTasks } from '../modules/calculateTask
 
 const nav = document.querySelector('nav');
 const navLinks = nav.querySelectorAll('.nav_link');
-const main = document.querySelector('main');
 const taskList = document.querySelector('.task_list');
 
 function showAllTasks() {
@@ -25,7 +24,6 @@ function showCompletedTasks() {
 
 //~ Listener function
 function chooseTaskCategory(event) {
-  console.log(event.target);
   navLinks.forEach(navLink => navLink.classList.remove('select'));
   event.target.classList.add('select');
 

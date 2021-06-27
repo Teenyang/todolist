@@ -1,10 +1,11 @@
 // import { focusEditCurrentTask, doneEditCurrentTask } from '../modules/focusTask.js';
 import { renderNewTask, renderTaskList, saveToLocalStorage } from '../modules/updateLocalStorage.js';
 import recordTaskData from '../modules/dealTaskData.js';
-import sortTaskOrder from '../modules/sortTaskOrder.js';
+import sortTaskRule from '../modules/sortTaskOrder.js';
 
 const main = document.querySelector('main');
 const addTaskButton = main.querySelector('.add_button');
+
 
 //~ General function
 function reappearAddTaskButton() {
@@ -24,17 +25,14 @@ function submitNewTask(event) {
   event.preventDefault();
 
   const newTask = this;
-  const taskIndex = Number(newTask.dataset.index);
-
   const eachTaskData = recordTaskData(newTask);
 
-  //* 因為新增任務不包含在taskList中，所以不會有移動項目
-  const moveItem = 0;
-  const sortTasksDataArray = sortTaskOrder(newTask, eachTaskData, taskIndex, moveItem);
+  const tasksDataArray = JSON.parse(localStorage.getItem('lists')) || [];
+  const sortTasksDataArray = sortTaskRule(newTask, eachTaskData, tasksDataArray);
   saveToLocalStorage(sortTasksDataArray);
+  renderTaskList();
 
   reappearAddTaskButton();
-  renderTaskList();
 }
 
 function addTask() {

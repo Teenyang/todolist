@@ -1,5 +1,5 @@
 import { renderTaskList } from '../modules/updateLocalStorage.js';
-import sortTaskOrder from '../modules/sortTaskOrder.js';
+import sortTaskRule from '../modules/sortTaskOrder.js';
 import { saveToLocalStorage } from '../modules/updateLocalStorage.js';
 
 const main = document.querySelector('main');
@@ -26,7 +26,7 @@ function toggleCheckboxToSortTask(event) {
     currentTaskData['star'] = !currentTaskData['star'];
   }
 
-  const sortTasksDataArray = sortTaskOrder(currentTask, currentTaskData, taskIndex, 1);
+  const sortTasksDataArray = sortTaskRule(currentTask, currentTaskData, tasksDataArray);
   saveToLocalStorage(sortTasksDataArray);
   renderTaskList();
 }

@@ -5,8 +5,6 @@ function recordTaskData(currentTask) {
   // const objectURL = URL.createObjectURL(filesObject);
   const fileName = currentTask.querySelector('.file_data .upload_fileName').textContent;
 
-  console.log(currentTask);
-
   return {
     title: currentTask.querySelector('.task_header .task_title').value,
     done: currentTask.querySelector('.done_task').checked,
