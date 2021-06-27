@@ -3,7 +3,7 @@ import createTask from './event/createTask.js';
 import updateExistTask from './event/updateTask.js';
 import editTaskHeaderTitle from './event/editTaskHeaderTitle.js';
 import editTaskBodyContent from './event/editTaskBodyContent.js';
-import updateTaskStatus from './event/updateTaskStatus.js';
+import deleteTask from './event/deleteTask.js';
 
 import { renderTaskList } from './modules/updateLocalStorage.js';
 import { countGeneralTasks } from './modules/calculateTasksCount.js';
@@ -15,7 +15,7 @@ createTask();
 updateExistTask();
 editTaskHeaderTitle();
 editTaskBodyContent();
-updateTaskStatus();
+deleteTask();
 
 //~ 渲染畫面
 renderTaskList();
