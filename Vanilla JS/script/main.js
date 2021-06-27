@@ -2,7 +2,7 @@ import { switchNavTab } from './event/switchNavTab.js';
 import createTask from './event/createTask.js';
 import updateExistTask from './event/updateTask.js';
 import modifyTaskHeader from './event/modifyTaskHeader.js';
-import editTaskBodyContent from './event/editTaskBodyContent.js';
+import editTaskContent from './event/editTasKContent.js';
 import deleteTask from './event/deleteTask.js';
 
 import { renderTaskList } from './modules/updateLocalStorage.js';
@@ -16,7 +16,7 @@ switchNavTab();
 createTask();
 updateExistTask();
 modifyTaskHeader();
-editTaskBodyContent();
+editTaskContent();
 deleteTask();
 
 //~ 渲染畫面

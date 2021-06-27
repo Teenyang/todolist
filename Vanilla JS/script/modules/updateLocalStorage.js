@@ -11,14 +11,14 @@ function renderNewTask() {
     <form id="task-edit" class="task new_task editing" autocomplete="off" name="task-list">
       <section class="task_header">
         <div class="title_group">
-          <input type="checkbox" class="done_task" id="doneTask">
-          <label for="doneTask"><i class="far fa-check"></i></label>
+          <input type="checkbox" class="done_checkbox" id="doneTask">
+          <label for="doneTask"><i class="far fa-check done_task toggle_icon"></i></label>
           <input type="text" class="task_title" name="task-title" placeholder="Type Something Here..." required>
           <div class="marker_group">
-            <i class="far fa-star star_task general_icon"></i>
-            <i class="fas fa-star star_task star_icon"></i>
-            <i class="far fa-pen edit_task general_icon"></i>
-            <i class="fas fa-pen edit_task pen_icon"></i>
+            <i class="far fa-star star_task general_icon toggle_icon"></i>
+            <i class="fas fa-star star_task star_icon toggle_icon"></i>
+            <i class="far fa-pen edit_task general_icon toggle_icon"></i>
+            <i class="fas fa-pen edit_task pen_icon toggle_icon"></i>
           </div>
         </div>
       </section>
@@ -71,12 +71,12 @@ function renderTaskList(tasksDataArray) {
       <form data-index="${index}" id="task-edit" autocomplete="off" name="task-list" class="task ${task.done ? 'completed' : ''} ${task.star ? 'star' : ''} ${(task.deadlineDate !== '') || (task.file !== '') || (task.comment !== '') ? 'progress' : ''} drag">
         <section class="task_header">
           <div class="title_group">
-            <input type="checkbox" class="done_task" id="doneTask${index}" ${task.done ? 'checked' : ''}>
-            <label for="doneTask${index}"><i class="far fa-check"></i></label>
+            <input type="checkbox" class="done_checkbox" id="doneTask${index}" ${task.done ? 'checked' : ''}>
+            <label for="doneTask${index}"><i class="far fa-check done_task toggle_icon"></i></label>
             <input type="text" class="task_title" name="task-title" placeholder="Type Something Here..." required value="${task.title}">
             <div class="marker_group">
-              <i class="far fa-star star_task general_icon"></i>
-              <i class="fas fa-star star_task star_icon"></i>
+              <i class="far fa-star star_task general_icon toggle_icon"></i>
+              <i class="fas fa-star star_task star_icon toggle_icon"></i>
               <i class="far fa-pen edit_task general_icon"></i>
               <i class="fas fa-pen edit_task pen_icon"></i>
               <i class="far fa-trash-alt delete_task general_icon"></i>

@@ -28,7 +28,7 @@
     flex-wrap: wrap;
     align-items: center;
 
-    .done_task {
+    .done_checkbox {
       @extend %check-input;
     }
     .task_title {

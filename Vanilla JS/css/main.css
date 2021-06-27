@@ -282,29 +282,29 @@ nav {
   cursor: grab;
 }
 
-.task_header .title_group .done_task {
+.task_header .title_group .done_checkbox {
   display: none;
 }
-.task_header .title_group .done_task ~ label {
+.task_header .title_group .done_checkbox ~ label {
   margin-right: 16px;
   width: 24px;
   height: 24px;
   text-align: center;
   background-color: #ffffff;
 }
-.task_header .title_group .done_task ~ label i {
+.task_header .title_group .done_checkbox ~ label i {
   font-size: 14px;
   line-height: 24px;
   color: #ffffff;
 }
-.task_header .title_group .done_task:checked ~ label {
+.task_header .title_group .done_checkbox:checked ~ label {
   background-color: #4a90e2;
 }
-.task_header .title_group .done_task:checked ~ .task_title {
+.task_header .title_group .done_checkbox:checked ~ .task_title {
   text-decoration: line-through #9b9b9b;
   color: #9b9b9b;
 }
-.task_header .title_group .done_task:checked ~ .task_title::placeholder {
+.task_header .title_group .done_checkbox:checked ~ .task_title::placeholder {
   color: #9b9b9b;
 }
 

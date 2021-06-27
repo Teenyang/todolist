@@ -7,7 +7,7 @@ function recordTaskData(currentTask) {
 
   return {
     title: currentTask.querySelector('.task_header .task_title').value,
-    done: currentTask.querySelector('.done_task').checked,
+    done: currentTask.querySelector('.done_checkbox').checked,
     star: currentTask.classList.contains('star'),
     deadlineDate: currentTask.querySelector('.task_body .deadline_date').value,
     deadlineTime: currentTask.querySelector('.task_body .deadline_time').value,

@@ -18,6 +18,10 @@ function sortTaskListByStatus(taskDataName, currentTask) {
 
 //~ Listener function
 function toggleTaskStatus(event) {
+  if (!event.target.classList.contains('toggle_icon')) {
+    return;
+  }
+
   const currentTask = event.target.closest('.task');
   const isDoneIcon = event.target.classList.contains('done_task');
   const isStarIcon = event.target.classList.contains('star_task');
