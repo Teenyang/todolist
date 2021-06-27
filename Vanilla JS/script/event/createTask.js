@@ -28,9 +28,7 @@ function submitNewTask(event) {
   const eachTaskData = recordTaskData(newTask);
 
   const tasksDataArray = JSON.parse(localStorage.getItem('lists')) || [];
-  const sortTasksDataArray = sortTaskRule(newTask, eachTaskData, tasksDataArray);
-  saveToLocalStorage(sortTasksDataArray);
-  renderTaskList();
+  sortTaskRule(newTask, eachTaskData, tasksDataArray);
 
   reappearAddTaskButton();
 }

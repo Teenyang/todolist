@@ -15,10 +15,7 @@ function sortTaskListByStatus(taskDataName, currentTask) {
 
     //* 先將原本的taskData刪除，排序時再將更新後的updateTask插入指定位置
     tasksDataArray.splice(taskIndex, 1);
-
-    const sortTasksDataArray = sortTaskRule(currentTask, currentTaskData, tasksDataArray);
-    saveToLocalStorage(sortTasksDataArray);
-    renderTaskList();
+    sortTaskRule(currentTask, currentTaskData, tasksDataArray);
   }
 }
 
@@ -32,6 +29,7 @@ function toggleTaskStatus(event) {
       sortTaskListByStatus('done', currentTask);
     }
   }
+
   if (event.target.classList.contains('star_task')) {
     currentTask.classList.toggle('star');
     if (!currentTask.classList.contains('editing')) {
@@ -64,7 +62,7 @@ function modifyTaskTitle(event) {
   if (modifyTitle === '') {
     alert('標題不能空白');
     //* 渲染畫面：恢復到編輯title之前的原始狀態與內容
-    renderTaskList();
+    renderTaskList(tasksDataArray);
     return;
   }
 

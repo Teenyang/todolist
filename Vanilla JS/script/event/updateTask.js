@@ -25,10 +25,7 @@ function saveExistTask(event) {
   const tasksDataArray = JSON.parse(localStorage.getItem('lists')) || [];
   //* 先將原本的taskData刪除，排序時再將更新後的updateTask插入指定位置
   tasksDataArray.splice(taskIndex, 1);
-
-  const sortTasksDataArray = sortTaskRule(currentTask, updateTaskData, tasksDataArray);
-  saveToLocalStorage(sortTasksDataArray);
-  renderTaskList();
+  sortTaskRule(currentTask, updateTaskData, tasksDataArray);
 
   quitExistTask(currentTask);
 

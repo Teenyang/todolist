@@ -1,3 +1,5 @@
+import { renderTaskList, saveToLocalStorage } from './updateLocalStorage.js';
+
 function sortTaskRule(currentTask, currentTaskData, tasksDataArray) {
   const taskList = document.querySelector('.task_list');
 
@@ -28,7 +30,9 @@ function sortTaskRule(currentTask, currentTaskData, tasksDataArray) {
     tasksDataArray.splice(generalTasksStartIndex, 0, currentTaskData);
   }
 
-  return tasksDataArray;
+  // return tasksDataArray;
+  saveToLocalStorage(tasksDataArray);
+  renderTaskList(tasksDataArray);
 }
 
 export default sortTaskRule;

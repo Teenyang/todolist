@@ -65,9 +65,7 @@ function renderNewTask() {
 
 
 //* 將存進localStorage的task data透過array.map()更新至taskList區域，逐一匯出task內容
-// function renderTaskList(tasksDataArray, taskList) {
-function renderTaskList() {
-  const tasksDataArray = JSON.parse(localStorage.getItem('lists')) || [];
+function renderTaskList(tasksDataArray) {
   taskList.innerHTML = tasksDataArray.map((task, index) => {
     return `
       <form data-index="${index}" id="task-edit" autocomplete="off" name="task-list" class="task ${task.done ? 'completed' : ''} ${task.star ? 'star' : ''} ${(task.deadlineDate !== '') || (task.file !== '') || (task.comment !== '') ? 'progress' : ''} drag">

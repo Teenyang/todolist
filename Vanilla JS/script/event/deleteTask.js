@@ -12,7 +12,7 @@ function removeTask(event) {
   const taskIndex = Number(currentTask.dataset.index);  // string
   tasksDataArray.splice(taskIndex, 1)
   saveToLocalStorage(tasksDataArray);
-  renderTaskList();
+  renderTaskList(tasksDataArray);
 }
 
 
