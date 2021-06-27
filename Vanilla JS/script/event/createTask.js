@@ -1,6 +1,6 @@
 // import { focusEditCurrentTask, doneEditCurrentTask } from '../modules/focusTask.js';
-import { renderNewTask, renderTaskList, saveToLocalStorage } from '../modules/updateLocalStorage.js';
-import recordTaskData from '../modules/dealTaskData.js';
+import { renderNewTask } from '../modules/updateLocalStorage.js';
+import recordTaskData from '../modules/recordTaskData.js';
 import sortTaskRule from '../modules/sortTaskOrder.js';
 
 const main = document.querySelector('main');

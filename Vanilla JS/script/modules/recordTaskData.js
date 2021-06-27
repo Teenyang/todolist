@@ -14,6 +14,7 @@ function recordTaskData(currentTask) {
     // fileObjectURL: objectURL,
     file: fileName,
     fileUpload: fileName ? `${today}` : '',
+    // fileUploadDate: ,
     comment: currentTask.querySelector('.task_body .edit_comment').value,
   }
 }
