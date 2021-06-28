@@ -7,142 +7,7 @@
 @use '../components/button';
 @use '../components/content';
 
-// TASK CARDS
-.task {
-  position: relative;
-
-  &.drag {
-    &:hover {
-      @extend %hover-to-drag;
-    }
-  }
-}
-
-// TASK HEADER
-.task_header {
-  padding: 24px 32px;
-  @extend %task-general-background;
-
-  .title_group {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-
-    .done_checkbox {
-      @extend %check-input;
-    }
-    .task_title {
-      @extend %header-text;
-    }
-  }
-
-  .marker_group {
-    font-size: 0; // 消除<i>inline-block間距
-    @extend %marker-group-spacing;
-
-    i {
-      @extend %marker-icon;
-    }
-
-    .pen_icon {
-      @extend %editing-icon;
-    }
-
-    .delete_task {
-      @extend %delete-icon;
-    }
-  }
-
-  .info_group {
-    margin-top: 16px;
-    display: flex;
-    align-items: center;
-    @extend %record-icon;
-  }
-}
-
-// TASK BODY
-.task_body {
-  @extend %task-edit-spacing;
-  @extend %task-general-background;
-
-  .edit_item + .edit_item {
-    margin-top: 24px;
-  }
-
-  .edit_item {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-
-    font-size: 0; // 消除inline-block間距
-
-    > label {
-      @extend %edit-title;
-      cursor: auto;
-
-      i {
-        @extend %edit-icon;
-      }
-    }
-  }
-
-  .edit_content {
-    margin-left: 28px;
-  }
-
-  .deadline {
-    input {
-      position: relative;
-      @include input-style.content-input(162px, 35px);
-      @extend %edit-date-spacing;
-      @extend %input-type-datetime;
-    }
-  }
-
-  .file {
-    .edit_content {
-      display: flex;
-      align-items: center;
-    }
-    &_data.show {
-      margin-right: 24px;
-      @extend %upload-content;
-    }
-    input {
-      @extend %edit-upload-input;
-    }
-  }
-
-  .comment textarea {
-    @include input-style.content-input(100%, 120px);
-  }
-}
-
-.task_footer {
-  @extend %task-footer-spacing;
-  display: flex;
-  flex-direction: row;
-
-  button {
-    flex: 1 0 0;
-  }
-
-  .task_cancel {
-    @extend %reset-button;
-    border-radius: 0 0 0 5px;
-  }
-  .task_editing {
-    @extend %submit-button;
-    border-radius: 0 0 5px 0;
-  }
-
-  i {
-    margin-right: 16px;
-  }
-}
-
-// WHOLE TASK：display status
+// Spacing
 .task {
   margin-bottom: 8px;
   &_header {
@@ -154,79 +19,29 @@
     .task_header {
       border-radius: 5px 5px 0 0;
     }
-
-    .task_content {
-      display: block;
-    }
   }
+}
+
+// content display
+.task {
   &_content {
     display: none;
   }
 
-  .general_icon {
-    display: inline-block;
-  }
-  .star_icon,
-  .pen_icon {
-    display: none;
-  }
-
-  &.star {
-    .task_header {
-      @extend %task-star-background;
-    }
-    .star_task {
-      &.general_icon {
-        display: none;
-      }
-      &.star_icon {
-        display: inline-block;
-      }
-    }
-  }
-
   &.editing {
-    .edit_task {
-      &.general_icon {
-        display: none;
-      }
-      &.pen_icon {
-        display: inline-block;
-      }
-    }
-  }
-
-  // progress
-  .info_group {
-    display: none;
-  }
-
-  &.progress {
-    .info_group {
+    .task_content {
       display: block;
-
-      & > * {
-        display: none;
-        &.show {
-          display: inline-block;
-        }
-      }
     }
+  }
+}
 
-    &.completed,
-    &.editing {
-      .info_group {
-        display: none;
-      }
-    }
+// Drag
+.task {
+  position: relative;
 
-    &.editing {
-      .task_header {
-        padding-bottom: 24px;
-      }
-    }
-    .task_header {
-      padding-bottom: 16px;
+  &.drag {
+    &:hover {
+      @extend %hover-to-drag;
     }
   }
 }

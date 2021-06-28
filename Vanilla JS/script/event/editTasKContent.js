@@ -16,7 +16,7 @@ function showUploadData(date, uploadInput, currentTask) {
 
   fileData.classList.toggle('show', fileName !== '');
   return fileData.innerHTML = `
-      <span class="upload_fileName">${fileName}</span>
+      <span class="file_name">${fileName}</span>
       <p class="days_ago">${(fileName !== '')
       ? ('uploaded ' + uploadDaysAgo + ' (' + uploadDate + ')') : ''}
       </p>
@@ -59,7 +59,7 @@ function editComment(event) {
 }
 
 function uploadFile(event) {
-  const isUploadInput = event.target.classList.contains('upload_file');
+  const isUploadInput = event.target.classList.contains('file_upload');
   if (!isUploadInput) {
     return;
   }

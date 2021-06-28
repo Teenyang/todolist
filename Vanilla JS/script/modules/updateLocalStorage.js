@@ -15,10 +15,10 @@ function renderNewTask() {
           <label for="doneTask"><i class="far fa-check done_task toggle_icon"></i></label>
           <input type="text" class="task_title" name="task-title" placeholder="Type Something Here..." required>
           <div class="marker_group">
-            <i class="far fa-star star_task general_icon toggle_icon"></i>
-            <i class="fas fa-star star_task star_icon toggle_icon"></i>
-            <i class="far fa-pen edit_task general_icon toggle_icon"></i>
-            <i class="fas fa-pen edit_task pen_icon toggle_icon"></i>
+            <i class="far fa-star star_task off_icon toggle_icon"></i>
+            <i class="fas fa-star star_task on_icon star_icon toggle_icon"></i>
+            <i class="far fa-pen edit_task off_icon toggle_icon"></i>
+            <i class="fas fa-pen edit_task on_icon pen_icon toggle_icon"></i>
           </div>
         </div>
       </section>
@@ -36,13 +36,13 @@ function renderNewTask() {
             <div class="edit_content">
               <div class="file_data">
                 <!-- <a class="download_file"> -->
-                <span class="upload_fileName"></span>
+                <span class="file_name"></span>
                 <!-- </a> -->
                 <p class="days_ago">
                   <span class="upload_dateSlash"></span>
                 </p>
               </div>
-              <input id="upload" type="file" class="upload_file" name="file-upload">
+              <input id="upload" type="file" class="file_upload" name="file-upload">
               <label for="upload"><i class="fal fa-plus fa-fw"></i></label>
             </div>
           </div>
@@ -74,11 +74,11 @@ function renderTaskList(tasksDataArray) {
             <label for="doneTask${index}"><i class="far fa-check done_task toggle_icon"></i></label>
             <input type="text" class="task_title" name="task-title" placeholder="Type Something Here..." required value="${task.title}">
             <div class="marker_group">
-              <i class="far fa-star star_task general_icon toggle_icon"></i>
-              <i class="fas fa-star star_task star_icon toggle_icon"></i>
-              <i class="far fa-pen edit_task general_icon"></i>
-              <i class="fas fa-pen edit_task pen_icon"></i>
-              <i class="far fa-trash-alt delete_task general_icon"></i>
+              <i class="far fa-star star_task off_icon toggle_icon"></i>
+              <i class="fas fa-star star_task on_icon star_icon toggle_icon"></i>
+              <i class="far fa-pen edit_task off_icon"></i>
+              <i class="fas fa-pen edit_task on_icon pen_icon"></i>
+              <i class="far fa-trash-alt delete_task off_icon"></i>
             </div>
           </div>
           <div class="info_group">
@@ -100,10 +100,10 @@ function renderTaskList(tasksDataArray) {
               <label><i class="far fa-file fa-fw edit_icon"></i>File</label>
               <div class="edit_content">
                 <div class="file_data ${(task.file !== '') ? 'show' : ''}">
-                  <span class="upload_fileName">${(task.file !== '') ? task.file : ''}</span>
+                  <span class="file_name">${(task.file !== '') ? task.file : ''}</span>
                   <p class="days_ago">${(task.file !== '') ? ('uploaded ' + compareDaysAgo(task.uploadDate) + ' (' + separateDateFormatWithSlash(task.uploadDate) + ')') : ''}</p>
                 </div>
-                <input id="upload${index}" type="file" class="upload_file" name="file-upload" value="${task.file}">
+                <input id="upload${index}" type="file" class="file_upload" name="file-upload" value="${task.file}">
                 <label for="upload${index}"><i class="fal fa-plus fa-fw"></i></label>
               </div>
             </div>

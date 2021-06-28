@@ -15,7 +15,7 @@
   font-size: 24px;
   cursor: pointer;
 
-  &.general_icon {
+  &.off_icon {
     color: color.$black;
   }
   &.star_icon {
@@ -33,6 +33,24 @@
 %delete-icon {
   &:hover {
     color: red;
+  }
+}
+
+%toggle-off-icon {
+  .off_icon {
+    display: inline-block;
+  }
+  .on_icon {
+    display: none;
+  }
+}
+
+%toggle-on-icon {
+  &.off_icon {
+    display: none;
+  }
+  &.on_icon {
+    display: inline-block;
   }
 }
 

@@ -1,8 +1,8 @@
 //* 先以物件形式紀錄task data，再推進tasksDataArray存進localStorage
 function recordTaskData(currentTask) {
-  // const filesObject = taskFrom.querySelector('.upload_file').files[0];
+  // const filesObject = taskFrom.querySelector('.file_upload').files[0];
   // const objectURL = URL.createObjectURL(filesObject);
-  const fileName = currentTask.querySelector('.file_data .upload_fileName').textContent;
+  const fileName = currentTask.querySelector('.file_data .file_name').textContent;
   const currentDate = Date.now();
   const uploadDate = fileName ? `${currentDate}` : '';
 

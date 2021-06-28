@@ -12,7 +12,7 @@
 }
 
 %upload-content {
-  .upload_fileName {
+  .file_name {
     @include font.regular(16px) {
       color: color.$black;
     }

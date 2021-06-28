@@ -1,0 +1,90 @@
+@use '../components/background-theme';
+@use '../components/spacing';
+@use '../components/input-style';
+@use '../components/textarea';
+@use '../components/icon';
+@use '../components/button';
+@use '../components/content';
+
+//~ TASK BODY
+.task_body {
+  @extend %task-edit-spacing;
+  @extend %task-general-background;
+}
+
+.edit {
+  &_item {
+    & + & {
+      margin-top: 24px;
+    }
+
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+
+    font-size: 0; // 消除inline-block間距
+
+    > label {
+      @extend %edit-title;
+      cursor: auto;
+      i {
+        @extend %edit-icon;
+      }
+    }
+  }
+
+  &_content {
+    margin-left: 28px;
+  }
+}
+
+.deadline {
+  input {
+    position: relative;
+    @include input-style.content-input(162px, 35px);
+    @extend %edit-date-spacing;
+    @extend %input-type-datetime;
+  }
+}
+
+.file {
+  .edit_content {
+    display: flex;
+    align-items: center;
+  }
+  &_data.show {
+    margin-right: 24px;
+    @extend %upload-content;
+  }
+  &_upload {
+    @extend %edit-upload-input;
+  }
+}
+
+.edit_comment {
+  @include input-style.content-input(100%, 120px);
+}
+
+//~ TASK FOOTER
+.task_footer {
+  @extend %task-footer-spacing;
+  display: flex;
+  flex-direction: row;
+
+  button {
+    flex: 1 0 0;
+  }
+
+  i {
+    margin-right: 16px;
+  }
+}
+
+.task_cancel {
+  @extend %reset-button;
+  border-radius: 0 0 0 5px;
+}
+.task_editing {
+  @extend %submit-button;
+  border-radius: 0 0 5px 0;
+}
