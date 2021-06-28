@@ -1,17 +1,23 @@
 
 function compareDaysAgo(date) {
-  const today = new Date();
-  const compareDate = new Date(Number(date));
-  const dateYear = compareDate.getFullYear();
   //* getMonth()介於0~11，月份值由0起算
-  const dateMonth = compareDate.getMonth() + 1;
-  const dateDate = compareDate.getDate();
+  const today = new Date();
+  const todayYear = today.getFullYear();
+  const todayMonth = today.getMonth() + 1;
+  const todayDate = today.getDate();
+
+  const compareDay = new Date(Number(date));
+  const compareDayYear = compareDay.getFullYear();
+  const compareDayMonth = compareDay.getMonth() + 1;
+  const compareDayDate = compareDay.getDate();
 
   const dayMilliseconds = 24 * 60 * 60 * 1000;
   //* 日期不同代表已跨隔日，使用Math.ceil()無條件進位取最大整數
   const passDays = Math.ceil((today - date) / dayMilliseconds);
 
-  if (dateYear === today.getFullYear() && dateMonth === today.getMonth() + 1 && dateDate === today.getDate()) {
+  if (compareDayYear === todayYear
+    && compareDayMonth === todayMonth
+    && compareDayDate === todayDate) {
     return `today`;
   }
   else {
@@ -20,17 +26,21 @@ function compareDaysAgo(date) {
 }
 
 function separateDateFormatWithSlash(date, spacer = '/') {
-  const dateSlash = new Date(Number(date));
-  return `${dateSlash.getFullYear()}${spacer}${dateSlash.getMonth() + 1}${spacer}${dateSlash.getDate()}`;
+  const day = new Date(Number(date));
+  const dayYear = day.getFullYear();
+  const dayMonth = day.getMonth() + 1;
+  const dayDate = day.getDate();
+  return `${dayYear}${spacer}${dayMonth}${spacer}${dayDate}`;
 }
 
-function captureDeadlineCalendarFormat(deadline) {
-  const year = Number(deadline.match(/^\d{4}/g));
-  const month = Number(deadline.match(/(?<=([-]))\d{2}(?=[-])/g));
-  const date = Number(deadline.match(/\d{2}$/g));
+function captureCalendarFormat(date) {
+  const year = Number(date.match(/^\d{4}/g));
+  const month = Number(date.match(/(?<=([-]))\d{2}(?=[-])/g));
+  const day = Number(date.match(/\d{2}$/g));
+  const thisYear = new Date().getFullYear();
 
   //* 同年不須顯示年份，去年之前則顯示完整年月日
-  return `${(year === new Date().getFullYear()) ? '' : year + '/'}${month}/${date}`;
+  return `${(year === thisYear) ? '' : year + '/'}${month}/${day}`;
 }
 
-export { compareDaysAgo, separateDateFormatWithSlash, captureDeadlineCalendarFormat }
+export { compareDaysAgo, separateDateFormatWithSlash, captureCalendarFormat }

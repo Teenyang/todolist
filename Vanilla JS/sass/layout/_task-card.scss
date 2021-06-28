@@ -105,12 +105,9 @@
       display: flex;
       align-items: center;
     }
-    .file_data.show {
+    &_data.show {
       margin-right: 24px;
       @extend %upload-content;
-    }
-    .upload_dateMillisecond {
-      display: none;
     }
     input {
       @extend %edit-upload-input;
@@ -148,7 +145,7 @@
 // WHOLE TASK：display status
 .task {
   margin-bottom: 8px;
-  .task_header {
+  &_header {
     border-radius: 5px;
   }
 
@@ -162,7 +159,7 @@
       display: block;
     }
   }
-  .task_content {
+  &_content {
     display: none;
   }
 

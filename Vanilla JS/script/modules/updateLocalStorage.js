@@ -1,4 +1,4 @@
-import { compareDaysAgo, separateDateFormatWithSlash, captureDeadlineCalendarFormat } from '../modules/convertDateFormat.js'
+import { compareDaysAgo, separateDateFormatWithSlash, captureCalendarFormat } from '../modules/convertDateFormat.js'
 
 const main = document.querySelector('main');
 const taskList = document.querySelector('.task_list');
@@ -38,10 +38,9 @@ function renderNewTask() {
                 <!-- <a class="download_file"> -->
                 <span class="upload_fileName"></span>
                 <!-- </a> -->
-                <p class="upload_days_ago">
+                <p class="days_ago">
                   <span class="upload_dateSlash"></span>
                 </p>
-                <span class="upload_dateMillisecond"></span>
               </div>
               <input id="upload" type="file" class="upload_file" name="file-upload">
               <label for="upload"><i class="fal fa-plus fa-fw"></i></label>
@@ -83,7 +82,7 @@ function renderTaskList(tasksDataArray) {
             </div>
           </div>
           <div class="info_group">
-            <span class="${(task.deadlineDate !== '') ? 'show' : ''}"><i class="far fa-calendar-alt"></i>${(task.deadlineDate !== '') ? captureDeadlineCalendarFormat(task.deadlineDate) : ''}</span>
+            <span class="${(task.deadlineDate !== '') ? 'show' : ''}"><i class="far fa-calendar-alt"></i>${(task.deadlineDate !== '') ? captureCalendarFormat(task.deadlineDate) : ''}</span>
             <i class="${(task.file !== '') ? 'show' : ''} far fa-file"></i>
             <i class="${(task.comment !== '') ? 'show' : ''} far fa-comment-dots"></i>
           </div>
@@ -102,10 +101,7 @@ function renderTaskList(tasksDataArray) {
               <div class="edit_content">
                 <div class="file_data ${(task.file !== '') ? 'show' : ''}">
                   <span class="upload_fileName">${(task.file !== '') ? task.file : ''}</span>
-                  <p class="upload_days_ago">${(task.file !== '') ? 'uploaded ' + compareDaysAgo(task.fileUpload) : ''}
-                    (<span class="upload_dateSlash">${(task.file !== '') ? separateDateFormatWithSlash(task.fileUpload) : ''}</span>)
-                  </p>
-                  <span class="upload_dateMillisecond">${(task.file !== '') ? task.fileUpload : ''}</span>
+                  <p class="days_ago">${(task.file !== '') ? ('uploaded ' + compareDaysAgo(task.uploadDate) + ' (' + separateDateFormatWithSlash(task.uploadDate) + ')') : ''}</p>
                 </div>
                 <input id="upload${index}" type="file" class="upload_file" name="file-upload" value="${task.file}">
                 <label for="upload${index}"><i class="fal fa-plus fa-fw"></i></label>
@@ -137,7 +133,9 @@ function saveToLocalStorage(storageArray) {
 const clearStorageButton = document.querySelector('.clear_local_storage');
 function DeleteLocalStorage() {
   localStorage.clear();
-  renderTaskList();
+
+  const tasksDataArray = JSON.parse(localStorage.getItem('lists')) || [];
+  renderTaskList(tasksDataArray);
 }
 clearStorageButton.addEventListener('click', DeleteLocalStorage);
 

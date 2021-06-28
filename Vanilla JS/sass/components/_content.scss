@@ -12,13 +12,12 @@
 }
 
 %upload-content {
-  span {
+  .upload_fileName {
     @include font.regular(16px) {
       color: color.$black;
     }
   }
-  p,
-  p span {
+  .days_ago {
     @include font.regular(16px) {
       color: color.$heavy-gray;
     }

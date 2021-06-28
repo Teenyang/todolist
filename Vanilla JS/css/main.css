@@ -440,14 +440,13 @@ nav {
   font-weight: 500;
 }
 
-.task_body .file .file_data.show span {
+.task_body .file_data.show .upload_fileName {
   font-family: "Roboto", sans-serif;
   font-size: 1rem;
   font-weight: 400;
   color: #000000;
 }
-.task_body .file .file_data.show p,
-.task_body .file .file_data.show p span {
+.task_body .file_data.show .days_ago {
   font-family: "Roboto", sans-serif;
   font-size: 1rem;
   font-weight: 400;
@@ -529,11 +528,8 @@ nav {
   display: flex;
   align-items: center;
 }
-.task_body .file .file_data.show {
+.task_body .file_data.show {
   margin-right: 24px;
-}
-.task_body .file .upload_dateMillisecond {
-  display: none;
 }
 .task_body .comment textarea {
   padding: 8px 16px;
@@ -577,7 +573,7 @@ nav {
 .task {
   margin-bottom: 8px;
 }
-.task .task_header {
+.task_header {
   border-radius: 5px;
 }
 .task.editing {
@@ -589,7 +585,7 @@ nav {
 .task.editing .task_content {
   display: block;
 }
-.task .task_content {
+.task_content {
   display: none;
 }
 .task .general_icon {
