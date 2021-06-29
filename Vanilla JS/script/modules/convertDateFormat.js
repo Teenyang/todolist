@@ -6,22 +6,30 @@ function compareDaysAgo(date) {
   const todayMonth = today.getMonth() + 1;
   const todayDate = today.getDate();
 
-  const compareDay = new Date(Number(date));
-  const compareDayYear = compareDay.getFullYear();
-  const compareDayMonth = compareDay.getMonth() + 1;
-  const compareDayDate = compareDay.getDate();
+  //* 擷取日期部分
+  const compareDayString = new Date(Number(date)).toLocaleDateString();
+  //* 日期歸零：取得該日期的0:00:00
+  const compareDayZeroAM = new Date(compareDayString);
+  const compareDayYear = compareDayZeroAM.getFullYear();
+  const compareDayMonth = compareDayZeroAM.getMonth() + 1;
+  const compareDayDate = compareDayZeroAM.getDate();
 
+  //* 以同型別(日期物件)運算相減獲得number結果
+  //* 日期不同代表已跨隔日，使用Math.floor()無條件捨去取最小整數
   const dayMilliseconds = 24 * 60 * 60 * 1000;
-  //* 日期不同代表已跨隔日，使用Math.ceil()無條件進位取最大整數
-  const passDays = Math.ceil((today - date) / dayMilliseconds);
+  const passDays = Math.floor((today - compareDayZeroAM) / dayMilliseconds);
 
+  //   //todo else-if寫完整！
   if (compareDayYear === todayYear
     && compareDayMonth === todayMonth
     && compareDayDate === todayDate) {
     return `today`;
   }
+  else if (passDays <= 1) {
+    return `yesterday`;
+  }
   else {
-    return `${(passDays <= 1) ? 'yesterday' : (passDays + 'days ago')} `
+    return `${passDays} days ago`;
   }
 }
 
