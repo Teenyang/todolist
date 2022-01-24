@@ -1,0 +1,24 @@
+@use '../base/mediaquery';
+@use '../base/color';
+@use '../base/font';
+@use '../base/position';
+
+%nav-title {
+  @include font.regular(18px) {
+    color: color.$dark-blue;
+  }
+  @include mediaquery.mediaquery-tablet {
+    @include font.regular(24px);
+  }
+}
+
+%nav-title-select {
+  border-bottom: 5px solid color.$dark-blue;
+
+  @include font.medium(18px) {
+    color: color.$white;
+  }
+  @include mediaquery.mediaquery-tablet {
+    @include font.medium(24px);
+  }
+}

@@ -1,0 +1,47 @@
+body,
+p {
+  margin: 0;
+}
+
+div {
+  box-sizing: border-box;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+label,
+input,
+button,
+textarea {
+  padding: 0;
+
+  border: none;
+  border-radius: 2px;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+input[type="checkbox"],
+label,
+button {
+  cursor: pointer;
+}
+
+input[type="text"],
+textarea {
+  cursor: text;
+}
+
+textarea {
+  resize: none;
+}

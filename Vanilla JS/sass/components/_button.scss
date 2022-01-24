@@ -1,0 +1,75 @@
+@use '../base/font';
+@use '../base/color';
+@use '../base/mediaquery';
+@use '../base/position';
+
+// ADD TASK
+%add-button {
+  padding: 16.5px;
+  padding-left: 67px;
+  width: 100%;
+  box-sizing: border-box;
+
+  border: 2px solid color.$medium-gray;
+  border-radius: 5px;
+  background-color: color.$white;
+
+  text-align: left;
+  @include font.regular(24px) {
+    color: color.$medium-gray;
+  }
+
+  i {
+    width: 20px;
+
+    @include position.position-absolute(50%, auto, auto, 32px);
+    transform: translateY(-50%);
+    vertical-align: top;
+
+    font-size: 24px;
+    color: color.$medium-gray;
+  }
+}
+
+// FOOTER
+%reset-button {
+  background-color: color.$white;
+  &:hover {
+    background-color: color.$hover-white;
+  }
+
+  @include font.regular(18px) {
+    color: color.$red;
+  }
+  @include mediaquery.mediaquery-tablet {
+    @include font.regular(24px);
+  }
+}
+
+%submit-button {
+  background-color: color.$blue;
+  &:hover {
+    background-color: color.$hover-blue;
+  }
+
+  @include font.regular(18px) {
+    color: color.$white;
+  }
+  @include mediaquery.mediaquery-tablet {
+    @include font.regular(24px);
+  }
+}
+
+%clear-storage-button {
+  padding: 10px;
+
+  border-radius: 5px;
+  background-color: color.$dark-gray;
+
+  @include font.regular(18px);
+  color: color.$white;
+
+  &:hover {
+    background-color: color.$hover-blue;
+  }
+}

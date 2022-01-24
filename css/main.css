@@ -1,0 +1,651 @@
+body,
+p {
+  margin: 0;
+}
+
+div {
+  box-sizing: border-box;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+label,
+input,
+button,
+textarea {
+  padding: 0;
+  border: none;
+  border-radius: 2px;
+}
+label:focus,
+input:focus,
+button:focus,
+textarea:focus {
+  outline: none;
+}
+
+input[type=checkbox],
+label,
+button {
+  cursor: pointer;
+}
+
+input[type=text],
+textarea {
+  cursor: text;
+}
+
+textarea {
+  resize: none;
+}
+
+header {
+  background-color: #4a90e2;
+}
+
+body {
+  background-color: #e1e1e1;
+}
+
+.task_body, .task_header {
+  background-color: #f2f2f2;
+}
+
+.star .task_header {
+  background-color: #fff2dc;
+}
+
+body {
+  min-width: 375px;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 22px 20px 27px 20px;
+  width: 100%;
+  max-width: 660px;
+}
+
+.nav_link {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: #00408b;
+}
+@media (min-width: 576px) {
+  .nav_link {
+    font-family: "Roboto", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+  }
+}
+
+.nav_link.select {
+  border-bottom: 5px solid #00408b;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: #ffffff;
+}
+@media (min-width: 576px) {
+  .nav_link.select {
+    font-family: "Roboto", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+}
+
+.nav_link {
+  box-sizing: border-box;
+  margin: 0 10px;
+  height: 50px;
+  line-height: 50px;
+}
+@media (min-width: 576px) {
+  .nav_link {
+    margin: 0 30px;
+    height: 76px;
+    line-height: 76px;
+  }
+}
+
+.marker_group {
+  margin-left: auto;
+  order: 2;
+}
+@media (min-width: 576px) {
+  .marker_group {
+    margin-left: 0;
+    order: 3;
+  }
+}
+
+.deadline input:nth-of-type(1) {
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+@media (min-width: 576px) {
+  .deadline input:nth-of-type(1) {
+    margin-bottom: 0;
+  }
+}
+
+.task_body {
+  padding: 24px 32px;
+  border-top: 3px solid #c8c8c8;
+}
+@media (min-width: 576px) {
+  .task_body {
+    padding: 24px 78px 24px 72px;
+  }
+}
+
+.task_footer {
+  height: 45px;
+}
+@media (min-width: 576px) {
+  .task_footer {
+    height: 60px;
+  }
+}
+
+header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+
+nav {
+  margin: 0 auto;
+  max-width: 660px;
+  display: flex;
+}
+
+.nav_link {
+  flex: 1 0 0;
+  text-align: center;
+}
+.nav_link.select {
+  transition: all 0.5s;
+}
+
+.add_button {
+  padding: 16.5px;
+  padding-left: 67px;
+  width: 100%;
+  box-sizing: border-box;
+  border: 2px solid #c8c8c8;
+  border-radius: 5px;
+  background-color: #ffffff;
+  text-align: left;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #c8c8c8;
+}
+.add_button i {
+  width: 20px;
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  right: auto;
+  bottom: auto;
+  left: 32px;
+  transform: translateY(-50%);
+  vertical-align: top;
+  font-size: 24px;
+  color: #c8c8c8;
+}
+
+.task_cancel {
+  background-color: #ffffff;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: #d0021b;
+}
+.task_cancel:hover {
+  background-color: #fdfdfd;
+}
+@media (min-width: 576px) {
+  .task_cancel {
+    font-family: "Roboto", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+  }
+}
+
+.task_editing {
+  background-color: #4a90e2;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: #ffffff;
+}
+.task_editing:hover {
+  background-color: #3982d7;
+}
+@media (min-width: 576px) {
+  .task_editing {
+    font-family: "Roboto", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+  }
+}
+
+.clear_local_storage {
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #9b9b9b;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: #ffffff;
+}
+.clear_local_storage:hover {
+  background-color: #3982d7;
+}
+
+.add_button {
+  margin-bottom: 24px;
+  position: relative;
+}
+.add_button.hide_button {
+  margin-bottom: 0;
+  display: none;
+}
+
+.task.drag:hover::before {
+  content: "";
+  width: 4px;
+  height: 4px;
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  right: auto;
+  bottom: auto;
+  left: 8px;
+  transform: translateY(-50%);
+  border-radius: 100px;
+  box-shadow: 0 8px #d8d8d8, 0 -8px #d8d8d8;
+  background-color: #d8d8d8;
+  cursor: grab;
+}
+
+.task {
+  margin-bottom: 8px;
+}
+.task_header {
+  border-radius: 5px;
+}
+.task.editing {
+  margin-bottom: 24px;
+}
+.task.editing .task_header {
+  border-radius: 5px 5px 0 0;
+}
+
+.task_content {
+  display: none;
+}
+.task.editing .task_content {
+  display: block;
+}
+
+.task {
+  position: relative;
+}
+.done_checkbox {
+  display: none;
+}
+.done_checkbox ~ label {
+  margin-right: 16px;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+  background-color: #ffffff;
+}
+.done_checkbox ~ label i {
+  font-size: 14px;
+  line-height: 24px;
+  color: #ffffff;
+}
+.done_checkbox:checked ~ label {
+  background-color: #4a90e2;
+}
+.done_checkbox:checked ~ .task_title {
+  text-decoration: line-through #9b9b9b;
+  color: #9b9b9b;
+}
+.done_checkbox:checked ~ .task_title::placeholder {
+  color: #9b9b9b;
+}
+
+.deadline input:-webkit-autofill {
+  background-color: #ffffff;
+}
+.deadline input::-webkit-datetime-edit-day-field:focus, .deadline input::-webkit-datetime-edit-month-field:focus, .deadline input::-webkit-datetime-edit-year-field:focus {
+  background-color: #4a90e2;
+}
+.deadline input::-webkit-calendar-picker-indicator {
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  bottom: 0;
+  left: 0;
+  margin: 0 0 0 auto;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  background-color: #000000;
+  clip-path: polygon(50% 100%, 0 0, 100% 0);
+}
+
+.file_upload {
+  display: none;
+}
+.file_upload ~ label {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  position: relative;
+  background-color: #c8c8c8;
+}
+.file_upload ~ label:hover {
+  background-color: #4a90e2;
+}
+.file_upload ~ label i {
+  margin: auto;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 32px;
+  color: #ffffff;
+}
+
+.marker_group i {
+  margin-left: 32px;
+  width: 24px;
+  font-size: 24px;
+  cursor: pointer;
+}
+.marker_group i:first-of-type {
+  margin-left: 8px;
+}
+.marker_group i.off_icon {
+  color: #000000;
+}
+.marker_group i.star_icon {
+  color: #f5a623;
+}
+.marker_group i.pen_icon {
+  color: #4a90e2;
+}
+
+.marker_group .pen_icon {
+  cursor: not-allowed;
+}
+
+.marker_group .delete_task:hover {
+  color: red;
+}
+
+.task .off_icon {
+  display: inline-block;
+}
+.task .on_icon {
+  display: none;
+}
+
+.star .off_icon.star_task, .editing .off_icon.edit_task {
+  display: none;
+}
+.star .on_icon.star_task, .editing .on_icon.edit_task {
+  display: inline-block;
+}
+
+@media (min-width: 576px) {
+  .info_group {
+    margin-left: 40px;
+  }
+}
+.info_group span.show ~ i.show,
+.info_group i.show + i.show {
+  margin-left: 16px;
+}
+.info_group span {
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #757575;
+}
+.info_group span i {
+  margin-right: 8px;
+}
+.info_group i {
+  font-size: 18px;
+  color: #757575;
+}
+
+.edit_item > label i {
+  margin-right: 8px;
+  vertical-align: top;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.task_title {
+  margin-top: 8px;
+  flex: 1 0 100%;
+  order: 3;
+  background-color: transparent;
+}
+@media (min-width: 576px) {
+  .task_title {
+    margin-top: 0;
+    flex: 1 0 0;
+    order: 2;
+  }
+}
+.task_title, .task_title::placeholder {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #000000;
+}
+
+.edit_item > label {
+  margin-bottom: 8px;
+  vertical-align: middle;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.file_data.show .file_name {
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #000000;
+}
+.file_data.show .days_ago {
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #757575;
+}
+
+.task_status {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: #c8c8c8;
+}
+@media (min-width: 576px) {
+  .task_status {
+    font-family: "Roboto", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+  }
+}
+
+.task_header {
+  padding: 24px 32px;
+}
+
+.progress .task_header {
+  padding-bottom: 16px;
+}
+.progress .editing .task_header {
+  padding-bottom: 24px;
+}
+
+.title_group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.marker_group {
+  font-size: 0;
+}
+.info_group {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.info_group {
+  display: none;
+}
+
+.progress.completed .info_group, .progress.editing .info_group {
+  display: none;
+}
+.progress .info_group {
+  display: block;
+}
+.progress .info_group > * {
+  display: none;
+}
+.progress .info_group > *.show {
+  display: inline-block;
+}
+
+.edit_item {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  font-size: 0;
+}
+.edit_item + .edit_item {
+  margin-top: 24px;
+}
+.edit_item > label {
+  cursor: auto;
+}
+.edit_content {
+  margin-left: 28px;
+}
+
+.deadline input {
+  position: relative;
+  padding: 8px 16px;
+  width: 162px;
+  height: 35px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #000000;
+}
+.deadline input:focus {
+  border: 1px solid #4a90e2;
+  box-shadow: 0 0 4px 0 #4a90e2;
+}
+.deadline input::placeholder {
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #c8c8c8;
+}
+
+.file .edit_content {
+  display: flex;
+  align-items: center;
+}
+.file_data.show {
+  margin-right: 24px;
+}
+.edit_comment {
+  padding: 8px 16px;
+  width: 100%;
+  height: 120px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #000000;
+}
+.edit_comment:focus {
+  border: 1px solid #4a90e2;
+  box-shadow: 0 0 4px 0 #4a90e2;
+}
+.edit_comment::placeholder {
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #c8c8c8;
+}
+
+.task_footer {
+  display: flex;
+  flex-direction: row;
+}
+.task_footer button {
+  flex: 1 0 0;
+}
+.task_footer i {
+  margin-right: 16px;
+}
+
+.task_cancel {
+  border-radius: 0 0 0 5px;
+}
+
+.task_editing {
+  border-radius: 0 0 5px 0;
+}
+
+footer {
+  margin-top: 8px;
+  font-size: 0;
+}
+
+.task_status {
+  padding-left: 32px;
+}
+
+.clear_local_storage {
+  margin: 8px auto 0 auto;
+  display: block;
+}
+
+/*# sourceMappingURL=main.css.map */

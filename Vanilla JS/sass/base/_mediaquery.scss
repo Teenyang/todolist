@@ -1,0 +1,10 @@
+// break points: 直式螢幕 Portrait, 橫式螢幕 Landscape
+$tablet: 576px;
+
+// reference: bootstrap breakpoint
+// mobile Landscape: 576px
+@mixin mediaquery-tablet {
+  @media (min-width: $tablet) {
+    @content;
+  }
+}

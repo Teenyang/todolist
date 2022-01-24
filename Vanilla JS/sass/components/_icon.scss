@@ -1,0 +1,89 @@
+@use '../base/font';
+@use '../base/color';
+@use '../base/mediaquery';
+@use '../base/position';
+
+// HEADER
+%marker-icon {
+  margin-left: 32px;
+  &:first-of-type {
+    margin-left: 8px;
+  }
+
+  width: 24px;
+
+  font-size: 24px;
+  cursor: pointer;
+
+  &.off_icon {
+    color: color.$black;
+  }
+  &.star_icon {
+    color: color.$yellow;
+  }
+  &.pen_icon {
+    color: color.$blue;
+  }
+}
+
+%editing-icon {
+  cursor: not-allowed;
+}
+
+%delete-icon {
+  &:hover {
+    color: red;
+  }
+}
+
+%toggle-off-icon {
+  .off_icon {
+    display: inline-block;
+  }
+  .on_icon {
+    display: none;
+  }
+}
+
+%toggle-on-icon {
+  &.off_icon {
+    display: none;
+  }
+  &.on_icon {
+    display: inline-block;
+  }
+}
+
+%record-icon {
+  @include mediaquery.mediaquery-tablet {
+    margin-left: 40px;
+  }
+
+  span.show ~ i.show,
+  i.show + i.show {
+    margin-left: 16px;
+  }
+
+  span {
+    @include font.regular(16px) {
+      color: color.$heavy-gray;
+    }
+    i {
+      margin-right: 8px;
+    }
+  }
+
+  i {
+    font-size: 18px;
+    color: color.$heavy-gray;
+  }
+}
+
+// BODY
+%edit-icon {
+  margin-right: 8px;
+
+  vertical-align: top;
+  font-size: 16px;
+  line-height: 24px;
+}

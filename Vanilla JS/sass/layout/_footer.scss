@@ -1,0 +1,22 @@
+@use '../components/content';
+@use '../components/button';
+
+// bottom: task status
+footer {
+  margin-top: 8px;
+
+  font-size: 0;
+}
+
+.task_status {
+  padding-left: 32px;
+
+  @extend %task-status;
+}
+
+.clear_local_storage {
+  margin: 8px auto 0 auto;
+  display: block;
+
+  @extend %clear-storage-button;
+}

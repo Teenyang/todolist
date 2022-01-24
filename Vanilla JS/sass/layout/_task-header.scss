@@ -1,0 +1,102 @@
+@use '../components/background-theme';
+@use '../components/spacing';
+@use '../components/input-style';
+@use '../components/icon';
+@use '../components/content';
+
+//~ task header
+.task_header {
+  padding: 24px 32px;
+  @extend %task-general-background;
+}
+.progress {
+  .task_header {
+    padding-bottom: 16px;
+  }
+  .editing {
+    .task_header {
+      padding-bottom: 24px;
+    }
+  }
+}
+
+//~ title_group
+.title_group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.done_checkbox {
+  @extend %check-input;
+}
+.task_title {
+  @extend %header-title;
+}
+
+//~ marker_group
+.marker_group {
+  font-size: 0; // 消除<i>inline-block間距
+  @extend %marker-group-spacing;
+
+  i {
+    @extend %marker-icon;
+  }
+  .pen_icon {
+    @extend %editing-icon;
+  }
+  .delete_task {
+    @extend %delete-icon;
+  }
+}
+
+// task icon
+.task {
+  @extend %toggle-off-icon;
+}
+
+// star task
+.star {
+  .task_header {
+    @extend %task-star-background;
+  }
+  .star_task {
+    @extend %toggle-on-icon;
+  }
+}
+
+// editing task
+.editing {
+  .edit_task {
+    @extend %toggle-on-icon;
+  }
+}
+
+//~ info_group
+.info_group {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  @extend %record-icon;
+}
+
+.info_group {
+  display: none;
+}
+.progress {
+  &.completed,
+  &.editing {
+    .info_group {
+      display: none;
+    }
+  }
+
+  .info_group {
+    display: block;
+    & > * {
+      display: none;
+      &.show {
+        display: inline-block;
+      }
+    }
+  }
+}

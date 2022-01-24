@@ -1,0 +1,8 @@
+@mixin position-absolute($top, $right, $bottom, $left){
+  margin: auto;
+  position: absolute;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+}

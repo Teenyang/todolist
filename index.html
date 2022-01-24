@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-do List</title>
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap"
+    rel="stylesheet">
+  <!-- Font awesome -->
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+  <!-- CSS style -->
+  <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+  <header>
+    <nav>
+      <a href="##" class="nav_link all_task select">My Tasks</a>
+      <a href="##" class="nav_link in_progress_task">In Progress</a>
+      <a href="##" class="nav_link completed_task">Completed</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <main>
+      <!---------------- add task button ---------------->
+      <button type="button" class="add_button"><i class="fal fa-plus"></i>Add Task</button>
+      <!---------------- adding new task ---------------->
+      <!---------------- task list ---------------->
+      <div class="task_list">
+      </div>
+    </main>
+
+
+    <footer>
+      <span class="task_status"><em>0 task left</em></span>
+      <button class="clear_local_storage">Clear All Tasks</button>
+    </footer>
+  </div>
+
+  <script type="module" src="script/main.js"></script>
+</body>
+
+</html>

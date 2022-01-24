@@ -1,0 +1,12 @@
+@use '../components/button';
+
+.add_button {
+  margin-bottom: 24px;
+  position: relative;
+  @extend %add-button;
+
+  &.hide_button {
+    margin-bottom: 0;
+    display: none;
+  }
+}

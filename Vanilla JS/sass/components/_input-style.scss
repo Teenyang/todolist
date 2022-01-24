@@ -1,0 +1,120 @@
+@use '../base/font';
+@use '../base/color';
+@use '../base/mediaquery';
+@use '../base/position';
+
+// TASK-HEADER
+%check-input {
+  display: none;
+
+  & ~ label {
+    margin-right: 16px;
+    width: 24px;
+    height: 24px;
+
+    text-align: center;
+
+    background-color: color.$white;
+
+    i {
+      font-size: 14px;
+      line-height: 24px;
+      color: color.$white;
+    }
+  }
+
+  &:checked ~ label {
+    background-color: color.$blue;
+  }
+
+  &:checked ~ .task_title {
+    text-decoration: line-through color.$dark-gray;
+    color: color.$dark-gray;
+
+    &::placeholder {
+      color: color.$dark-gray;
+    }
+  }
+}
+
+// input-style
+@mixin content-input($width, $height) {
+  padding: 8px 16px;
+  width: $width;
+  height: $height;
+  box-sizing: border-box;
+
+  background-color: color.$white;
+
+  @include font.regular(16px) {
+    color: color.$black;
+  }
+
+  &:focus {
+    border: 1px solid color.$blue;
+    box-shadow: 0 0 4px 0 color.$blue;
+  }
+
+  &::placeholder {
+    @include font.regular(16px) {
+      color: color.$medium-gray;
+    }
+  }
+
+  @content;
+}
+
+%input-type-datetime {
+  // 改變預設autofill使用的顏色
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    background-color: color.$white;
+  }
+
+  // 改變預設style使用的focus顏色
+  &::-webkit-datetime-edit-day-field:focus,
+  &::-webkit-datetime-edit-month-field:focus,
+  &::-webkit-datetime-edit-year-field:focus {
+    background-color: color.$blue;
+  }
+
+  // 隱藏預設format使用的日曆icon
+  &::-webkit-calendar-picker-indicator {
+    @include position.position-absolute(50%, 16px, 0, 0);
+    margin: 0 0 0 auto;
+    transform: translateY(-50%);
+
+    width: 6px;
+    height: 6px;
+    background-color: color.$black;
+    //* clip-path: (center bottom),(left top),(right top)
+    clip-path: polygon(50% 100%, 0 0, 100% 0);
+  }
+}
+
+%edit-upload-input {
+  display: none;
+
+  & ~ label {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    position: relative;
+
+    background-color: color.$medium-gray;
+    &:hover {
+      background-color: color.$blue;
+    }
+
+    i {
+      @include position.position-absolute(0, 0, 0, 0);
+
+      font-size: 10px;
+      font-weight: 500;
+      line-height: 32px;
+      color: color.$white;
+    }
+  }
+}

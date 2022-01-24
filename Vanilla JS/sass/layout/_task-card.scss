@@ -1,0 +1,40 @@
+@use '../components/drag';
+
+// Spacing
+.task {
+  margin-bottom: 8px;
+  &_header {
+    border-radius: 5px;
+  }
+
+  &.editing {
+    margin-bottom: 24px;
+    .task_header {
+      border-radius: 5px 5px 0 0;
+    }
+  }
+}
+
+// content display
+.task {
+  &_content {
+    display: none;
+  }
+
+  &.editing {
+    .task_content {
+      display: block;
+    }
+  }
+}
+
+// Drag
+.task {
+  position: relative;
+
+  &.drag {
+    &:hover {
+      @extend %hover-to-drag;
+    }
+  }
+}

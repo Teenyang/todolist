@@ -1,0 +1,34 @@
+@use '../components/background-theme';
+@use '../components/navbar';
+@use '../components/spacing';
+
+header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+
+  @extend %nav-background;
+}
+
+nav {
+  margin: 0 auto;
+  max-width: 660px;
+
+  display: flex;
+}
+
+.nav_link {
+  @extend %nav-link-spacing;
+
+  flex: 1 0 0;
+  text-align: center;
+
+  @extend %nav-title;
+
+  &.select {
+    @extend %nav-title-select;
+    transition: all 0.5s;
+  }
+}

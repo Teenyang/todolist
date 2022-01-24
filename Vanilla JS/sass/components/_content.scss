@@ -1,0 +1,54 @@
+@use '../base/color';
+@use '../base/font';
+@use '../base/mediaquery';
+@use '../base/position';
+
+%header-title {
+  margin-top: 8px;
+  flex: 1 0 100%;
+  order: 3;
+  @include mediaquery.mediaquery-tablet {
+    margin-top: 0;
+    flex: 1 0 0;
+    order: 2;
+  }
+
+  background-color: transparent;
+
+  &,
+  &::placeholder {
+    @include font.medium(24px) {
+      color: color.$black;
+    }
+  }
+}
+
+%edit-title {
+  margin-bottom: 8px;
+
+  vertical-align: middle;
+
+  @include font.medium(20px);
+}
+
+%upload-content {
+  .file_name {
+    @include font.regular(16px) {
+      color: color.$black;
+    }
+  }
+  .days_ago {
+    @include font.regular(16px) {
+      color: color.$heavy-gray;
+    }
+  }
+}
+
+%task-status {
+  @include font.regular(18px) {
+    color: color.$medium-gray;
+  }
+  @include mediaquery.mediaquery-tablet {
+    @include font.regular(24px);
+  }
+}
