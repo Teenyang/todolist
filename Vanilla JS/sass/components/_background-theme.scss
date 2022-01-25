@@ -1,4 +1,4 @@
-@use '../utilities/color';
+@use '../base/color';
 
 %nav-background {
   background-color: color.$blue;
@@ -12,6 +12,6 @@
   background-color: color.$light-gray;
 }
 
-%task-major-background {
+%task-star-background {
   background-color: color.$light-yellow;
 }

@@ -1,7 +1,7 @@
-@use '../utilities/mediaquery';
-@use '../utilities/color';
-@use '../utilities/font';
-@use '../utilities/position';
+@use '../base/mediaquery';
+@use '../base/color';
+@use '../base/font';
+@use '../base/position';
 
 %nav-title {
   @include font.regular(18px) {

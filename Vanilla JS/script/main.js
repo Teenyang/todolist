@@ -1,26 +1,25 @@
-import { taskList, tasksArray, compareDaysAgo, convertDateStringToSlashFormat, exportTaskDataFromLocalStorage } from './modules.js';
+import { switchNavTab } from './event/switchNavTab.js';
+import createTask from './event/createTask.js';
+import updateExistTask from './event/updateTask.js';
+import modifyTaskHeader from './event/modifyTaskHeader.js';
+import editTaskContent from './event/editTasKContent.js';
+import deleteTask from './event/deleteTask.js';
 
-const clearStorageButton = document.querySelector('.clear_local_storage');
+import { renderTaskList } from './modules/updateLocalStorage.js';
+import { countGeneralTasks } from './modules/calculateTasksCount.js';
 
-function clearLocalStorage() {
-  localStorage.clear();
-  window.location.reload();
-}
+//? 任務順序：
+//? 建立/點擊任務 -> 編輯(建立/更新data) -> 排序(存入localStorage) -> 渲染畫面 -> 提交
 
-//* 上傳日期需根據檢視日期隨之遞減
-function countUploadDaysAgo() {
-  const daysAgo = taskList.querySelectorAll('.upload_days_ago');
-  daysAgo.forEach((daysAgo, index) => {
-    daysAgo.outerHTML = `
-      <p class="upload_days_ago">${(tasksArray[index].file !== '') ? 'uploaded ' + compareDaysAgo(tasksArray[index].fileUpload) : ''}
-        (<span class="upload_dateSlash">${(tasksArray[index].file !== '') ? convertDateStringToSlashFormat(tasksArray[index].fileUpload) : ''}</span>)
-      </p>
-    `
-  })
-}
+//~ 註冊事件
+switchNavTab();
+createTask();
+updateExistTask();
+modifyTaskHeader();
+editTaskContent();
+deleteTask();
 
-clearStorageButton.addEventListener('click', clearLocalStorage);
-window.addEventListener('load', countUploadDaysAgo);
-
-//* 自動載入已保存在LocalStorage中的tasks
-export default exportTaskDataFromLocalStorage(tasksArray, taskList);
+//~ 渲染畫面
+const tasksDataArray = JSON.parse(localStorage.getItem('lists')) || [];
+renderTaskList(tasksDataArray);
+countGeneralTasks();

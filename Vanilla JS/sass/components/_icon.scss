@@ -1,19 +1,56 @@
-@use '../utilities/font';
-@use '../utilities/color';
-@use '../utilities/mediaquery';
-@use '../utilities/position';
+@use '../base/font';
+@use '../base/color';
+@use '../base/mediaquery';
+@use '../base/position';
 
 // HEADER
-%delete-marker {
+%marker-icon {
+  margin-left: 32px;
+  &:first-of-type {
+    margin-left: 8px;
+  }
+
   width: 24px;
 
-  text-align: center;
-
   font-size: 24px;
-  color: color.$black;
+  cursor: pointer;
 
+  &.off_icon {
+    color: color.$black;
+  }
+  &.star_icon {
+    color: color.$yellow;
+  }
+  &.pen_icon {
+    color: color.$blue;
+  }
+}
+
+%editing-icon {
+  cursor: not-allowed;
+}
+
+%delete-icon {
   &:hover {
     color: red;
+  }
+}
+
+%toggle-off-icon {
+  .off_icon {
+    display: inline-block;
+  }
+  .on_icon {
+    display: none;
+  }
+}
+
+%toggle-on-icon {
+  &.off_icon {
+    display: none;
+  }
+  &.on_icon {
+    display: inline-block;
   }
 }
 

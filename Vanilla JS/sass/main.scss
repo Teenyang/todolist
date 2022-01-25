@@ -2,8 +2,10 @@
 
 @use './layout/container'; // body, main container
 @use './layout/header'; // sticky navbar
-@use './layout/add-task'; // add task
-@use './layout/task-card'; // task-card, task-content
+@use './layout/add-task'; // add task button
+@use './layout/task-card'; // task-card
+@use './layout/task-header'; // title, marker, info
+@use './layout/task-body'; // edit_content, submit button
 @use './layout/footer'; // task status
 
 // * {

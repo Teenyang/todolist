@@ -1,7 +1,7 @@
-@use '../utilities/font';
-@use '../utilities/color';
-@use '../utilities/mediaquery';
-@use '../utilities/position';
+@use '../base/font';
+@use '../base/color';
+@use '../base/mediaquery';
+@use '../base/position';
 
 // TASK-HEADER
 %check-input {
@@ -33,39 +33,6 @@
 
     &::placeholder {
       color: color.$dark-gray;
-    }
-  }
-}
-
-%marker-input {
-  display: none;
-
-  & ~ label {
-    margin-left: 32px;
-    &:first-of-type {
-      margin-left: 8px;
-    }
-    width: 24px;
-    height: 24px;
-    display: inline-block;
-
-    background-color: transparent;
-
-    i {
-      width: 24px;
-
-      font-size: 24px;
-      color: color.$white;
-
-      &.general {
-        color: color.$black;
-      }
-      &.major {
-        color: color.$yellow;
-      }
-      &.edit {
-        color: color.$blue;
-      }
     }
   }
 }
